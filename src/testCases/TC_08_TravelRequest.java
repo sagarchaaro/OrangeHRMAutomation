@@ -29,11 +29,9 @@ public class TC_08_TravelRequest {
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
-				Constant.sheet_TestCases);
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		System.out.println("The row no Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
-				Constant.sheet_TravelRequestCases);
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_TravelRequestCases);
 		System.out.println("The row no of test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
@@ -178,15 +176,19 @@ public class TC_08_TravelRequest {
 		System.out.println("Entered Main Destination");
 
 		String FromDate = ExcelConfig.getCellData(iTestData, Constant.col_From_Date, Constant.sheet_TravelRequestCases);
-		driver.findElement(By.xpath("//label[text()='Travel Period From']")).click();
-		System.out.println(FromDate);
-		CommonMethod.Date_HRM(FromDate, driver, 1);
-		
 		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_from]']")).click();
+		System.out.println(FromDate);
+		Thread.sleep(10000);
+		CommonMethod.Date_HRM_08(FromDate, driver, 1);
+		
+		Thread.sleep(10000);
 		String ToDate = ExcelConfig.getCellData(iTestData, Constant.col_To_Date, Constant.sheet_TravelRequestCases);
 		System.out.println(ToDate);
-		driver.findElement(By.xpath("//label[text()='Travel Period To']")).click();
-		CommonMethod.Date_HRM(ToDate, driver, 2);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_to]']")).click();
+		Thread.sleep(10000);
+		CommonMethod.Date_HRM_08(ToDate, driver, 2);
 
 		String Dest_Address = RandomStringUtils.randomAlphabetic(6);
 		driver.findElement(By.name("TravelInformation[destination_address]")).sendKeys(Dest_Address);

@@ -182,8 +182,7 @@ public class TC_02_EditUser {
 
 		// WRITE THE DATA IN THE EXCEL FILE.
 
-		ExcelConfig.setCellData(locName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,
-				CommonMethod.PathExcel);
+		ExcelConfig.setCellData(locName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
 		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,
 				CommonMethod.PathExcel);
 

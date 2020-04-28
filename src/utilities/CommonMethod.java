@@ -125,19 +125,15 @@ public class CommonMethod {
 		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
 		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
 		// Select Date
-		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr"))
-				.size();
-		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td"))
-				.size();
+		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
+		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
 		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
-			for (int colsNo = 1; colsNo <= cols; colsNo++) {
+		for (int colsNo = 1; colsNo <= cols; colsNo++) {
 
-				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo
-						+ "]/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div")).getText();
+				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo+ "]/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div")).getText();
 				if (calDate.equalsIgnoreCase(date[1])) {
-					driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr["
-							+ rowNo + "]/td[" + colsNo + "]/div")).click();
+					driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div")).click();
 					System.out.println("Date is selected as" + dateToSelect);
 					break rows;
 				}
@@ -146,7 +142,43 @@ public class CommonMethod {
 		}
 
 	}
+	
+	public static void Date_HRM_08(String dateToSelect, WebDriver driver, int calenderNo) {
+		String date[] = dateToSelect.split("/");
+		// Select Year
+		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
+		driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
+		// Select Month
+		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
+		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
+		// Select Date
+		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
+		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
+		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
+		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
+			System.out.println("entered row for loop");
+		for (int colsNo = 1; colsNo <= cols; colsNo++) {
+			System.out.println("entered column for loop");
+				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div)[2]")).getText();
+				System.out.println(calDate);
+				if (calDate.equalsIgnoreCase(date[1])) {
+					System.out.println("entered if loop");
+					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[2]")).click();
+					System.out.println("Date is selected as" + dateToSelect);
+					break rows;
+				}
 
+			}
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * THE METHOD "logout" TO LOGOUT FROM THE HOME PAGE WEBDRIVER TAKE AS INPUT
 	 */

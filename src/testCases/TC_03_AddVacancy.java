@@ -2,6 +2,7 @@ package testCases;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -86,8 +87,7 @@ public class TC_03_AddVacancy {
 		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
 		System.out.println("Add or import vacancy is clicked");
 
-		String Vacancy_name = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_name,
-				Constant.sheet_AddVacancyCases);
+		String Vacancy_name = RandomStringUtils.randomAlphabetic(6);
 		driver.findElement(By.id("addJobVacancy_name")).sendKeys(Vacancy_name);
 		System.out.println("Requirement is added");
 
@@ -133,11 +133,14 @@ public class TC_03_AddVacancy {
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
 		driver.quit();
-
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.PathExcel);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.PathExcel);
+		
+		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
+		
+		ExcelConfig.setCellData(Vacancy_name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.PathExcel);
+		
+		
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.PathExcel);
 
 		System.out.println("The file are closed");
 	}

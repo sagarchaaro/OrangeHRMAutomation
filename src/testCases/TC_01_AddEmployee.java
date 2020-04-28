@@ -51,9 +51,9 @@ public class TC_01_AddEmployee {
 		String title = driver.getTitle();
 		CommonMethod.Validation("OrangeHRM", title, iTestCase);
 
-		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_DeciplinaryCases);
+		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddEmployeeCases);
 		System.out.println("The value of userName is : " + userName);
-		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_DeciplinaryCases);
+		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_AddEmployeeCases);
 		System.out.println("The value of password is : " + password);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);

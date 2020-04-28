@@ -95,10 +95,14 @@ public class ExcelConfig {
 		try {
 			int iRowCount = ExcelConfig.getRowUsed(sSheetName);
 			for (i = 0; i < iRowCount; i++) {
+				
 				if (ExcelConfig.getCellData(i, iColNum, sSheetName).equalsIgnoreCase(sTestName)) {
 					break;
 				}
-			}
+					
+				}
+				
+			
 			return i;
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method: getRowContains");
