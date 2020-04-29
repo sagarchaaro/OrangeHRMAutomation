@@ -16,7 +16,7 @@ import utilities.ExcelConfig;
 public class TC_04_EditEmployee {
 	public static void main(String[] args) throws InterruptedException, Exception {
 
-		// CLASS VARIABLE DECLARATION
+		System.out.println("The Execution started for TC_04_EditEmployee");
 
 		// LOAD AND READ THE PROPERTIES FILE
 
@@ -24,18 +24,18 @@ public class TC_04_EditEmployee {
 		System.out.println(CommonMethod.projectpath);
 		Properties prop = CommonMethod
 				.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-
-		System.out.println("The Properties file is read and closed");
+		System.out.println("The Data read from Properties file.");
+		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
 		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
 				Constant.sheet_TestCases);
-		System.out.println("The row no Test Case is : " + iTestCase);
+		System.out.println("The row no for Test Case is : " + iTestCase);
 		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
 				Constant.sheet_EditEmployeeCases);
-		System.out.println("The row no of test Data is : " + iTestData);
+		System.out.println("The row no for of test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
@@ -50,38 +50,55 @@ public class TC_04_EditEmployee {
 
 		// LOGIN TO THE DASHBOARD
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_EditEmployeeCases);
-		System.out.println("The value of userName is : " + userName);
+		System.out.println("The userName read from excel is : " + userName);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_EditEmployeeCases);
-		System.out.println("The value of password is : " + password);
+		System.out.println("The password read from excel is : " + password);
 
 		// user name
 		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[2]/input")).sendKeys(userName);
+		System.out.println("The value "+userName+" is entered as userName in the text-box");
 		// Password
 		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[3]/input")).sendKeys(password);
+		System.out.println("The value "+password+" is entered as Password in the text-box");
 		// Login Click
 		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[5]/input")).click();
+		System.out.println("Click action is performed on Login button");
 
 		// CLICK ON THE LIST OF EMPLOYEE AND EDIT THE 1ST RECORD
 
 		driver.findElement(By.xpath("//html/body/div/div/div/div/div[2]/div/div/div[4]/ul/li[2]/a/span[2]")).click();
-		System.out.println("Click on the PLM link");
+		System.out.println("Click action is performed on PLM in the Menu bar");
 		wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//span[@class='left-menu-title'][text()='Employee List']")));
 		// click on list of employee
 		driver.findElement(By.xpath("//span[@class='left-menu-title'][text()='Employee List']")).click();
-		System.out.println("Click List of the Employee");
+		System.out.println("Click action is performed on Employee list in the Menu bar");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class='nowrap cursor-pointer']")));
 		// Search employee
 		driver.findElement(By.xpath("//td[@class='nowrap cursor-pointer']")).click();
-
+		System.out.println("Click action is performed on first Link of Employee list");
+		String employeeName=driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr[1]/td[3]")).getText();
+		System.out.println("Edit employee activity is performed  for the employee :"+employeeName);
+		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EditEmployeeName, Constant.sheet_EditEmployeeCases,
+				CommonMethod.PathExcel);
+		System.out.println("The value "+employeeName+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeName
+				+" in the "+Constant.sheet_EditEmployeeCases);
+		
+		String employeeID=driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr[1]/td[2]")).getText();
+		System.out.println("Edit employee activity is performed  for the employee ID :"+employeeID);
+		ExcelConfig.setCellData(employeeID, iTestData, Constant.col_EditEmployeeID, Constant.sheet_EditEmployeeCases,
+				CommonMethod.PathExcel);
+		System.out.println("The value "+employeeID+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeID
+				+" in the "+Constant.sheet_EditEmployeeCases);
+		
 		// PERSONAL DETAIL TO UPDATE
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
 		String lastName = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_EditEmployeeCases);
-		// String lastName=sh.getRow(i).getCell(7).getStringCellValue();
+		System.out.println("The lastName read from excel is : " + lastName);
 		driver.findElement(By.id("lastName")).clear();
 		driver.findElement(By.id("lastName")).sendKeys(lastName);
-		System.out.println("Enter the last Name");
+		System.out.println("The value "+ lastName+" is entered as lastName in the text-box");
 		driver.findElement(By.xpath("(//i[@class='material-icons action-icon date-picker-open-icon'])[1]")).click();
 		// String
 		// dateOfBirthFomat1=sh.getRow(i).getCell(4).getStringCellValue();
@@ -94,9 +111,9 @@ public class TC_04_EditEmployee {
 				Constant.sheet_EditEmployeeCases);
 		// String nationalty=sh.getRow(i).getCell(5).getStringCellValue();
 		driver.findElement(By.xpath("//span[text()='" + nationalty + "']")).click();
-		System.out.println("Enter the Nationnality as " + nationalty);
+		System.out.println("The value "+ nationalty+" is selected as nationalty from dropdown");
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[1]")).click();
-		System.out.println("Enter the save for the Personal Detail");
+		System.out.println("Click Save is performed on Login button");
 		try {
 			WebElement webelement = driver
 					.findElement(By.xpath("//label[text()='EEO Race and Ethnicity']/..//child::input"));
