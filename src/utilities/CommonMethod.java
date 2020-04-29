@@ -99,7 +99,7 @@ public class CommonMethod {
 	public static void Validation(String string1, String string2, int iTestCase) throws Exception {
 
 		if (string1.equalsIgnoreCase(string2)) {
-			System.out.println("The string " + string2 + " is verifird");
+			System.out.println("The string " + string2 + " is verifird with "+string1);
 		} else {
 			System.out.println("The string " + string2 + " is not verified with "+string1);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, PathExcel);
@@ -188,6 +188,7 @@ public class CommonMethod {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 		driver.findElement(By.id("logoutLink")).click();
+		System.out.println("Click action is performed on Logout");
 	}
 
 }
