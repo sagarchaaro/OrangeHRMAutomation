@@ -64,6 +64,8 @@ public class Constant {
 	public static final int col_BloodGroup = 8;
 	public static final int col_HubbyFirst = 9;
 	public static final int col_HubbySecond = 10;
+	public static final int col_EditEmployeeName = 11;
+	public static final int col_EditEmployeeID = 12;
 
 	// Apply Leave case Test data colomns
 	public static final int col_leaveType = 5;

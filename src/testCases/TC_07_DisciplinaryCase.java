@@ -21,12 +21,13 @@ public class TC_07_DisciplinaryCase {
 	// CLASS VARIABLE DECLARATION
 
 	public static void main(String[] args) throws Exception {
-
+        
+		System.out.println("The Execution started for TC_07_DisciplinaryCase");
 		// LOAD AND READ THE PROPERTIES FILE
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-
+		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
@@ -55,9 +56,9 @@ public class TC_07_DisciplinaryCase {
 		System.out.println("The password read from excel is : " + password);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println(userName+"is entered as userName in the text-box");
+		System.out.println("The value "+userName+" is entered as userName in the text-box");
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println(password+"is entered as Password in the text-box");
+		System.out.println("The value "+password+" is entered as Password in the text-box");
 		driver.findElement(By.id("btnLogin")).submit();
 		System.out.println("Click action is performed on Login button");
 
@@ -65,8 +66,8 @@ public class TC_07_DisciplinaryCase {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin.jpg", driver);
-			System.out.println("Dashboard is avilable, Screen Print taken");
-
+			System.out.println("Screen shot is  taken for Dashboard ");
+			
 		} catch (Exception user) {
 			System.out.println("Dashboard is not available, Test case is failed");
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
@@ -85,15 +86,15 @@ public class TC_07_DisciplinaryCase {
 		driver.findElement(By.xpath("//html/body/div/div/div/div/div[2]/div/div/div[4]/ul/li[2]/a/span[2]")).click();
 		System.out.println("Click action is performed on PLM in the Menu bar");
 		driver.findElement(By.xpath("//span[text()='Employee List']")).click();
-		System.out.println(" Click action is performed on Employee list in the Menu bar");
+		System.out.println("Click action is performed on Employee list in the Menu bar");
 		int totalElementNo = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]")).size();
 		System.out.println("The total no of employee in the page is: " + totalElementNo);
 		List<WebElement> webelement_empName = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]"));
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
 		String employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		System.out.println("The employeeName selected by random no is " + employeeName);
+		System.out.println("The employeeName selected by random no is:" + employeeName);
 		String ownerName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		System.out.println("The ownerName selected by random no is " + ownerName);
+		System.out.println("The ownerName selected by random no is:" + ownerName);
 		Utils.ScreenShot(screenshotPath + "\\EmployeeList.jpg", driver);
 		System.out.println("Screen shot is  taken for Employee List ");
 
@@ -115,51 +116,51 @@ public class TC_07_DisciplinaryCase {
 		webelement_empname.sendKeys(employeeName);
 		webelement_empname.sendKeys(Keys.DOWN);
 		webelement_empname.sendKeys(Keys.ENTER);
-		System.out.println(employeeName+"is entered as employeeName in the text-box");
+		System.out.println("The value "+employeeName+" is entered as employeeName in the text-box");
 		String caseNo = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_DeciplinaryCases);
-		System.out.println("The caseNo read from excel is " + caseNo);
+		System.out.println("The caseNo read from excel is:" + caseNo);
 		// String caseNo=sht.getRow(R1).getCell(4).getStringCellValue();
 		driver.findElement(By.xpath("//input[@id='addCase_caseName']")).sendKeys(caseNo);
-		System.out.println( caseNo+"is entered as caseName in the text-box");
+		System.out.println("The value "+ caseNo+" is entered as caseName in the text-box");
 		String description = ExcelConfig.getCellData(iTestData, Constant.col_Desciption,Constant.sheet_DeciplinaryCases);
-		System.out.println(description +"is entered as description in the text-box");
+		System.out.println("The description read from excel is:" + description);		
 		driver.findElement(By.xpath("//textarea[@id='addCase_description']")).sendKeys(description);
-		System.out.println("Data entered for description " + description);
+		System.out.println("The value "+description +" is entered as description in the text-box");
 		driver.findElement(By.xpath("//a[text()='Save']")).click();
 		driver.findElement(By.xpath("//a[text()='Take Disciplinary Action']")).click();
 		System.out.println("Click action is performed on Take Disciplinary Action button");
 		String action = ExcelConfig.getCellData(iTestData, Constant.col_DisciplinaryAction,Constant.sheet_DeciplinaryCases);
-		System.out.println("The value of action is: " + action);
+		System.out.println("The action read from excel is: " + action);
 		// String action=sht.getRow(R1).getCell(11).getStringCellValue();
 		String actionNo[] = action.split(" ");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[@for='" + actionNo[0] + "']")));
 		driver.findElement(By.xpath("//label[@for='" + actionNo[0] + "']")).click();
-		System.out.println("Select deciplinary action as " + actionNo[0]);
+		System.out.println("The value "+actionNo[0]+ " is selected as deciplinary action");
 		driver.findElement(By.xpath("//a[text()='Select']")).click();
-		System.out.println("Select button is clicked");
+		System.out.println("Click action is performed on Select button");
 		String dueDate = ExcelConfig.getCellData(iTestData, Constant.col_DueDate, Constant.sheet_DeciplinaryCases);
-		System.out.println("The value of dueDate is: " + dueDate);
+		System.out.println("The dueDate read from excel is: " + dueDate);
 		// String dueDate=sht.getRow(R1).getCell(9).getStringCellValue();
 		driver.findElement(By.xpath("//input[@id='createDate']")).click();
-		System.out.println("The due date is clicked");
+		System.out.println("The value "+dueDate+ " is selected as due date from calender");
 		CommonMethod.Date_HRM(dueDate, driver, 1);
 		WebElement webelement_owner = driver.findElement(By.xpath("//input[@id='defaultAction_owner_empName']"));
 		webelement_owner.sendKeys(ownerName);
 		webelement_owner.sendKeys(Keys.DOWN);
 		webelement_owner.sendKeys(Keys.ENTER);
-		System.out.println("the Owner name is entered");
+		System.out.println("The value "+ownerName+"is entered as ownerName in the text-box");
 		String status = ExcelConfig.getCellData(iTestData, Constant.col_ActionStatus, Constant.sheet_DeciplinaryCases);
-		System.out.println("The value of status is" + status);
+		System.out.println("The status read from excel is" + status);
 		driver.findElement(By.xpath("//label[text()='Status']//parent::div//child::input")).click();
 		driver.findElement(By.xpath("//span[text()='" + status + "']")).click();
-		// String filename1=screenshotPath+"\\DisciplinaryCase.jpg";
+		System.out.println("The value "+status+" is selected as status in the dropdown");		
 		Utils.ScreenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
-		System.out.println("Deciplinary case is created, Screen Print taken");
+		System.out.println("Screen shot is  taken for Desciplinary case");
 		driver.findElement(By.xpath("//a[text()='Save']")).click();
-		System.out.println("Save button is clicked");
+		System.out.println("Click action is performed on Save button");
 
 		driver.findElement(By.xpath("//span[text()='Disciplinary Cases']")).click();
-		System.out.println("Disciplinary Cases is clicked");
+		System.out.println("Click action is performed on Disciplinary Cases in the Menu bar");
 		
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
 		WebElement element=driver.findElement(By.xpath("//input[@id='DisciplinaryCaseSearch_empName_empName']"));
@@ -167,7 +168,7 @@ public class TC_07_DisciplinaryCase {
 		element.sendKeys(Keys.ARROW_DOWN);
 		element.sendKeys(Keys.ENTER);
 		driver.findElement(By.xpath("//a[@id='searchBtn']")).click();
-		System.out.println("click is performed for search button");
+		System.out.println("click action is performed for search button");
 		Thread.sleep(3000);
 
 
@@ -187,7 +188,7 @@ public class TC_07_DisciplinaryCase {
 		String CreatedOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
 
 		driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[7]/a")).click();
-		System.out.println("The view is clicked");
+		System.out.println("Click action is performed on view Link");
 
 		String validation_Status = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
 		CommonMethod.Validation(status, validation_Status, iTestCase);
@@ -195,46 +196,20 @@ public class TC_07_DisciplinaryCase {
 		// TO VIEW THE ACTION STATUS AND COMPLETE IF ITS NOT COMPLETED
 
 		driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td/a")).click();
-		System.out.println("The Item is clicked");
+		System.out.println("Click action is performed on Item Link");
 		driver.findElement(By.xpath("//a[text()='View Disciplinary Case']")).click();
-		System.out.println("The View Disciplinary case button is clicked");
+		System.out.println("Click action is performed on View Disciplinary case button");
 		driver.findElement(By.xpath("//a[text()='Close Case']")).click();
-		System.out.println("The close case button is clicked");
-	/*	String status_check = driver.findElement(By.xpath("//input[@class='select-dropdown']")).getAttribute("value");
-		if (status_check.equalsIgnoreCase("Completed")) {
-			driver.findElement(By.xpath("//a[text()='View Disciplinary Case']")).click();
-			driver.switchTo().frame(0);
-			System.out.println("The View Disciplinary case button is clicked");
-			driver.findElement(By.xpath("//a[text()='Close Case']")).click();
-			System.out.println("The close case button is clicked");
-
-			/*driver.findElement(By.xpath("//a[@id='btnCancel']")).click();
-			System.out.println("The cancel button is clicked");
-		} else {*/
-			
-			/*driver.switchTo().frame("noncoreIframe");
-			driver.findElement(By.xpath("//a[@id='btnEdit']")).click();
-			System.out.println("The Edit button is clicked");
-			/*
-			 * driver.findElement(By.xpath("//input[@class='select-dropdown']")).click();
-			 * driver.findElement(By.xpath("//span[text()='Completed']")).click();
-			 * System.out.println("The status is selected to completed");
-			 		
-			driver.findElement(By.xpath("//a[@id='btnSave']")).click();
-			System.out.println("The Save button is clicked");*/
-			
-
-		//}
-
-		// CLOSE THE STATUS FOR THE CASE
-
+		System.out.println("Click action is performed on close case button");
+	
+		// VERIFY CLOSE STATUS FOR THE CASE
 		
 		String validation_StatusClose = driver.findElement(By.xpath("//td[text()='" + employeeName + "']/../td[8]"))
 				.getText();
 		CommonMethod.Validation("Close", validation_StatusClose, iTestCase);
 
-		// String filename2=screenshotPath+"\\CaseStatus.jpg";
 		Utils.ScreenShot(screenshotPath + "\\CaseStatus.jpg", driver);
+		System.out.println("Screen shot is  taken for Case Status");
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
@@ -244,17 +219,35 @@ public class TC_07_DisciplinaryCase {
 
 		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EmpName, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
+		System.out.println("The value "+employeeName+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EmpName
+				+" in the "+Constant.sheet_DeciplinaryCases);
+
 		ExcelConfig.setCellData(ownerName, iTestData, Constant.col_OwnerName, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
+		System.out.println("The value "+ownerName+" is written as ownerName against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
+				+" in the "+Constant.sheet_DeciplinaryCases);
+
 		ExcelConfig.setCellData(CreatedBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
+		System.out.println("The value "+CreatedBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
+				+" in the "+Constant.sheet_DeciplinaryCases);
+
 		ExcelConfig.setCellData(CreatedOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
+		System.out.println("The value "+CreatedOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
+				+" in the "+Constant.sheet_DeciplinaryCases);
+
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.PathExcel);
+		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+				+" in the "+Constant.sheet_TestCases);
+
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
 				Constant.sheet_TestCases, CommonMethod.PathExcel);
+		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+				+" in the "+Constant.sheet_TestCases);
+
 
 		System.out.println("The file are closed");
 

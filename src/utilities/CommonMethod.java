@@ -134,7 +134,7 @@ public class CommonMethod {
 				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo+ "]/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div")).getText();
 				if (calDate.equalsIgnoreCase(date[1])) {
 					driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div")).click();
-					System.out.println("Date is selected as" + dateToSelect);
+					System.out.println("Date is selected as " + dateToSelect);
 					break rows;
 				}
 
