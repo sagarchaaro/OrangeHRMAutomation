@@ -87,7 +87,7 @@ public class TC_03_AddVacancy {
 		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
 		System.out.println("Add or import vacancy is clicked");
 
-		String Vacancy_name = RandomStringUtils.randomAlphabetic(6);
+		String Vacancy_name = "Testing_" + RandomStringUtils.randomAlphabetic(6);
 		driver.findElement(By.id("addJobVacancy_name")).sendKeys(Vacancy_name);
 		System.out.println("Requirement is added");
 
