@@ -45,9 +45,10 @@ public class Constant {
 	public static final int Temp_Department = 14;
 
 	// Edit User test data columns
-	public static final int col_NewLocationName = 5;
-	public static final int col_NewPhoneNo = 6;
-	public static final int col_NewEmployeee = 7;
+	public static final int col_ExistingLocationName = 5;
+	public static final int col_NewLocationName = 6;
+	public static final int col_NewPhoneNo = 7;
+	public static final int col_NewEmployeee = 8;
 
 	// Add Vacancy test data columns
 	public static final int col_Vacancy_name = 5;
