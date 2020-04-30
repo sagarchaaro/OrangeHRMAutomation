@@ -31,8 +31,10 @@ public class Utils {
 	 * BASIC WEBDRIVER LUNCH STEPS FOR ALL WEBDRIVER
 	 * 
 	 */
+
 	public static WebDriver OpenBrowser(String path, String browser) throws Exception{
 		CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+
 		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
 			System.setProperty("webdriver.chrome.driver", path);
@@ -50,10 +52,12 @@ public class Utils {
 		}else if(browser.equalsIgnoreCase("InternateExplore")){
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
+			System.out.println("Chrome Browser is launched");
 		}else{
 			System.out.println("Invalid Browser "+browser);
 			throw new Exception();
 		}
+
 		System.out.println(browser+" browser is launched");
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
