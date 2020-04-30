@@ -30,70 +30,34 @@ public class Utils {
 	 * BASIC WEBDRIVER LUNCH STEPS FOR ALL WEBDRIVER
 	 * 
 	 */
-	public static WebDriver OpenBrowser(String url, String path, String browser) {
+	public static WebDriver OpenBrowser(String url, String path, String browser) throws Exception{
 		browser.trim();
+		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
-
 			System.setProperty("webdriver.chrome.driver", path);
-			WebDriver driver = new ChromeDriver();
-			driver = browserSettings(url, driver);
-			return driver;
-
-		} else {
-			if (browser.equalsIgnoreCase("Firefox")) {
-
-				System.setProperty("webdriver.gecko.driver", path);
-				WebDriver driver = new FirefoxDriver();
-				driver = browserSettings(url, driver);
-				return driver;
-
-			} else {
-				if (browser.equalsIgnoreCase("Opera")) {
-
-					System.setProperty("webdriver.opera.driver", path);
-					WebDriver driver = new OperaDriver();
-					driver = browserSettings(url, driver);
-					return driver;
-
-				} else {
-
-					if (browser.equalsIgnoreCase("Edge")) {
-
-						System.setProperty("webdriver.edge.driver", path);
-						WebDriverManager.edgedriver().setup();
-						WebDriver driver = new EdgeDriver();
-						driver = browserSettings(url, driver);
-						return driver;
-					} else {
-
-						if (browser.equalsIgnoreCase("InternateExplore")) {
-
-							System.setProperty("webdriver.ie.driver", path);
-							WebDriver driver = new InternetExplorerDriver();
-							driver = browserSettings(url, driver);
-							return driver;
-
-						} else {
-							System.out.println(browser + " driver is not supported, Chrome as default selected");
-							System.setProperty("webdriver.chrome.driver", path);
-							WebDriver driver = new ChromeDriver();
-							driver = browserSettings(url, driver);
-							return driver;
-
-						}
-					}
-				}
-			}
+			driver= new ChromeDriver();
+		}else if(browser.equalsIgnoreCase("Firefox")) {
+			System.setProperty("webdriver.gecko.driver", path);
+			driver = new FirefoxDriver();			
+		}else if(browser.equalsIgnoreCase("Opera")){
+			System.setProperty("webdriver.opera.driver", path);
+			driver = new OperaDriver();
+		}else if(browser.equalsIgnoreCase("Edge")){
+			System.setProperty("webdriver.edge.driver", path);
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+		}else if(browser.equalsIgnoreCase("InternateExplore")){
+			System.setProperty("webdriver.ie.driver", path);
+			driver = new InternetExplorerDriver();
+		}else{
+			System.out.println("Invalid Browser "+browser);
+			throw new Exception();
 		}
-
-	}
-
-	public static WebDriver browserSettings(String url, WebDriver driver) {
-
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get(url);
 		driver.manage().window().maximize();
 		return driver;
+	
 	}
 
 	// COMMON METHOD TO GET TIMESTAMP
