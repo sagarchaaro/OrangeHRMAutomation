@@ -31,34 +31,39 @@ public class Utils {
 	 * BASIC WEBDRIVER LUNCH STEPS FOR ALL WEBDRIVER
 	 * 
 	 */
-
-	public static WebDriver OpenBrowser(String path, String browser) throws Exception{
-		CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-
+	public static WebDriver OpenBrowser(Properties prop, String browser) throws Exception{
+		browser.trim();
 		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
+			String path = prop.getProperty("chromePath");
 			System.setProperty("webdriver.chrome.driver", path);
 			driver= new ChromeDriver();
+			System.out.println("Chrome Browser is launched");
 		}else if(browser.equalsIgnoreCase("Firefox")) {
+			String path = prop.getProperty("geckoPath");
 			System.setProperty("webdriver.gecko.driver", path);
 			driver = new FirefoxDriver();			
+			System.out.println("Firefox browser is launched");
 		}else if(browser.equalsIgnoreCase("Opera")){
+			String path = prop.getProperty("operaPath");
 			System.setProperty("webdriver.opera.driver", path);
 			driver = new OperaDriver();
+			System.out.println("Opera brower is launched");
 		}else if(browser.equalsIgnoreCase("Edge")){
+			String path = prop.getProperty("internateExplorePath");
 			System.setProperty("webdriver.edge.driver", path);
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
+			System.out.println("Edge browser is launched");
 		}else if(browser.equalsIgnoreCase("InternateExplore")){
+			String path = prop.getProperty("edgePath");
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
-			System.out.println("Chrome Browser is launched");
+			
 		}else{
 			System.out.println("Invalid Browser "+browser);
 			throw new Exception();
 		}
-
-		System.out.println(browser+" browser is launched");
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get(CommonMethod.Url);

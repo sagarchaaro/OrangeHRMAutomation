@@ -33,12 +33,12 @@ public class TC_08_TravelRequest {
 		System.out.println("The row no Test Case is : " + iTestCase);
 		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_TravelRequestCases);
 		System.out.println("The row no of test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_TestCases);
+		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
 		// WEBDRIVER AND TIMESTAMP METHOD
-		String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(CommonMethod.Url, driverPath, iBrowser);
+		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
+		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
 		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);

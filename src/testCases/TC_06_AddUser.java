@@ -43,8 +43,8 @@ public class TC_06_AddUser {
 
 		// WEBDRIVER AND TIMESTAMP METHOD
 
-		String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(CommonMethod.Url, driverPath, iBrowser);
+		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
+		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
 		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
