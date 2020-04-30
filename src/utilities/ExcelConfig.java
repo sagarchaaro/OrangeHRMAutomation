@@ -94,14 +94,17 @@ public class ExcelConfig {
 		ExcelWSheet = ExcelWBook.getSheet(sSheetName);
 		try {
 			int iRowCount = ExcelConfig.getRowUsed(sSheetName);
+			boolean found = false;
 			for (i = 0; i < iRowCount; i++) {
 				
 				if (ExcelConfig.getCellData(i, iColNum, sSheetName).equalsIgnoreCase(sTestName)) {
+					found = true;
 					break;
 				}
-					
 				}
-				
+			if (!found) {
+				throw new Exception();
+			}
 			
 			return i;
 		} catch (Exception e) {
