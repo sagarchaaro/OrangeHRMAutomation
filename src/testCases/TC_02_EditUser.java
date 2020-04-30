@@ -27,7 +27,9 @@ public class TC_02_EditUser {
 		// LOAD AND READ THE PROPERTIES FILE
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
+
 		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
@@ -40,8 +42,9 @@ public class TC_02_EditUser {
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
 		// WEBDRIVER AND TIMESTAMP METHOD
-//		String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-			WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+
+		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+
 		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -112,6 +115,8 @@ public class TC_02_EditUser {
 		System.out.println(" Country name is copied " + country);
 		String existingLocation = driver.findElement(By.xpath("//input[@id='name']")).getText();
 		Thread.sleep(2000);
+		System.out.println(" The Country name read from webpage is:" + country);
+
 		driver.findElement(By.xpath("//input[@id='name']")).clear();
 		System.out.println("The Country name is cleared in the webpage");
 		String randomAlphabet = RandomStringUtils.randomAlphabetic(6);
@@ -128,18 +133,22 @@ public class TC_02_EditUser {
 		driver.findElement(By.xpath("//input[@id='phone']")).sendKeys("+91 " + randomInt);
 		System.out.println("The value "+ randomInt+" is entered as phone no in the text-box");
 
+
 		WebElement webelement_EeoEnable = driver.findElement(By.xpath("//input[@id='eeo_applicable']"));
 		if (webelement_EeoEnable.isEnabled()) {
 			System.out.println("The EEO is already Enabled ");
 
 		} else {
+
 			webelement_EeoEnable.click();
 			System.out.println("Click action is performed for EEO is Enabled option");
 		}
 
 		driver.findElement(By.xpath("//a[contains(text(),'Save')]")).click();
 		System.out.println("Click action is performed on Save button");
+
 		Thread.sleep(300);
+
 		driver.findElement(By.xpath("//a[@class='tooltipped circle']")).click();
 		System.out.println("Click action is performed on Filter button");
 		driver.findElement(By.xpath("//input[@id='location_name_filter']")).sendKeys(locName);
@@ -195,12 +204,16 @@ public class TC_02_EditUser {
 		ExcelConfig.setCellData(locName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
 		System.out.println("The value "+locName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName
 				+" in the "+Constant.sheet_EditUserCases);
+
 		ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		ExcelConfig.setCellData("+91 " + randomInt, iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
+		System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
+				+" in the "+Constant.sheet_EditUserCases);
+
 		
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
+
 		
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.PathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,

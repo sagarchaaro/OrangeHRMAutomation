@@ -40,7 +40,9 @@ public class TC_01_AddEmployee {
 		// WEBDRIVER AND TIMESTAMP METHOD
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-				WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+
+		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+
 		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -139,6 +141,7 @@ public class TC_01_AddEmployee {
 		System.out.println("Clicked action is performed on Next button");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[6]")).click();
+
 		String region = ExcelConfig.getCellData(iTestData, Constant.Region, Constant.sheet_AddEmployeeCases);
 		System.out.println("The Region read from excel is : " + region);
 		driver.findElement(By.xpath("//span[text()='" + region + "']")).click();
@@ -153,6 +156,7 @@ public class TC_01_AddEmployee {
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[8]")).click();
 		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.Temp_Department,
 				Constant.sheet_AddEmployeeCases);
+
 		System.out.println("The Temp_Department read from excel is : " + temp_Department);
 		driver.findElement(By.xpath("//span[text()='" + temp_Department + "']")).click();
 		System.out.println("The value "+ temp_Department+" is selected as Temp_Department in the dropdown");

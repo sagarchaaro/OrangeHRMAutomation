@@ -41,39 +41,6 @@ public class CommonMethod {
 		return prop;
 	}
 
-	public static String selectDriverPath(String browser, Properties prop) {
-		browser.trim();
-		if (browser.equalsIgnoreCase("Chrome")) {
-			String driverPath = prop.getProperty("chromePath");
-			return driverPath;
-		} else {
-			if (browser.equalsIgnoreCase("Firefox")) {
-				String driverPath = prop.getProperty("geckoPath");
-				return driverPath;
-			} else {
-				if (browser.equalsIgnoreCase("Opera")) {
-					String driverPath = prop.getProperty("operaPath");
-					return driverPath;
-				} else {
-					if (browser.equalsIgnoreCase("InternateExplore")) {
-						String driverPath = prop.getProperty("internateExplorePath");
-						return driverPath;
-					} else {
-						if (browser.equalsIgnoreCase("Edge")) {
-							String driverPath = prop.getProperty("edgePath");
-							return driverPath;
-						} else {
-							String driverPath = prop.getProperty("chromePath");
-							System.out.println(browser + " driver is not supported, Chrome as default selected");
-							return driverPath;
-						}
-
-					}
-				}
-			}
-		}
-
-	}
 
 	/*
 	 * THE METHOD "selectDropDown" WILL SELECT DATA FROM DROP DOWN INPUT TAKE AS
