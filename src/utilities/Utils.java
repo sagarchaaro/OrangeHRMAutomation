@@ -36,23 +36,29 @@ public class Utils {
 		if (browser.equalsIgnoreCase("Chrome")) {
 			System.setProperty("webdriver.chrome.driver", path);
 			driver= new ChromeDriver();
+			System.out.println("Chrome Browser is launched");
 		}else if(browser.equalsIgnoreCase("Firefox")) {
 			System.setProperty("webdriver.gecko.driver", path);
 			driver = new FirefoxDriver();			
+			System.out.println("Firefox browser is launched");
 		}else if(browser.equalsIgnoreCase("Opera")){
 			System.setProperty("webdriver.opera.driver", path);
 			driver = new OperaDriver();
+			System.out.println("Opera brower is launched");
 		}else if(browser.equalsIgnoreCase("Edge")){
 			System.setProperty("webdriver.edge.driver", path);
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
+			System.out.println("Edge browser is launched");
 		}else if(browser.equalsIgnoreCase("InternateExplore")){
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
+			System.out.println("IE browser is launched");
 		}else{
 			System.out.println("Invalid Browser "+browser);
 			throw new Exception();
 		}
+		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get(url);
 		driver.manage().window().maximize();
