@@ -15,11 +15,13 @@ import utilities.ExcelConfig;
 public class TC_03_AddVacancy {
 
 	public static void main(String[] args) throws Exception {
-
+		System.out.println("The Execution started for TC_03_AddVacancy");
 		// LOAD AND READ THE PROPERTIES FILE
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println(CommonMethod.projectpath);
 		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		System.out.println("The Data read from Properties file.");
+		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
