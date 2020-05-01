@@ -3,6 +3,7 @@ package pages;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import utilities.CommonMethod;
 import utilities.Constant;
@@ -48,9 +49,17 @@ public class HRM_TestCase_Method {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//a[@id='systemUserSaveBtn']")).click();
 		System.out.println("Next button is clicked");
+		
+		WebElement webelement_ceoEnable = driver.findElement(By.xpath("//label[text()='eeo_applicable']"));
+		if (webelement_ceoEnable.isEnabled()) { 
+			driver.findElement(By.xpath("//label[text()='eeo_applicable']/../div/input")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//span[text()='Native']")).click();
+
+		} 
 		// select blood group
 		Thread.sleep(10000);
-		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[3]")).click();
+		driver.findElement(By.xpath("//label[text()='Blood Group']/../div/input")).click();
 
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//span[text()='B']")).click();
@@ -64,17 +73,17 @@ public class HRM_TestCase_Method {
 		driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
 		System.out.println(" Next button is Clicked ");
 		Thread.sleep(10000);
-		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[6]")).click();
+		driver.findElement(By.xpath("//label[text()='Region']/../div/input")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//span[text()='Region-2']")).click();
 		System.out.println(" Region is Clicked ");
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[7]")).click();
+		driver.findElement(By.xpath("//label[text()='FTE']/../div/input")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//span[text()='0.5']")).click();
 		System.out.println(" 0.5 is Clicked ");
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[8]")).click();
+		driver.findElement(By.xpath("//label[text()='Temporary Department']/../div/input")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//span[text()='Sub unit-1']")).click();
 		System.out.println("Subunit is entered");

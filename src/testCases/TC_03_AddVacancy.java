@@ -89,22 +89,22 @@ public class TC_03_AddVacancy {
 		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
 		System.out.println("Add or import vacancy is clicked");
 
-		String Vacancy_name = "Testing_" + RandomStringUtils.randomAlphabetic(6);
-		driver.findElement(By.id("addJobVacancy_name")).sendKeys(Vacancy_name);
+		String vacancy_Name = "Testing_" + RandomStringUtils.randomAlphabetic(6);
+		driver.findElement(By.id("addJobVacancy_name")).sendKeys(vacancy_Name);
 		System.out.println("Requirement is added");
 
 		driver.findElement(By.id("textarea_addJobVacancy_jobTitle")).click();
-		String Vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,
+		String vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,
 				Constant.sheet_AddVacancyCases);
 		driver.findElement(By.xpath("//div[@id='textarea_addJobVacancy_jobTitle']")).click();
-		driver.findElement(By.xpath("(//p[text()='" + Vacancy_JobTitle.trim() + "'])[1]")).click();
+		driver.findElement(By.xpath("(//p[text()='" + vacancy_JobTitle.trim() + "'])[1]")).click();
 		System.out.println("job title is added");
 
 		driver.findElement(By.id("textarea_addJobVacancy_location")).click();
-		String Vacancy_location = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_location,
+		String vacancy_location = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_location,
 				Constant.sheet_AddVacancyCases);
-		System.out.println("Location is" + Vacancy_location);
-		driver.findElement(By.xpath("(//p[contains(text(),'" + Vacancy_location.trim() + "')])[1]")).click();
+		System.out.println("Location is" + vacancy_location);
+		driver.findElement(By.xpath("(//p[contains(text(),'" + vacancy_location.trim() + "')])[1]")).click();
 		System.out.println("jobLocation is added");
 
 		driver.findElement(By.id("textarea_addJobVacancy_sub_unit")).click();
@@ -113,14 +113,14 @@ public class TC_03_AddVacancy {
 		System.out.println("jobSubUnit is added");
 
 		driver.findElement(By.id("textarea_addJobVacancy_hiringManagers")).click();
-		String HiringManagers = ExcelConfig.getCellData(iTestData, Constant.col_HiringManagers,
+		String hiringManagers = ExcelConfig.getCellData(iTestData, Constant.col_HiringManagers,
 				Constant.sheet_AddVacancyCases);
-		driver.findElement(By.xpath("//p[text()='" + HiringManagers + "']")).click();
+		driver.findElement(By.xpath("//p[text()='" + hiringManagers + "']")).click();
 		System.out.println("HiringManager is added");
 
-		String NoOfPositions = ExcelConfig.getCellData(iTestData, Constant.col_NoOfPositions,
+		String noOfPositions = ExcelConfig.getCellData(iTestData, Constant.col_NoOfPositions,
 				Constant.sheet_AddVacancyCases);
-		driver.findElement(By.id("addJobVacancy_noOfPositions")).sendKeys(NoOfPositions);
+		driver.findElement(By.id("addJobVacancy_noOfPositions")).sendKeys(noOfPositions);
 		System.out.println("No of positions is added");
 
 		driver.findElement(By.id("saveVacancy")).click();
@@ -138,7 +138,7 @@ public class TC_03_AddVacancy {
 		
 		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
 		
-		ExcelConfig.setCellData(Vacancy_name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.PathExcel);
 		
 		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);

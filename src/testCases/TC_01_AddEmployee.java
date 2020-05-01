@@ -40,7 +40,9 @@ public class TC_01_AddEmployee {
 		// WEBDRIVER AND TIMESTAMP METHOD
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
+
 		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+
 		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -139,10 +141,11 @@ public class TC_01_AddEmployee {
 		System.out.println("Clicked action is performed on Next button");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[6]")).click();
-		String Region = ExcelConfig.getCellData(iTestData, Constant.Region, Constant.sheet_AddEmployeeCases);
-		System.out.println("The Region read from excel is : " + Region);
-		driver.findElement(By.xpath("//span[text()='" + Region + "']")).click();
-		System.out.println("The value "+ Region+" is selected as Region in the dropdown");
+
+		String region = ExcelConfig.getCellData(iTestData, Constant.Region, Constant.sheet_AddEmployeeCases);
+		System.out.println("The Region read from excel is : " + region);
+		driver.findElement(By.xpath("//span[text()='" + region + "']")).click();
+		System.out.println("The value "+ region+" is selected as Region in the dropdown");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[7]")).click();
 		String FTE = ExcelConfig.getCellData(iTestData, Constant.FTE, Constant.sheet_AddEmployeeCases);
@@ -151,11 +154,12 @@ public class TC_01_AddEmployee {
 		System.out.println("The value "+ FTE+" is selected as FTE in the dropdown");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[8]")).click();
-		String Temp_Department = ExcelConfig.getCellData(iTestData, Constant.Temp_Department,
+		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.Temp_Department,
 				Constant.sheet_AddEmployeeCases);
-		System.out.println("The Temp_Department read from excel is : " + Temp_Department);
-		driver.findElement(By.xpath("//span[text()='" + Temp_Department + "']")).click();
-		System.out.println("The value "+ Temp_Department+" is selected as Temp_Department in the dropdown");
+
+		System.out.println("The Temp_Department read from excel is : " + temp_Department);
+		driver.findElement(By.xpath("//span[text()='" + temp_Department + "']")).click();
+		System.out.println("The value "+ temp_Department+" is selected as Temp_Department in the dropdown");
 
 		driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
 		System.out.println("Click action is performed Save button");
@@ -163,7 +167,15 @@ public class TC_01_AddEmployee {
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
 		driver.quit();
-
+		
+		
+		for(int i =1; i<=10;i++){
+			if(ExcelConfig.getCellData(i, Constant.col_ExistingLocationName, CommonMethod.PathExcel).equalsIgnoreCase(location)){
+			break;			
+			}
+			iTestData = i;
+			ExcelConfig.setCellData(location, iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases,CommonMethod.PathExcel);
+			}
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.PathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
