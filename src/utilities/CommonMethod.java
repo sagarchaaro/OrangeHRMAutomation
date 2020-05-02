@@ -141,21 +141,17 @@ public class CommonMethod {
 	}
 	
 	
-	
-	
-	
-	
-	
 	/*
 	 * THE METHOD "logout" TO LOGOUT FROM THE HOME PAGE WEBDRIVER TAKE AS INPUT
 	 */
-	public static void logoutJaveExecuter(WebDriver driver) {
+	public static void logoutJaveExecuter(WebDriver driver) throws Exception {
 
 		WebElement element = driver.findElement(By.xpath("//*[@id='account-job']/i"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+		Thread.sleep(3000);
 		driver.findElement(By.id("logoutLink")).click();
-		System.out.println("Click action is performed on Logout");
+		System.out.println("Click action is performed on Logout button");
 	}
 
 }
