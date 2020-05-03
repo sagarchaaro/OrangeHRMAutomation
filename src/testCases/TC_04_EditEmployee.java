@@ -21,10 +21,8 @@ public class TC_04_EditEmployee {
 		// LOAD AND READ THE PROPERTIES FILE
 
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println(CommonMethod.projectpath);
-		Properties prop = CommonMethod
-				.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		System.out.println("The Data read from Properties file.");
+		System.out.println("The Project Path is:"+CommonMethod.projectpath);
+		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
@@ -55,18 +53,18 @@ public class TC_04_EditEmployee {
 		System.out.println("The password read from excel is : " + password);
 
 		// user name
-		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[2]/input")).sendKeys(userName);
+		driver.findElement(By.id("txtUsername")).sendKeys(userName);
 		System.out.println("The value "+userName+" is entered as userName in the text-box");
 		// Password
-		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[3]/input")).sendKeys(password);
+		driver.findElement(By.id("txtPassword")).sendKeys(password);
 		System.out.println("The value "+password+" is entered as Password in the text-box");
 		// Login Click
-		driver.findElement(By.xpath("//html/body/div/div/div/div[2]/div[2]/form/div[5]/input")).click();
+		driver.findElement(By.id("btnLogin")).submit();
 		System.out.println("Click action is performed on Login button");
 
 		// CLICK ON THE LIST OF EMPLOYEE AND EDIT THE 1ST RECORD
 
-		driver.findElement(By.xpath("//html/body/div/div/div/div/div[2]/div/div/div[4]/ul/li[2]/a/span[2]")).click();
+		driver.findElement(By.xpath("//span[text()='PIM']")).click();
 		System.out.println("Click action is performed on PLM in the Menu bar");
 		wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//span[@class='left-menu-title'][text()='Employee List']")));
@@ -100,8 +98,7 @@ public class TC_04_EditEmployee {
 		driver.findElement(By.id("lastName")).sendKeys(lastName);
 		System.out.println("The value "+ lastName+" is entered as lastName in the text-box");
 		driver.findElement(By.xpath("(//i[@class='material-icons action-icon date-picker-open-icon'])[1]")).click();
-		// String
-		// dateOfBirthFomat1=sh.getRow(i).getCell(4).getStringCellValue();
+		System.out.println("Click action is performed on calender for DOB");
 		String dateOfBirthFomat1 = ExcelConfig.getCellData(iTestData, Constant.col_DateOfBirth,
 				Constant.sheet_EditEmployeeCases);
 		CommonMethod.Date_HRM(dateOfBirthFomat1, driver, 1);
@@ -109,27 +106,26 @@ public class TC_04_EditEmployee {
 		driver.findElement(By.xpath("(//div[@class='select-wrapper initialized']/input)[2]")).click();
 		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,
 				Constant.sheet_EditEmployeeCases);
-		// String nationalty=sh.getRow(i).getCell(5).getStringCellValue();
 		driver.findElement(By.xpath("//span[text()='" + nationalty + "']")).click();
 		System.out.println("The value "+ nationalty+" is selected as nationalty from dropdown");
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[1]")).click();
-		System.out.println("Click Save is performed on Login button");
+		System.out.println("Click action is performed on save button for the Personal detail update");
 		try {
-			WebElement webelement = driver
-					.findElement(By.xpath("//label[text()='EEO Race and Ethnicity']/..//child::input"));
-			webelement.click();
+			WebElement webelement_EEO = driver.findElement(By.xpath("//label[text()='EEO Race and Ethnicity']/..//child::input"));
+			webelement_EEO.click();
 			driver.findElement(By.xpath("//span[text()='Asian']")).click();
+			System.out.println("Click action is performed on EEO option ");
 		} catch (Exception user) {
 			System.out.println("EEO Race and Ethnicity is not required");
 		}
 
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified-1");
+				System.out.println("Successfully dispaly message is verified for Personal detail update");
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified-1");
+			System.out.println("Successfully dispaly message is not verified for Personal detail update");
 		}
 
 		// IMPORTANT DETAIL TO UPDATE
@@ -141,14 +137,14 @@ public class TC_04_EditEmployee {
 		driver.findElement(By.xpath("//span[text()='" + bloodGroup + "']")).click();
 		System.out.println("Change the Blood Group");
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[2]")).click();
-		System.out.println("Enter the save for the Personal Detail-2");
+		System.out.println("Click action is performed on save button for the important detail update");
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified-2");
+				System.out.println("Successfully dispaly message is verified for important detail update");
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified-2");
+			System.out.println("Successfully dispaly message is not verified for important detail update");
 		}
 
 		// PREFERENCES DETAIL TO UPDATE
@@ -170,25 +166,28 @@ public class TC_04_EditEmployee {
 			System.out.println("Hubby is selected as " + hubby2);
 		}
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[3]")).submit();
-		System.out.println("Enter the save for the Personal Detail-3");
+		System.out.println("Enter the save for the Preferences Detail update");
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified-3");
+				System.out.println("Successfully dispaly message is verified for Preferences detail update");
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified-3");
+			System.out.println("Successfully dispaly message is not verified for Preferences detail update");
 		}
 
 		CommonMethod.logoutJaveExecuter(driver);
-		driver.quit();
-		System.out.println("Logout is done");
-		System.out.println("The file are closed");
+		driver.quit();		
+		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.PathExcel);
+		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+				+" in the "+Constant.sheet_TestCases);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
 				Constant.sheet_TestCases, CommonMethod.PathExcel);
-
+		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+				+" in the "+Constant.sheet_TestCases);
+		System.out.println("The file are closed");
 	}
 
 }

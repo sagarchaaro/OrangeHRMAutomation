@@ -83,14 +83,16 @@ public class TC_07_DisciplinaryCase {
 		// GOTO THE EMPLOYEELIST AND SET ALL EMPLOYEE NAME INTO THE ARRY TO
 		// SELECT EMP NAME AND OWNER NAME
 
-		driver.findElement(By.xpath("//html/body/div/div/div/div/div[2]/div/div/div[4]/ul/li[2]/a/span[2]")).click();
+		driver.findElement(By.xpath("//span[text()='PIM']")).click();
 		System.out.println("Click action is performed on PLM in the Menu bar");
 		driver.findElement(By.xpath("//span[text()='Employee List']")).click();
 		System.out.println("Click action is performed on Employee list in the Menu bar");
 		int totalElementNo = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]")).size();
 		System.out.println("The total no of employee in the page is: " + totalElementNo);
 		List<WebElement> webelement_empName = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]"));
+		System.out.println("All employeeName are stored in the WebElement");
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
+		System.out.println("All employeeName are stored in the Array");
 		String employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
 		System.out.println("The employeeName selected by random no is:" + employeeName);
 		String ownerName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
@@ -163,10 +165,10 @@ public class TC_07_DisciplinaryCase {
 		System.out.println("Click action is performed on Disciplinary Cases in the Menu bar");
 		
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
-		WebElement element=driver.findElement(By.xpath("//input[@id='DisciplinaryCaseSearch_empName_empName']"));
-		element.sendKeys(employeeName);
-		element.sendKeys(Keys.ARROW_DOWN);
-		element.sendKeys(Keys.ENTER);
+		WebElement webelement_filter=driver.findElement(By.xpath("//input[@id='DisciplinaryCaseSearch_empName_empName']"));
+		webelement_filter.sendKeys(employeeName);
+		webelement_filter.sendKeys(Keys.ARROW_DOWN);
+		webelement_filter.sendKeys(Keys.ENTER);
 		driver.findElement(By.xpath("//a[@id='searchBtn']")).click();
 		System.out.println("click action is performed for search button");
 		Thread.sleep(3000);
@@ -184,8 +186,8 @@ public class TC_07_DisciplinaryCase {
 				.getText();
 		CommonMethod.Validation(description, validation_description, iTestCase);
 
-		String CreatedBy = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
-		String CreatedOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
+		String createdBy = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
+		String createdOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
 
 		driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[7]/a")).click();
 		System.out.println("Click action is performed on view Link");
@@ -227,14 +229,14 @@ public class TC_07_DisciplinaryCase {
 		System.out.println("The value "+ownerName+" is written as ownerName against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
 				+" in the "+Constant.sheet_DeciplinaryCases);
 
-		ExcelConfig.setCellData(CreatedBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,
+		ExcelConfig.setCellData(createdBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
-		System.out.println("The value "+CreatedBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
+		System.out.println("The value "+createdBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
 				+" in the "+Constant.sheet_DeciplinaryCases);
 
-		ExcelConfig.setCellData(CreatedOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,
+		ExcelConfig.setCellData(createdOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,
 				CommonMethod.PathExcel);
-		System.out.println("The value "+CreatedOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
+		System.out.println("The value "+createdOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
 				+" in the "+Constant.sheet_DeciplinaryCases);
 
 
