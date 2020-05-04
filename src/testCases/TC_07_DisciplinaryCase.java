@@ -26,7 +26,7 @@ public class TC_07_DisciplinaryCase {
 		// LOAD AND READ THE PROPERTIES FILE
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
-		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
@@ -40,15 +40,15 @@ public class TC_07_DisciplinaryCase {
 
 		// WEBDRIVER AND TIMESTAMP METHOD
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_DeciplinaryCases);
 		System.out.println("The userName read from excel is : " + userName);
@@ -65,7 +65,7 @@ public class TC_07_DisciplinaryCase {
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin.jpg", driver);
 			System.out.println("Screen shot is  taken for Dashboard ");
 			
 		} catch (Exception user) {
@@ -97,7 +97,7 @@ public class TC_07_DisciplinaryCase {
 		System.out.println("The employeeName selected by random no is:" + employeeName);
 		String ownerName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
 		System.out.println("The ownerName selected by random no is:" + ownerName);
-		Utils.ScreenShot(screenshotPath + "\\EmployeeList.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\EmployeeList.jpg", driver);
 		System.out.println("Screen shot is  taken for Employee List ");
 
 		// THE BLOCK IS TO CREATE DECIPLINARY RECORD
@@ -145,7 +145,7 @@ public class TC_07_DisciplinaryCase {
 		// String dueDate=sht.getRow(R1).getCell(9).getStringCellValue();
 		driver.findElement(By.xpath("//input[@id='createDate']")).click();
 		System.out.println("The value "+dueDate+ " is selected as due date from calender");
-		CommonMethod.Date_HRM(dueDate, driver, 1);
+		CommonMethod.date_HRM(dueDate, driver, 1);
 		WebElement webelement_owner = driver.findElement(By.xpath("//input[@id='defaultAction_owner_empName']"));
 		webelement_owner.sendKeys(ownerName);
 		webelement_owner.sendKeys(Keys.DOWN);
@@ -156,7 +156,7 @@ public class TC_07_DisciplinaryCase {
 		driver.findElement(By.xpath("//label[text()='Status']//parent::div//child::input")).click();
 		driver.findElement(By.xpath("//span[text()='" + status + "']")).click();
 		System.out.println("The value "+status+" is selected as status in the dropdown");		
-		Utils.ScreenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
 		System.out.println("Screen shot is  taken for Desciplinary case");
 		driver.findElement(By.xpath("//a[text()='Save']")).click();
 		System.out.println("Click action is performed on Save button");
@@ -177,14 +177,14 @@ public class TC_07_DisciplinaryCase {
 		// THE BLOCK IS VALIDATING THE DICIPLINARY CREATED RECORD
 
 		String validation_name = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[2]")).getText();
-		CommonMethod.Validation(employeeName, validation_name, iTestCase);
+		CommonMethod.validation(employeeName, validation_name, iTestCase);
 
 		String validation_case = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[3]")).getText();
-		CommonMethod.Validation(caseNo, validation_case, iTestCase);
+		CommonMethod.validation(caseNo, validation_case, iTestCase);
 
 		String validation_description = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[4]"))
 				.getText();
-		CommonMethod.Validation(description, validation_description, iTestCase);
+		CommonMethod.validation(description, validation_description, iTestCase);
 
 		String createdBy = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
 		String createdOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
@@ -193,7 +193,7 @@ public class TC_07_DisciplinaryCase {
 		System.out.println("Click action is performed on view Link");
 
 		String validation_Status = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
-		CommonMethod.Validation(status, validation_Status, iTestCase);
+		CommonMethod.validation(status, validation_Status, iTestCase);
 
 		// TO VIEW THE ACTION STATUS AND COMPLETE IF ITS NOT COMPLETED
 
@@ -208,9 +208,9 @@ public class TC_07_DisciplinaryCase {
 		
 		String validation_StatusClose = driver.findElement(By.xpath("//td[text()='" + employeeName + "']/../td[8]"))
 				.getText();
-		CommonMethod.Validation("Close", validation_StatusClose, iTestCase);
+		CommonMethod.validation("Close", validation_StatusClose, iTestCase);
 
-		Utils.ScreenShot(screenshotPath + "\\CaseStatus.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\CaseStatus.jpg", driver);
 		System.out.println("Screen shot is  taken for Case Status");
 
 		// LOGOUT AND CLOSING THE BROWSER.

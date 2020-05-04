@@ -24,10 +24,6 @@ public class ExcelConfig {
 			ExcelWBook = new XSSFWorkbook(ExcelFile);
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method:setExcelFile");
-			// Log.error("class ExcelConfig | Method setExcelFile | Exception
-			// desc: "+e.getMessage());
-			// Log.info("class ExcelConfig | Method setExcelFile | Exception
-			// desc: "+e.getMessage());
 			throw (e);
 		}
 	}
@@ -44,11 +40,7 @@ public class ExcelConfig {
 			String sCellData = cell.getStringCellValue().trim();
 			return sCellData;
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: getCellData");
-			// Log.error("class ExcelConfig | Method getCellData | Exception
-			// desc: "+e.getMessage());
-			// Log.info("class ExcelConfig | Method getCellData | Exception
-			// desc: "+e.getMessage());
+			System.out.println("Error in excel file in the method: getCellData");			
 			return "";
 		}
 	}
@@ -75,12 +67,7 @@ public class ExcelConfig {
 			fileOut.close();
 			ExcelWBook = new XSSFWorkbook(new FileInputStream(PathExcel));
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: setCellData");
-
-			// Log.logConfig(Level.INFO, 50000, "class ExcelConfig| Method
-			// setCellData |Exception desc: " +e.getMessage(), null);
-			// Log.info("class ExcelConfig| Method setCellData |Exception desc:
-			// " +e.getMessage());
+			System.out.println("Error in excel file in the method: setCellData");			
 			throw (e);
 		}
 	}
@@ -109,10 +96,6 @@ public class ExcelConfig {
 			return i;
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method: getRowContains");
-			// Log.error("Class ExcelConfig | Method getRowContains |Exception
-			// desc:"+e.getMessage());
-			// Log.info("Class ExcelConfig | Method getRowContains |Exception
-			// desc:"+e.getMessage());
 			throw (e);
 		}
 	}
@@ -129,10 +112,6 @@ public class ExcelConfig {
 			return iRowCount;
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method: getRowUsed");
-			// Log.error("Class ExcelConfig | Method getRowUsed | Exception
-			// desc: "+e.getMessage());
-			// Log.info("Class ExcelConfig | Method getRowUsed | Exception desc:
-			// "+e.getMessage());
 			throw (e);
 		}
 	}
@@ -155,13 +134,9 @@ public class ExcelConfig {
 			return number;
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method: getTestCount");
-			// Log.error("Class ExcelConfig | Method getTestCount | Exception
-			// desc: "+e.getMessage());
-			// Log.info("Class ExcelConfig | Method getTestCount | Exception
-			// desc: "+e.getMessage());
-			// throw(e);
 			return 0;
 		}
 	}
+	
 
 }

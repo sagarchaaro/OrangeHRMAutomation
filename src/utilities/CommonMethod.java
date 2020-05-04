@@ -29,7 +29,7 @@ public class CommonMethod {
 	 * class variable input: properties file path It return the Properties
 	 * "prop" THROW EXCEPTION FOR FILE NOT FOUND
 	 */
-	public static Properties PropertilesRead(String propFile) throws Exception {
+	public static Properties propertilesRead(String propFile) throws Exception {
 
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(propFile);
@@ -38,7 +38,9 @@ public class CommonMethod {
 		PathExcel = projectpath.concat(prop.getProperty("PathExcel"));
 		Url = prop.getProperty("orangehrmURL");
 		screenshotPath = projectpath.concat(prop.getProperty("screenshotPath"));
+		System.out.println("The Properties file is read in the method propertilesRead");
 		return prop;
+		
 	}
 
 
@@ -63,15 +65,20 @@ public class CommonMethod {
 	 * MESSAGE INTO THE EXCEL FILE FOR THE TEST CASE ID
 	 */
 
-	public static void Validation(String string1, String string2, int iTestCase) throws Exception {
+	public static void validation(String string1, String string2, int iTestCase) throws Exception {
 
 		if (string1.equalsIgnoreCase(string2)) {
-			System.out.println("The string " + string2 + " is verifird with "+string1);
+			System.out.println("The string " + string2 + " is verified with "+string1);
 		} else {
 			System.out.println("The string " + string2 + " is not verified with "+string1);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, PathExcel);
+			System.out.println("Fail is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+					+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(string2 + " is not validated with , Test case is failed", iTestCase,
 					Constant.col_Comments, Constant.sheet_TestCases, PathExcel);
+			System.out.println(string2 + " is not validated with , Test case is failed is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+					+" in the "+Constant.sheet_TestCases);
+
 			throw new Exception();
 
 		}
@@ -83,14 +90,16 @@ public class CommonMethod {
 	 * THE DATE IN THE CALENDER
 	 */
 
-	public static void Date_HRM(String dateToSelect, WebDriver driver, int calenderNo) {
+	public static void date_HRM(String dateToSelect, WebDriver driver, int calenderNo) {
 		String date[] = dateToSelect.split("/");
 		// Select Year
 		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
 		driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
+		System.out.println("The Year selected from calender is:" + date[2]);
 		// Select Month
 		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
 		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
+		System.out.println("The Month selected from calender is:" + date[0]);
 		// Select Date
 		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
 		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
@@ -101,7 +110,7 @@ public class CommonMethod {
 				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo+ "]/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div")).getText();
 				if (calDate.equalsIgnoreCase(date[1])) {
 					driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div")).click();
-					System.out.println("Date is selected as " + dateToSelect);
+					System.out.println("The Date is selected from calender is:" + dateToSelect);
 					break rows;
 				}
 
@@ -110,18 +119,18 @@ public class CommonMethod {
 
 	}
 	
-	public static void Date_HRM_08(String dateToSelect, WebDriver driver, int calenderNo) {
+	public static void date_HRM_08(String dateToSelect, WebDriver driver, int calenderNo) {
 		String date[] = dateToSelect.split("/");
 		// Select Year
 		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[" + calenderNo + "]")).click();
-		//driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
 		WebElement element = driver.findElement(By.xpath("//span[text()='" + date[2] + "']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-
+		System.out.println("The Year selected from calender is:" + date[2]);
 		// Select Month
 		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[" + calenderNo + "]")).click();
 		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
+		System.out.println("The Month selected from calender is:" + date[0]);
 		// Select Date
 		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
 		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
@@ -135,7 +144,7 @@ public class CommonMethod {
 				if (calDate.equalsIgnoreCase(date[1])) {
 					System.out.println("entered if loop");
 					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[2]")).click();
-					System.out.println("Date is selected as" + dateToSelect);
+					System.out.println("The Date is selected from calender is:" + dateToSelect);
 					break rows;
 				}
 

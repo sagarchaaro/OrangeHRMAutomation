@@ -24,7 +24,7 @@ public class TC_05_AplyLeave {
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		Properties prop = CommonMethod
-				.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 
@@ -43,8 +43,8 @@ public class TC_05_AplyLeave {
 		// WEBDRIVER AND TIMESTAMP METHOD
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -52,7 +52,7 @@ public class TC_05_AplyLeave {
 		// LOGIN TO DASHBOARD
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_ApplyLeaveCases);
 		System.out.println("The userName read from excel is : " + userName);
@@ -91,9 +91,7 @@ public class TC_05_AplyLeave {
 		Thread.sleep(5000);
 		System.out.println("Click action is performed on the Calender for From Date");
 
-		CommonMethod.Date_HRM(leaveDateFrom, driver, 1);
-
-		
+		CommonMethod.date_HRM(leaveDateFrom, driver, 1);
 
 		// Select To Date
 		String leaveDateTo = ExcelConfig.getCellData(iTestData, Constant.col_leaveDateTo,
@@ -102,7 +100,7 @@ public class TC_05_AplyLeave {
 		driver.findElement(By.xpath("(//i[@class='material-icons action-icon date-picker-open-icon'])[2]")).click();
 		Thread.sleep(10000);
 		System.out.println("Click action is performed on the Calender for To Date");
-		CommonMethod.Date_HRM(leaveDateTo, driver, 2);
+		CommonMethod.date_HRM(leaveDateTo, driver, 2);
 
 		
 		driver.findElement(By.xpath("//button[@class='btn waves-effect waves-green']")).click();

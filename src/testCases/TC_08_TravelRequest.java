@@ -25,7 +25,7 @@ public class TC_08_TravelRequest {
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		Properties prop = CommonMethod
-				.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
@@ -39,15 +39,15 @@ public class TC_08_TravelRequest {
 
 		// WEBDRIVER AND TIMESTAMP METHOD
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_TravelRequestCases);
 		System.out.println("The userName read from excel is : " + userName);
@@ -65,7 +65,7 @@ public class TC_08_TravelRequest {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			// String filename=screenshotPath+"\\OrangeHRMLogin_.jpg";
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
 			System.out.println("Screen shot is  taken for Dashboard ");
 
 		} catch (Exception user) {
@@ -103,7 +103,7 @@ public class TC_08_TravelRequest {
 				+ employee_Name + "']/../../../td[8]")).click();
 		System.out.println("Click action is performed on Edit Link");
 
-		Utils.ScreenShot(screenshotPath + "\\Travel_Request.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\Travel_Request.jpg", driver);
 		System.out.println("Screen shot is  taken for Travel Request ");
 
 		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
@@ -131,7 +131,7 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
 		System.out.println("Click action is performed on Login button for the employee login");
 
-		Utils.ScreenShot(screenshotPath + "\\Travel_Request.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\Travel_Request.jpg", driver);
 		System.out.println("Screen shot is  taken for the employee login ");
 		Thread.sleep(2000);
 
@@ -188,7 +188,7 @@ public class TC_08_TravelRequest {
 		
 		System.out.println("Click action is performed on calender for FromDate");
 		Thread.sleep(10000);
-		CommonMethod.Date_HRM_08(fromDate, driver, 1);
+		CommonMethod.date_HRM_08(fromDate, driver, 1);
 		
 		Thread.sleep(10000);
 		String toDate = ExcelConfig.getCellData(iTestData, Constant.col_To_Date, Constant.sheet_TravelRequestCases);
@@ -201,7 +201,7 @@ public class TC_08_TravelRequest {
 
 		System.out.println("Click action is performed on calender for ToDate");
 		Thread.sleep(10000);
-		CommonMethod.Date_HRM_08(toDate, driver, 2);
+		CommonMethod.date_HRM_08(toDate, driver, 2);
 
 		String dest_Address = RandomStringUtils.randomAlphabetic(6);
 		System.out.println("The Dest_Address is selected by random Util is :" + dest_Address);
@@ -246,7 +246,7 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("(//a[text()='Save'])[2]")).click();
 		System.out.println("Click action is performed on Save button");
 
-		Utils.ScreenShot(CommonMethod.screenshotPath, driver);
+		Utils.screenShot(CommonMethod.screenshotPath, driver);
 		System.out.println("Screen shot is taken for Employee List ");
 
 		driver.findElement(By.xpath("//a[text()='Submit']")).click();
@@ -264,7 +264,7 @@ public class TC_08_TravelRequest {
 		String requestStatus = driver
 				.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)")).getText();
 
-		Utils.ScreenShot(screenshotPath + "\\RequestID.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\RequestID.jpg", driver);
 		System.out.println("Screen shot is taken for Travel Request Id ");
 
 		CommonMethod.logoutJaveExecuter(driver);
@@ -320,7 +320,7 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
 		System.out.println("Click action is performed on Login button for Employee");
 
-		Utils.ScreenShot(screenshotPath + "\\OrangeHRMEmplopyeeLogin.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\OrangeHRMEmplopyeeLogin.jpg", driver);
 		System.out.println("Screen shot is taken for Employee Login ");
 
 		driver.findElement(By.xpath("//span[text()='Expense']")).click();
@@ -332,7 +332,7 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
 		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
 
-		Utils.ScreenShot(screenshotPath + "\\TravelRequest.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\TravelRequest.jpg", driver);
 		System.out.println("Screen shot is taken for Aproved Travel Request ");
 
 		CommonMethod.logoutJaveExecuter(driver);

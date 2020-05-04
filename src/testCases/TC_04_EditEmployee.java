@@ -22,7 +22,7 @@ public class TC_04_EditEmployee {
 
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
-		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
@@ -40,8 +40,8 @@ public class TC_04_EditEmployee {
 		// WEBDRIVER AND TIMESTAMP METHOD
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -101,7 +101,7 @@ public class TC_04_EditEmployee {
 		System.out.println("Click action is performed on calender for DOB");
 		String dateOfBirthFomat1 = ExcelConfig.getCellData(iTestData, Constant.col_DateOfBirth,
 				Constant.sheet_EditEmployeeCases);
-		CommonMethod.Date_HRM(dateOfBirthFomat1, driver, 1);
+		CommonMethod.date_HRM(dateOfBirthFomat1, driver, 1);
 
 		driver.findElement(By.xpath("(//div[@class='select-wrapper initialized']/input)[2]")).click();
 		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,

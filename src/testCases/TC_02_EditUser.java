@@ -28,7 +28,7 @@ public class TC_02_EditUser {
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 
-		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
@@ -43,16 +43,16 @@ public class TC_02_EditUser {
 
 		// WEBDRIVER AND TIMESTAMP METHOD
 
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_EditUserCases);
 		System.out.println("The userName read from excel is : " + userName);
@@ -69,7 +69,7 @@ public class TC_02_EditUser {
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
 			System.out.println("Screen shot is  taken for Dashboard ");
 
 		} catch (Exception user) {
@@ -85,7 +85,7 @@ public class TC_02_EditUser {
 			throw new Exception();
 		}
 
-		Utils.ScreenShot(screenshotPath + "\\Edit_User.jpg", driver);
+		Utils.screenShot(screenshotPath + "\\Edit_User.jpg", driver);
 
 		driver.findElement(By.xpath("//span[@class='left-menu-title'][text()='Admin']")).click();
 		System.out.println("Click action is performed on Admin in the Menu bar");
@@ -158,12 +158,12 @@ public class TC_02_EditUser {
 
 		String validate_location = driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span")).getText();
 		System.out.println(" The location name for Validation is : " + validate_location);
-		CommonMethod.Validation(validate_location, newLocationName, iTestCase);
+		CommonMethod.validation(validate_location, newLocationName, iTestCase);
 
 		String validate_PhoneNo = driver
 				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span")).getText();
 		System.out.println(" The phone no for Validation is : " + validate_PhoneNo);
-		CommonMethod.Validation(validate_PhoneNo, "+91 " + randomInt, iTestCase);
+		CommonMethod.validation(validate_PhoneNo, "+91 " + randomInt, iTestCase);
 
 		/*
 		 * CALLING THE mETHOD TO ADD THE EMPLOYEE from line no 157 to 177 can be
@@ -193,7 +193,7 @@ public class TC_02_EditUser {
 
 		System.out.println(" The location name for Validation is : " + validate_locationName);
 
-		CommonMethod.Validation(validate_locationName, newLocationName, iTestCase);
+		CommonMethod.validation(validate_locationName, newLocationName, iTestCase);
 
 		CommonMethod.logoutJaveExecuter(driver);
 		driver.quit();

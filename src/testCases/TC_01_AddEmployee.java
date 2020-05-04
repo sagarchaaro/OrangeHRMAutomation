@@ -25,7 +25,7 @@ public class TC_01_AddEmployee {
 		// LOAD AND READ THE PROPERTIES FILE
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Data read from Properties file.");		
-		Properties prop = CommonMethod.PropertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
@@ -41,16 +41,16 @@ public class TC_01_AddEmployee {
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
 
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddEmployeeCases);
 		System.out.println("The userName read from excel is : " + userName);
@@ -67,7 +67,7 @@ public class TC_01_AddEmployee {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//li[contains(text(),'Dashboard')]")), "Dashboard"));
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
 			System.out.println("Screen shot is  taken for Dashboard ");
 
 		} catch (Exception user) {

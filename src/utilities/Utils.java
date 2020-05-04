@@ -25,13 +25,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Utils {
 
-	// CLASS VARIABLE DECLARATION
-
+	
 	/*
 	 * BASIC WEBDRIVER LUNCH STEPS FOR ALL WEBDRIVER
-	 * 
+	 * IT READING PROPERTIES FILE FOR DRIVER PATH AND GETTING BROWSER AS ARGUMENT 
+	 * IT SET DERVER, LUNCH THE URL AND IMPLICITY TIME AND MAXIMISE THE SCREEN
 	 */
-	public static WebDriver OpenBrowser(Properties prop, String browser) throws Exception{
+	public static WebDriver openBrowser(Properties prop, String browser) throws Exception{
 		browser.trim();
 		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
@@ -59,7 +59,7 @@ public class Utils {
 			String path = prop.getProperty("edgePath");
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
-			
+			System.out.println("InternateExplore browser is launched");
 		}else{
 			System.out.println("Invalid Browser "+browser);
 			throw new Exception();
@@ -74,16 +74,17 @@ public class Utils {
 
 	// COMMON METHOD TO GET TIMESTAMP
 
-	public static String TimeStamp(String requiredFormat) {
+	public static String timeStamp(String requiredFormat) {
 		DateFormat df = new SimpleDateFormat(requiredFormat);
 		Date date1 = new Date();
 		String timestamp = df.format(date1);
+		System.out.println("The value of TIMESTAMP is : " + timestamp);
 		return timestamp;
 	}
 
 	// Take Screen shot
 
-	public static void ScreenShot(String filename, WebDriver driver) throws IOException {
+	public static void screenShot(String filename, WebDriver driver) throws IOException {
 		File srcfile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(srcfile, new File(filename));
 	}
@@ -116,17 +117,16 @@ public class Utils {
 	}
 
 	/*
-	 * CREATE A FOLDER IN DESIRE PATHA IT TAKE DIRECTORY PATH AS INPUT
+	 * CREATE A FOLDER IN GIVEN PATH IT TAKE DIRECTORY PATH AS INPUT
 	 */
 
 	public static void createDir(String dirPath) {
 		File file = new File(dirPath);
-		// Creating the directory
 		boolean bool = file.mkdir();
 		if (bool) {
-			System.out.println("Directory created successfully");
+			System.out.println("The Directory created successfully");
 		} else {
-			System.out.println("Sorry couldn’t create specified directory");
+			System.out.println("The specified directory couldn't created");
 		}
 	}
 

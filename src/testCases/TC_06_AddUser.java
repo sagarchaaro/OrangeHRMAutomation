@@ -28,7 +28,7 @@ public class TC_06_AddUser {
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		Properties prop = CommonMethod
-				.PropertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
@@ -45,8 +45,8 @@ public class TC_06_AddUser {
 		// WEBDRIVER AND TIMESTAMP METHOD
 
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.OpenBrowser(prop, iBrowser);
-		String timestamp = Utils.TimeStamp("YYYY-MM-dd-hhmmss");
+		WebDriver driver = Utils.openBrowser(prop, iBrowser);
+		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -54,7 +54,7 @@ public class TC_06_AddUser {
 		// LOGIN TO DASHBOARD
 
 		String title = driver.getTitle();
-		CommonMethod.Validation("OrangeHRM", title, iTestCase);
+		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userNameLogin = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddUserCases);
 		System.out.println("The userName read from excel is : " + userNameLogin);
@@ -71,7 +71,7 @@ public class TC_06_AddUser {
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
 			System.out.println("Screen shot is  taken for Dashboard ");
 
 		} catch (Exception user) {
@@ -164,7 +164,7 @@ public class TC_06_AddUser {
 				System.out.println("The User is not found message displayed");
 			}
 		} catch (Exception user) {
-			Utils.ScreenShot(screenshotPath + "\\OrangeHRMUser.jpg", driver);
+			Utils.screenShot(screenshotPath + "\\OrangeHRMUser.jpg", driver);
 			System.out.println("User detail page is found for the user"+userName);
 		}
 
@@ -180,8 +180,8 @@ public class TC_06_AddUser {
 		driver.findElement(By.id("btnLogin")).submit();
 		System.out.println("Click action is performed  on log in button for new user");
 		String username1_validation = driver.findElement(By.xpath("//span[@id='account-name']")).getText();
-		Utils.ScreenShot(screenshotPath + "\\" + userName + "_Login.jpg", driver);
-		CommonMethod.Validation(employeeName, username1_validation, iTestCase);
+		Utils.screenShot(screenshotPath + "\\" + userName + "_Login.jpg", driver);
+		CommonMethod.validation(employeeName, username1_validation, iTestCase);
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
