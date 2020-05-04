@@ -28,7 +28,7 @@ public class TC_03_AddVacancy {
 		System.out.println("The row no Test Case is : " + iTestCase);
 		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_AddVacancyCases);
 		System.out.println("The row no of test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_Browser, Constant.sheet_TestCases);
+		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
 		// WEBDRIVER AND TIMESTAMP METHOD
