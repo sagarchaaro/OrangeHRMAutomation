@@ -113,10 +113,14 @@ public class CommonMethod {
 	public static void Date_HRM_08(String dateToSelect, WebDriver driver, int calenderNo) {
 		String date[] = dateToSelect.split("/");
 		// Select Year
-		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
-		driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
+		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[" + calenderNo + "]")).click();
+		//driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
+		WebElement element = driver.findElement(By.xpath("//span[text()='" + date[2] + "']"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+
 		// Select Month
-		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
+		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[" + calenderNo + "]")).click();
 		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
 		// Select Date
 		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
@@ -141,21 +145,17 @@ public class CommonMethod {
 	}
 	
 	
-	
-	
-	
-	
-	
 	/*
 	 * THE METHOD "logout" TO LOGOUT FROM THE HOME PAGE WEBDRIVER TAKE AS INPUT
 	 */
-	public static void logoutJaveExecuter(WebDriver driver) {
+	public static void logoutJaveExecuter(WebDriver driver) throws Exception {
 
 		WebElement element = driver.findElement(By.xpath("//*[@id='account-job']/i"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+		Thread.sleep(3000);
 		driver.findElement(By.id("logoutLink")).click();
-		System.out.println("Click action is performed on Logout");
+		System.out.println("Click action is performed on Logout button");
 	}
 
 }
