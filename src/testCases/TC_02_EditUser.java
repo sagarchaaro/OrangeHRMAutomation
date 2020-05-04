@@ -38,7 +38,7 @@ public class TC_02_EditUser {
 		System.out.println("The row no for Test Case is : " + iTestCase);
 		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_EditUserCases);
 		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_Browser, Constant.sheet_TestCases);
+		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
 		// WEBDRIVER AND TIMESTAMP METHOD
@@ -96,34 +96,29 @@ public class TC_02_EditUser {
 		driver.findElement(By.xpath("//span[@class='left-menu-title'][text()='Locations']")).click();
 		System.out.println("Click action is performed on Locations in the Menu bar");
 
-		// List<WebElement>
-		// webelement_location=driver.findElements(By.xpath("//tbody[@ng-if='!listData.staticBody']/tr/td[2]/ng-include/span"));
-		List<WebElement> webelement_location = driver
-				.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[4]/ng-include"));
+		List<WebElement> element_location = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include"));
 		System.out.println("All location are stored in the WebElement");
-		String[] locationArray = Utils.dataIntoArray(webelement_location, 16);
+		String[] locationArray = Utils.dataIntoArray(element_location, 16);
 		System.out.println("All location are stored in the Array");
-		String locationName = Utils.selectWithRandomIndex(16, locationArray);
-		System.out.println("The location is selected by random no is :" + locationName);
-		driver.findElement(By.xpath("//span[text()='" + locationName + "']//ancestor ::tr/td[8]/i")).click();
+		String existingLocationName = Utils.selectWithRandomIndex(16, locationArray);
+		System.out.println("The location is selected by random no is :" + existingLocationName);
+		driver.findElement(By.xpath("//span[text()='" + existingLocationName + "']//ancestor ::tr/td[8]/i")).click();
 		System.out.println(" Click action is performed on Edit button");
 		// Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@class='select-dropdown'])[2]")));
 
-		WebElement webelement_country = driver.findElement(By.xpath("(//input[@class='select-dropdown'])[2]"));
-		String country = webelement_country.getAttribute("value");
-		System.out.println(" Country name is copied " + country);
-		String existingLocation = driver.findElement(By.xpath("//input[@id='name']")).getText();
-		Thread.sleep(2000);
+		WebElement element_country = driver.findElement(By.xpath("(//input[@class='select-dropdown'])[2]"));
+		String country = element_country.getAttribute("value");
 		System.out.println(" The Country name read from webpage is:" + country);
+		Thread.sleep(2000);		
 
 		driver.findElement(By.xpath("//input[@id='name']")).clear();
 		System.out.println("The Country name is cleared in the webpage");
 		String randomAlphabet = RandomStringUtils.randomAlphabetic(6);
-		String locName = country.concat(randomAlphabet);
-		System.out.println("The new location  generated is:"+locName);
-		driver.findElement(By.xpath("//input[@id='name']")).sendKeys(locName);
-		System.out.println("The value "+ locName+" is entered as location in the text-box");
+		String newLocationName = country.concat(randomAlphabet);
+		System.out.println("The new location  generated is:"+newLocationName);
+		driver.findElement(By.xpath("//input[@id='name']")).sendKeys(newLocationName);
+		System.out.println("The value "+ newLocationName+" is entered as location in the text-box");
 		driver.findElement(By.xpath("//input[@id='phone']")).clear();
 		System.out.println("The phone number is cleared in the webpage");
 
@@ -133,33 +128,37 @@ public class TC_02_EditUser {
 		driver.findElement(By.xpath("//input[@id='phone']")).sendKeys("+91 " + randomInt);
 		System.out.println("The value "+ randomInt+" is entered as phone no in the text-box");
 
+		try{
+			WebElement webelement_EeoEnable = driver.findElement(By.xpath("//input[@id='eeo_applicable']"));
+			if (webelement_EeoEnable.isEnabled()) {
+				System.out.println("The EEO is already Enabled ");
 
-		WebElement webelement_EeoEnable = driver.findElement(By.xpath("//input[@id='eeo_applicable']"));
-		if (webelement_EeoEnable.isEnabled()) {
-			System.out.println("The EEO is already Enabled ");
+			} else {
 
-		} else {
-
-			webelement_EeoEnable.click();
-			System.out.println("Click action is performed for EEO is Enabled option");
+				webelement_EeoEnable.click();
+				System.out.println("Click action is performed for EEO is Enabled option");
+			}
+		}catch(Exception e){
+			System.out.println("EEO Enabled option is not available");
 		}
+
 
 		driver.findElement(By.xpath("//a[contains(text(),'Save')]")).click();
 		System.out.println("Click action is performed on Save button");
 
-		Thread.sleep(300);
+		Thread.sleep(3000);
 
 		driver.findElement(By.xpath("//a[@class='tooltipped circle']")).click();
 		System.out.println("Click action is performed on Filter button");
-		driver.findElement(By.xpath("//input[@id='location_name_filter']")).sendKeys(locName);
-		System.out.println("The locaion name entered is:" + locName);
+		driver.findElement(By.xpath("//input[@id='location_name_filter']")).sendKeys(newLocationName);
+		System.out.println("The locaion name entered is:" + newLocationName);
 		driver.findElement(By.xpath("//a[@class='modal-action modal-close waves-effect btn primary-btn']")).click();
 		System.out.println("Click action is performed on Search button");
 		Thread.sleep(5000);
 
-		String validate_locationName = driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span")).getText();
-		System.out.println(" The location name for Validation is : " + validate_locationName);
-		CommonMethod.Validation(validate_locationName, locName, iTestCase);
+		String validate_location = driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span")).getText();
+		System.out.println(" The location name for Validation is : " + validate_location);
+		CommonMethod.Validation(validate_location, newLocationName, iTestCase);
 
 		String validate_PhoneNo = driver
 				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span")).getText();
@@ -172,7 +171,7 @@ public class TC_02_EditUser {
 		 * to check
 		 */
 
-		String employeeName_New = HRM_TestCase_Method.AddEmployee(locName, driver);
+		String employeeName_New = HRM_TestCase_Method.AddEmployee(newLocationName, driver);
 
 		Thread.sleep(10000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Employee List']")));
@@ -189,37 +188,46 @@ public class TC_02_EditUser {
 		System.out.println("Click action is performed on Search button");
 
 		Thread.sleep(3000);
-		String validate_locationName1 = driver
+		String validate_locationName = driver
 				.findElement(By.xpath("(//table[@id='employeeListTable']/tbody/tr/td[8])[1]")).getText();
 
-		System.out.println(" The location name for Validation is : " + validate_locationName1);
+		System.out.println(" The location name for Validation is : " + validate_locationName);
 
-		CommonMethod.Validation(validate_locationName1, locName, iTestCase);
+		CommonMethod.Validation(validate_locationName, newLocationName, iTestCase);
 
 		CommonMethod.logoutJaveExecuter(driver);
 		driver.quit();
-
+		int rowCount=ExcelConfig.getRowUsed(Constant.sheet_AddEmployeeCases);
+		boolean found=false;
+		for(int row=1;row<rowCount;row++){
+			String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
+			if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+				ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, CommonMethod.PathExcel);
+				System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
+				found=true;
+			}
+		}
+		
+		if(!found){
+			System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
+		}
+		
 		// WRITE THE DATA IN THE EXCEL FILE.
-		ExcelConfig.setCellData(existingLocation, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		ExcelConfig.setCellData(locName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		System.out.println("The value "+locName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName
-				+" in the "+Constant.sheet_EditUserCases);
+		ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
+		System.out.println("The value "+newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases);
 
 		ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
 		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
-				+" in the "+Constant.sheet_EditUserCases);
+		System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases);
 
 		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
 
 		
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.PathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
+		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status	+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.PathExcel);
+		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases);
 
 		System.out.println("The file are closed");
 

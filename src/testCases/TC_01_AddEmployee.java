@@ -34,7 +34,7 @@ public class TC_01_AddEmployee {
 		System.out.println("The row no for Test Case is : " + iTestCase);
 		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestData, Constant.col_Browser, Constant.sheet_TestCases);
+		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
 
 		// WEBDRIVER AND TIMESTAMP METHOD
@@ -169,13 +169,6 @@ public class TC_01_AddEmployee {
 		driver.quit();
 		
 		
-		for(int i =1; i<=10;i++){
-			if(ExcelConfig.getCellData(i, Constant.col_ExistingLocationName, CommonMethod.PathExcel).equalsIgnoreCase(location)){
-			break;			
-			}
-			iTestData = i;
-			ExcelConfig.setCellData(location, iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases,CommonMethod.PathExcel);
-			}
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.PathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
