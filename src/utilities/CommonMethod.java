@@ -18,9 +18,9 @@ public class CommonMethod {
 
 	// CLASS VARIABLE DECLARATION
 
-	public static String TestCaseID;
-	public static String PathExcel;
-	public static String Url;
+	public static String testCaseID;
+	public static String pathExcel;
+	public static String url;
 	public static String screenshotPath;
 	public static String projectpath;
 
@@ -34,9 +34,9 @@ public class CommonMethod {
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(propFile);
 		prop.load(fis);
-		TestCaseID = prop.getProperty("TestCaseID");
-		PathExcel = projectpath.concat(prop.getProperty("PathExcel"));
-		Url = prop.getProperty("orangehrmURL");
+		testCaseID = prop.getProperty("TestCaseID");
+		pathExcel = projectpath.concat(prop.getProperty("PathExcel"));
+		url = prop.getProperty("orangehrmURL");
 		screenshotPath = projectpath.concat(prop.getProperty("screenshotPath"));
 		System.out.println("The Properties file is read in the method propertilesRead");
 		return prop;
@@ -71,11 +71,11 @@ public class CommonMethod {
 			System.out.println("The string " + string2 + " is verified with "+string1);
 		} else {
 			System.out.println("The string " + string2 + " is not verified with "+string1);
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, PathExcel);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, pathExcel);
 			System.out.println("Fail is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(string2 + " is not validated with , Test case is failed", iTestCase,
-					Constant.col_Comments, Constant.sheet_TestCases, PathExcel);
+					Constant.col_Comments, Constant.sheet_TestCases, pathExcel);
 			System.out.println(string2 + " is not validated with , Test case is failed is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 					+" in the "+Constant.sheet_TestCases);
 

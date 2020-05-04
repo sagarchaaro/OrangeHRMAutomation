@@ -32,11 +32,11 @@ public class TC_06_AddUser {
 		System.out.println("The Project Path is:"+CommonMethod.projectpath);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
+		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
 				Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
 				Constant.sheet_AddUserCases);
 		System.out.println("The row no for test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
@@ -47,7 +47,7 @@ public class TC_06_AddUser {
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
 		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
+		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 
@@ -77,11 +77,11 @@ public class TC_06_AddUser {
 		} catch (Exception user) {
 			System.out.println("Dashboard is not available, Test case id failed");
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-					CommonMethod.PathExcel);
+					CommonMethod.pathExcel);
 			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
-					Constant.sheet_TestCases, CommonMethod.PathExcel);
+					Constant.sheet_TestCases, CommonMethod.pathExcel);
 			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			throw new Exception();
@@ -122,7 +122,7 @@ public class TC_06_AddUser {
 		driver.findElement(By.xpath("//input[@id='user_name']")).sendKeys(userName);
 		System.out.println("The value "+ userName+" is entered as userName in the text-box");
 		ExcelConfig.setCellData(userName, iTestData, Constant.col_UserID, Constant.sheet_AddUserCases,
-				CommonMethod.PathExcel);
+				CommonMethod.pathExcel);
 		System.out.println("The value "+userName+" is written as userName against to RowNumber "+iTestData +", column Number " +Constant.col_UserID
 				+" in the "+Constant.sheet_AddUserCases);
 		String adminRole = ExcelConfig.getCellData(iTestData, Constant.col_AdminRole, Constant.sheet_AddUserCases);
@@ -190,11 +190,11 @@ public class TC_06_AddUser {
 		System.out.println("Click action is performed on Logoout button for New User");
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.PathExcel);
+				CommonMethod.pathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.PathExcel);
+				Constant.sheet_TestCases, CommonMethod.pathExcel);
 		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 				+" in the "+Constant.sheet_TestCases);
 		System.out.println("The file are closed");

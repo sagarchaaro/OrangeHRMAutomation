@@ -26,15 +26,15 @@ public class TC_05_AplyLeave {
 		Properties prop = CommonMethod
 				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
 
-		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
+		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
+		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
 				Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
 				Constant.sheet_ApplyLeaveCases);
 		System.out.println("The row no for test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
@@ -45,7 +45,7 @@ public class TC_05_AplyLeave {
 		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
 		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
+		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 
@@ -160,11 +160,11 @@ public class TC_05_AplyLeave {
 		driver.findElement(By.id("logoutLink")).click();
 		driver.quit();
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.PathExcel);
+				CommonMethod.pathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.PathExcel);
+				Constant.sheet_TestCases, CommonMethod.pathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases);
 		System.out.println("The file are closed");

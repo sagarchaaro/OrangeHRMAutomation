@@ -27,11 +27,11 @@ public class HRM_TestCase_Method {
 		// enter name
 		
 
-		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		CommonMethod.TestCaseID=CommonMethod.TestCaseID.replace("TC_02", "TC_01");
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID, Constant.sheet_TestCases);
+		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		CommonMethod.testCaseID=CommonMethod.testCaseID.replace("TC_02", "TC_01");
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID, Constant.sheet_AddEmployeeCases);
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for  test Data is : " + iTestData);
 
 		String firstName = ExcelConfig.getCellData(iTestData, Constant.col_firstName, Constant.sheet_AddEmployeeCases);
@@ -90,19 +90,19 @@ public class HRM_TestCase_Method {
 		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//label[text()='Region']/../div/input")));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//label[text()='Region']/../div/input")));
 		//driver.findElement(By.xpath("//label[text()='Region']/../div/input")).click();
-		String region = ExcelConfig.getCellData(iTestData, Constant.Region, Constant.sheet_AddEmployeeCases);
+		String region = ExcelConfig.getCellData(iTestData, Constant.col_Region, Constant.sheet_AddEmployeeCases);
 		System.out.println("The Region read from excel is : " + region);
 		driver.findElement(By.xpath("//span[text()='"+region+"']")).click();
 		System.out.println("The value "+ region+" is selected as Region in the dropdown");
 		
-		String FTE = ExcelConfig.getCellData(iTestData, Constant.FTE, Constant.sheet_AddEmployeeCases);
+		String FTE = ExcelConfig.getCellData(iTestData, Constant.col_FTE, Constant.sheet_AddEmployeeCases);
 		System.out.println("The FTE read from excel is : " + FTE);
 		driver.findElement(By.xpath("//label[text()='FTE']/../div/input")).click();
 		
 		driver.findElement(By.xpath("//span[text()='"+FTE+"']")).click();
 		System.out.println("The value "+ FTE+" is selected as FTE in the dropdown");
 		
-		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.Temp_Department,Constant.sheet_AddEmployeeCases);
+		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.col_Temp_Department,Constant.sheet_AddEmployeeCases);
 		System.out.println("The temp_Department read from excel is : " + temp_Department);
 		driver.findElement(By.xpath("//label[text()='Temporary Department']/../div/input")).click();
 		

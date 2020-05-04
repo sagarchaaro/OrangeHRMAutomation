@@ -66,7 +66,7 @@ public class Utils {
 		}
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.get(CommonMethod.Url);
+		driver.get(CommonMethod.url);
 		driver.manage().window().maximize();
 		return driver;
 	

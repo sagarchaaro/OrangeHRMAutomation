@@ -26,13 +26,13 @@ public class TC_01_AddEmployee {
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Data read from Properties file.");		
 		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
+		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_TestCases);
+		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
@@ -44,7 +44,7 @@ public class TC_01_AddEmployee {
 		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 
 		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
+		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 
 		// LOGIN AND DASHBOARD VALDATION
@@ -74,10 +74,10 @@ public class TC_01_AddEmployee {
 			System.out.println("Dashboard is not available, Test case is failed");
 			System.out.println(user.getMessage());
 			user.printStackTrace();
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
 			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.PathExcel);
+			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
 			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			throw new Exception();
@@ -142,19 +142,19 @@ public class TC_01_AddEmployee {
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[6]")).click();
 
-		String region = ExcelConfig.getCellData(iTestData, Constant.Region, Constant.sheet_AddEmployeeCases);
+		String region = ExcelConfig.getCellData(iTestData, Constant.col_Region, Constant.sheet_AddEmployeeCases);
 		System.out.println("The Region read from excel is : " + region);
 		driver.findElement(By.xpath("//span[text()='" + region + "']")).click();
 		System.out.println("The value "+ region+" is selected as Region in the dropdown");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[7]")).click();
-		String FTE = ExcelConfig.getCellData(iTestData, Constant.FTE, Constant.sheet_AddEmployeeCases);
+		String FTE = ExcelConfig.getCellData(iTestData, Constant.col_FTE, Constant.sheet_AddEmployeeCases);
 		System.out.println("The FTE read from excel is : " + FTE);		
 		driver.findElement(By.xpath("//span[text()='" + FTE + "']")).click();
 		System.out.println("The value "+ FTE+" is selected as FTE in the dropdown");
 
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[8]")).click();
-		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.Temp_Department,
+		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.col_Temp_Department,
 				Constant.sheet_AddEmployeeCases);
 
 		System.out.println("The Temp_Department read from excel is : " + temp_Department);
@@ -170,12 +170,12 @@ public class TC_01_AddEmployee {
 		
 		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.PathExcel);
+				CommonMethod.pathExcel);
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases);
 
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.PathExcel);
+				Constant.sheet_TestCases, CommonMethod.pathExcel);
 		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 				+" in the "+Constant.sheet_TestCases);
 

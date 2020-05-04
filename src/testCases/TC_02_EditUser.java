@@ -30,13 +30,13 @@ public class TC_02_EditUser {
 
 		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 
-		System.out.println("The Testcase id executing is :"+CommonMethod.TestCaseID);
+		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.PathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID, Constant.sheet_TestCases);
+		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.TestCaseID, Constant.col_TestID,Constant.sheet_EditUserCases);
+		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_EditUserCases);
 		System.out.println("The row no for test Data is : " + iTestData);
 		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		System.out.println("The Browser for the excecution is : " + iBrowser);
@@ -46,7 +46,7 @@ public class TC_02_EditUser {
 		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 
 		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.TestCaseID + timestamp;
+		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		// LOGIN AND DASHBOARD VALDATION
@@ -75,11 +75,11 @@ public class TC_02_EditUser {
 		} catch (Exception user) {
 			System.out.println("Dashboard is not available, Test case is failed");
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-					CommonMethod.PathExcel);
+					CommonMethod.pathExcel);
 			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
-					Constant.sheet_TestCases, CommonMethod.PathExcel);
+					Constant.sheet_TestCases, CommonMethod.pathExcel);
 			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 					+" in the "+Constant.sheet_TestCases);
 			throw new Exception();
@@ -202,7 +202,7 @@ public class TC_02_EditUser {
 		for(int row=1;row<rowCount;row++){
 			String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
 			if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
-				ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, CommonMethod.PathExcel);
+				ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, CommonMethod.pathExcel);
 				System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
 				found=true;
 			}
@@ -213,20 +213,20 @@ public class TC_02_EditUser {
 		}
 		
 		// WRITE THE DATA IN THE EXCEL FILE.
-		ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
 		System.out.println("The value "+newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases);
 
-		ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
-		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
 		System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases);
 
 		
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.PathExcel);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
 
 		
 		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status	+" in the "+Constant.sheet_TestCases);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.PathExcel);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
 		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases);
 
 		System.out.println("The file are closed");
