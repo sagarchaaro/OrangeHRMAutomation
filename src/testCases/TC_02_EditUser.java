@@ -212,6 +212,21 @@ public class TC_02_EditUser {
 			System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
 		}
 		
+		
+		int rowCount_TC_03=ExcelConfig.getRowUsed(Constant.sheet_AddVacancyCases);
+		boolean found_03=false;
+		for(int row=1;row<rowCount_TC_03;row++){
+			String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases);
+			if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+				ExcelConfig.setCellData(newLocationName, row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases, CommonMethod.pathExcel);
+				System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
+				found_03=true;
+			}
+		}
+		
+		if(!found_03){
+			System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
+		}
 		// WRITE THE DATA IN THE EXCEL FILE.
 		ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
 		ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);

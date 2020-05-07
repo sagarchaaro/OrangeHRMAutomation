@@ -162,8 +162,9 @@ public class TC_08_TravelRequest {
 		String currency_Name = Utils.selectWithRandomIndex(160, cur_Name);
 		System.out.println("The CurrencyName is selected by random no is :" + currency_Name);
 		//driver.findElement(By.xpath("//form[@id='estimateAddForEmployee']/child::div/div/div/div/input")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//form[@id='estimateAddForEmployee']/child::div/div/div/div/ul/li/span[text()='"+ currency_Name + "']")).click();
+		Thread.sleep(3000);
+		//driver.findElement(By.xpath("//form[@id='estimateAddForEmployee']/child::div/div/div/div/ul/li/span[text()='"+ currency_Name + "']")).click();
+		driver.findElement(By.xpath("//span[text()='"+ currency_Name + "']")).click();
 		System.out.println("Click action is performed on Currency option");
 
 		driver.findElement(By.xpath("//a[text()='Next']")).click();
@@ -187,10 +188,10 @@ public class TC_08_TravelRequest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_FromDate);
 		
 		System.out.println("Click action is performed on calender for FromDate");
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		CommonMethod.date_HRM_08(fromDate, driver, 1);
 		
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		String toDate = ExcelConfig.getCellData(iTestData, Constant.col_To_Date, Constant.sheet_TravelRequestCases);
 		System.out.println("The ToDate read from excel is : " + toDate);
 		Thread.sleep(3000);
@@ -200,8 +201,44 @@ public class TC_08_TravelRequest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_ToDate);
 
 		System.out.println("Click action is performed on calender for ToDate");
-		Thread.sleep(10000);
-		CommonMethod.date_HRM_08(toDate, driver, 2);
+		Thread.sleep(5000);
+		String date[] = toDate.split("/");
+		// Select Year
+		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//span[text()='"+date[2]+"'])[2]")).click();
+		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_year);
+		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_year);
+		System.out.println("The Year selected from calender is:" + date[2]);
+		// Select Month
+		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//span[text()='" + date[0] + "'])[2]")).click();
+		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_month);
+		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_month);
+		System.out.println("The Month selected from calender is:" + date[0]);
+		// Select Date
+		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr")).size();
+		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr[1]/td")).size();
+		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
+		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
+			System.out.println("entered row for loop");
+		for (int colsNo = 1; colsNo <= cols; colsNo++) {
+			System.out.println("entered column for loop");
+				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div)[3]")).getText();
+				System.out.println(calDate);
+				if (calDate.equalsIgnoreCase(date[1])) {
+					System.out.println("entered if loop");
+					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[3]")).click();
+					System.out.println("The Date is selected from calender is:" + toDate);
+					break rows;
+				}
+
+			}
+		}
+
+
+		//CommonMethod.date_HRM_08(toDate, driver, 2);
 
 		String dest_Address = RandomStringUtils.randomAlphabetic(6);
 		System.out.println("The Dest_Address is selected by random Util is :" + dest_Address);
@@ -213,57 +250,59 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("(//button[text()='Add'])[2]")).click();
 		System.out.println("Click action is performed on Add");
 
-		driver.findElement(By.xpath("//input[@class='select-dropdown']")).click();
+		driver.findElement(By.xpath("//form[@id='selectionForm']/div/div/div/input")).click();
 		String expense_Type = ExcelConfig.getCellData(iTestData, Constant.col_Expense_Type,
 				Constant.sheet_TravelRequestCases);
 		System.out.println("The Expense_Type read from excel is : " + expense_Type);
-		driver.findElement(By.xpath("(//input[@class='select-dropdown']/../ul/li/span)[text()='" + expense_Type + "']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='"+expense_Type+"']")).click();
+		
 		
 		System.out.println("The value "+ expense_Type+" is selected as Expense_Type in the dropdown");
-
-		driver.findElement(By.xpath("//input[@class='select-dropdown valid']")).click();
-		Robot r = new Robot();
-		r.keyPress(KeyEvent.VK_DOWN);
-		r.keyRelease(KeyEvent.VK_DOWN);
-
 		Thread.sleep(2000);
-		r.keyPress(KeyEvent.VK_ENTER);
-		r.keyRelease(KeyEvent.VK_ENTER);
-
+		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[2]")).click();
+		System.out.println("Currency paid in is clicked");
+		driver.findElement(By.xpath("//span[text()='"+currency_Name+"']")).click();
+		/*
+		 * Robot r = new Robot(); r.keyPress(KeyEvent.VK_DOWN);
+		 * r.keyRelease(KeyEvent.VK_DOWN);
+		 * 
+		 * Thread.sleep(2000); r.keyPress(KeyEvent.VK_ENTER);
+		 * r.keyRelease(KeyEvent.VK_ENTER);
+		 */
+		System.out.println("Selected currency");
+		
 		String amount = RandomStringUtils.randomNumeric(6);
 		System.out.println("The amount is selected by random Util is :" + amount);
 		driver.findElement(By.xpath("//input[@name='estimation[amount]']")).sendKeys(amount);
 		System.out.println("The value "+ amount+" is entered as Amount in the text-box");
-
-		driver.findElement(By.xpath("(//input[@class='select-dropdown valid'])[2]")).click();
+		driver.findElement(By.xpath("//select[@id='estimation_paid_by_id']/../input")).click();
 		String paid_By = ExcelConfig.getCellData(iTestData, Constant.col_Paid_By, Constant.sheet_TravelRequestCases);
 		System.out.println("The paid_By read from excel is : " + paid_By);
 		driver.findElement(
-				By.xpath("((//input[@class='select-dropdown valid'])[2]/../ul/li/span)[text()='" + paid_By + "']"))
+				By.xpath("//span[text()='" + paid_By + "']"))
 				.click();
 		System.out.println("The value "+ paid_By+" is selected as paid_By in the dropdown");
-
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//a[text()='Save'])[2]")).click();
 		System.out.println("Click action is performed on Save button");
 
-		Utils.screenShot(CommonMethod.screenshotPath, driver);
+		Utils.screenShot(screenshotPath + "\\TravelRequest.jpg", driver);
 		System.out.println("Screen shot is taken for Employee List ");
 
 		driver.findElement(By.xpath("//a[text()='Submit']")).click();
 		System.out.println("Click action is performed on Submit button");
-
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='OK']")).click();
 		System.out.println("Click action is performed on OK button");
 
 		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
 		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
 
-		String requestID = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td a"))
-				.getText();
-
-		String requestStatus = driver
-				.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)")).getText();
-
+		String requestID = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td a")).getText();
+		System.out.println("Request ID is "+requestID);
+		String requestStatus = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)")).getText();
+		System.out.println("Request status is "+requestStatus);
 		Utils.screenShot(screenshotPath + "\\RequestID.jpg", driver);
 		System.out.println("Screen shot is taken for Travel Request Id ");
 
@@ -286,29 +325,29 @@ public class TC_08_TravelRequest {
 
 		driver.findElement(By.xpath("//a[@id='menu_expense_viewEmployeeEstimateRequest']/span[2]")).click();
 		System.out.println("Click action is performed on Employee Travel Requests in the Menu bar");
-
+		Thread.sleep(5000);
+		driver.switchTo().frame(0);
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
 		System.out.println("Click action is performed on Search button");
-
-		driver.findElement(By.xpath("//input[@class='select-dropdown valid']")).click();
-		driver.findElement(
-				By.xpath("//input[@class='select-dropdown valid']/../ul/li/span[text()='" + requestStatus + "']"))
-				.click();
-		System.out.println("The value "+ requestStatus+" is selected as RequestStatus in the dropdown");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//form[@id='estimateSearchForEmployee']/div/div/div/div/input")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Pending Supervisor Approval']")).click();
+		System.out.println("The value Pending Supervisor Approval is selected as RequestStatus in the dropdown");
 
 		driver.findElement(By.xpath("//a[text()='Search']")).click();
 		System.out.println("Click action is performed on Search button");
 
-		driver.findElement(
-				By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/a[text()='" + requestID + "']")).click();
-		System.out.println("Clicked on Request ID link");
-
+		//driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/a[text()='" + requestID + "']")).click();
+		//System.out.println("Clicked on Request ID link");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[text()='"+requestID+"']")).click();
 		driver.findElement(By.xpath("//a[text()='Approve']")).click();
 		System.out.println("Click action is performed  on Approve button");
 
 		driver.findElement(By.xpath("//a[text()='OK']")).click();
 		System.out.println("Click action is performed on OK button");
-
+		Thread.sleep(1000);
 		CommonMethod.logoutJaveExecuter(driver);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(employee_Name);
@@ -333,10 +372,16 @@ public class TC_08_TravelRequest {
 		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
 
 		Utils.screenShot(screenshotPath + "\\TravelRequest.jpg", driver);
-		System.out.println("Screen shot is taken for Aproved Travel Request ");
-
-		CommonMethod.logoutJaveExecuter(driver);
-
+		System.out.println("Screen shot is taken for Approved Travel Request ");
+		Thread.sleep(2000);
+		//CommonMethod.logoutJaveExecuter(driver);
+		WebElement element_Logout = driver.findElement(By.xpath("//*[@id='account-job']/i"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_Logout);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_Logout);
+		Thread.sleep(3000);
+		driver.findElement(By.id("logoutLink")).click();
+		System.out.println("Click action is performed on Logout button");
+		
 		driver.quit();
 
 		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,
