@@ -7,6 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
 import utilities.Utils;
@@ -14,91 +19,105 @@ import utilities.Constant;
 import utilities.ExcelConfig;
 
 public class TC_04_EditEmployee {
-	public static void main(String[] args) throws InterruptedException, Exception {
+	//CLASS VARIABLE DECLARATION
+	public static String timestamp, screenshotPath, iBrowser;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
 
-		System.out.println("The Execution started for TC_04_EditEmployee");
-
-		// LOAD AND READ THE PROPERTIES FILE
-
+	@BeforeClass
+	public void execute_Prerequisites(){
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+	
+	}
+	
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
+		
+		// LOAD AND READ THE PROPERTIES FILE
+		
 		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
-				Constant.sheet_TestCases);
-		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
-				Constant.sheet_EditEmployeeCases);
-		System.out.println("The row no for of test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+						Constant.sheet_TestCases);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+						Constant.sheet_EditEmployeeCases);
+		Reporter.log("The row no for of test Data is : " + iTestData,true);
+		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
-		// WEBDRIVER AND TIMESTAMP METHOD
+		// WEBDRIVER AND TIMESTAMP METHOD				
+		driver = Utils.openBrowser(prop, iBrowser);		
+				
+	}
 
-		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
 
+	@Test
+	public  void editEmployee() throws InterruptedException, Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 30);		
+		Reporter.log("The Execution started for TC_04_EditEmployee",true);					
 		// LOGIN TO THE DASHBOARD
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_EditEmployeeCases);
-		System.out.println("The userName read from excel is : " + userName);
+		Reporter.log("The userName read from excel is : " + userName,true);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_EditEmployeeCases);
-		System.out.println("The password read from excel is : " + password);
-
+		Reporter.log("The password read from excel is : " + password,true);
+		
 		// user name
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 		// Password
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as Password in the text-box");
+		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
 		// Login Click
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed on Login button");
+		Reporter.log("Click action is performed on Login button",true);
 
 		// CLICK ON THE LIST OF EMPLOYEE AND EDIT THE 1ST RECORD
 
 		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-		System.out.println("Click action is performed on PLM in the Menu bar");
+		Reporter.log("Click action is performed on PLM in the Menu bar",true);
 		wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//span[@class='left-menu-title'][text()='Employee List']")));
 		// click on list of employee
 		driver.findElement(By.xpath("//span[@class='left-menu-title'][text()='Employee List']")).click();
-		System.out.println("Click action is performed on Employee list in the Menu bar");
+		Reporter.log("Click action is performed on Employee list in the Menu bar",true);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class='nowrap cursor-pointer']")));
 		// Search employee
 		driver.findElement(By.xpath("//td[@class='nowrap cursor-pointer']")).click();
-		System.out.println("Click action is performed on first Link of Employee list");
+		Reporter.log("Click action is performed on first Link of Employee list",true);
 		String employeeName=driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr[1]/td[3]")).getText();
-		System.out.println("Edit employee activity is performed  for the employee :"+employeeName);
+		Reporter.log("Edit employee activity is performed  for the employee :"+employeeName,true);
 		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EditEmployeeName, Constant.sheet_EditEmployeeCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+employeeName+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeName
-				+" in the "+Constant.sheet_EditEmployeeCases);
+		Reporter.log("The value "+employeeName+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeName
+				+" in the "+Constant.sheet_EditEmployeeCases,true);
 		
 		String employeeID=driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr[1]/td[2]")).getText();
-		System.out.println("Edit employee activity is performed  for the employee ID :"+employeeID);
+		Reporter.log("Edit employee activity is performed  for the employee ID :"+employeeID,true);
 		ExcelConfig.setCellData(employeeID, iTestData, Constant.col_EditEmployeeID, Constant.sheet_EditEmployeeCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+employeeID+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeID
-				+" in the "+Constant.sheet_EditEmployeeCases);
+		Reporter.log("The value "+employeeID+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeID
+				+" in the "+Constant.sheet_EditEmployeeCases,true);
 		
 		// PERSONAL DETAIL TO UPDATE
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
 		String lastName = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_EditEmployeeCases);
-		System.out.println("The lastName read from excel is : " + lastName);
+		Reporter.log("The lastName read from excel is : " + lastName,true);
 		driver.findElement(By.id("lastName")).clear();
 		driver.findElement(By.id("lastName")).sendKeys(lastName);
-		System.out.println("The value "+ lastName+" is entered as lastName in the text-box");
+		Reporter.log("The value "+ lastName+" is entered as lastName in the text-box",true);
 		driver.findElement(By.xpath("(//i[@class='material-icons action-icon date-picker-open-icon'])[1]")).click();
-		System.out.println("Click action is performed on calender for DOB");
+		Reporter.log("Click action is performed on calender for DOB",true);
 		String dateOfBirthFomat1 = ExcelConfig.getCellData(iTestData, Constant.col_DateOfBirth,
 				Constant.sheet_EditEmployeeCases);
 		CommonMethod.date_HRM(dateOfBirthFomat1, driver, 1);
@@ -107,25 +126,25 @@ public class TC_04_EditEmployee {
 		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,
 				Constant.sheet_EditEmployeeCases);
 		driver.findElement(By.xpath("//span[text()='" + nationalty + "']")).click();
-		System.out.println("The value "+ nationalty+" is selected as nationalty from dropdown");
+		Reporter.log("The value "+ nationalty+" is selected as nationalty from dropdown",true);
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[1]")).click();
-		System.out.println("Click action is performed on save button for the Personal detail update");
+		Reporter.log("Click action is performed on save button for the Personal detail update",true);
 		try {
 			WebElement webelement_EEO = driver.findElement(By.xpath("//label[text()='EEO Race and Ethnicity']/..//child::input"));
 			webelement_EEO.click();
 			driver.findElement(By.xpath("//span[text()='Asian']")).click();
-			System.out.println("Click action is performed on EEO option ");
+			Reporter.log("Click action is performed on EEO option ",true);
 		} catch (Exception user) {
-			System.out.println("EEO Race and Ethnicity is not required");
+			Reporter.log("EEO Race and Ethnicity is not required",true);
 		}
 
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified for Personal detail update");
+				Reporter.log("Successfully dispaly message is verified for Personal detail update",true);
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified for Personal detail update");
+			Reporter.log("Successfully dispaly message is not verified for Personal detail update",true);
 		}
 
 		// IMPORTANT DETAIL TO UPDATE
@@ -135,16 +154,16 @@ public class TC_04_EditEmployee {
 		// String bloodGroup=sh.getRow(i).getCell(6).getStringCellValue();
 		driver.findElement(By.xpath("//label[text()='Blood Group']//parent::div//child::input")).click();
 		driver.findElement(By.xpath("//span[text()='" + bloodGroup + "']")).click();
-		System.out.println("Change the Blood Group");
+		Reporter.log("The value "+ bloodGroup+" is selected as bloodGroup from dropdown",true);
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[2]")).click();
-		System.out.println("Click action is performed on save button for the important detail update");
+		Reporter.log("Click action is performed on save button for the important detail update",true);
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified for important detail update");
+				Reporter.log("Successfully dispaly message is verified for important detail update",true);
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified for important detail update");
+			Reporter.log("Successfully dispaly message is not verified for important detail update",true);
 		}
 
 		// PREFERENCES DETAIL TO UPDATE
@@ -152,42 +171,47 @@ public class TC_04_EditEmployee {
 		String hubby1 = ExcelConfig.getCellData(iTestData, Constant.col_HubbyFirst, Constant.sheet_EditEmployeeCases);
 		WebElement Hubby_First = driver.findElement(By.xpath("//label[@for='" + hubby1 + "']"));
 		if (Hubby_First.isSelected()) {
-			System.out.println("Hubby is already selected as" + hubby1);
+			Reporter.log("Hubby is already selected as" + hubby1,true);
 		} else {
 			Hubby_First.click();
-			System.out.println("Hubby is selected as " + hubby1);
+			Reporter.log("Hubby is selected as " + hubby1,true);
 		}
 		String hubby2 = ExcelConfig.getCellData(iTestData, Constant.col_HubbySecond, Constant.sheet_EditEmployeeCases);
 		WebElement Hubby_Second = driver.findElement(By.xpath("//label[@for='" + hubby2 + "']"));
 		if (Hubby_Second.isSelected()) {
-			System.out.println("Hubby is already selected as " + hubby2);
+			Reporter.log("Hubby is already selected as " + hubby2,true);
 		} else {
 			Hubby_Second.click();
-			System.out.println("Hubby is selected as " + hubby2);
+			Reporter.log("Hubby is selected as " + hubby2,true);
 		}
 		driver.findElement(By.xpath("(//button[@class=' btn waves-effect waves-green '])[3]")).submit();
-		System.out.println("Enter the save for the Preferences Detail update");
+		Reporter.log("Enter the save for the Preferences Detail update",true);
 		try {
 			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
-				System.out.println("Successfully dispaly message is verified for Preferences detail update");
+				Reporter.log("Successfully dispaly message is verified for Preferences detail update",true);
 
 			}
 		} catch (Exception user) {
-			System.out.println("Successfully dispaly message is not verified for Preferences detail update");
+			Reporter.log("Successfully dispaly message is not verified for Preferences detail update",true);
 		}
 
 		CommonMethod.logoutJaveExecuter(driver);
+	}
+		
+	@AfterMethod
+	public void afterMethod() throws Exception{
+
 		driver.quit();		
 		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+				+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
 				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 				+" in the "+Constant.sheet_TestCases);
-		System.out.println("The file are closed");
+		Reporter.log("The file are closed",true);
 	}
 
 }

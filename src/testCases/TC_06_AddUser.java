@@ -12,7 +12,11 @@ import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
 import utilities.Utils;
@@ -20,36 +24,51 @@ import utilities.Constant;
 import utilities.ExcelConfig;
 
 public class TC_06_AddUser {
-	public static void main(String[] args) throws Exception {
-		
-		System.out.println("The Execution started for TC_06_AddUser");
-		// LOAD AND READ THE PROPERTIES FILE
+	//CLASS VARIABLE DECLARATION
+	public static String timestamp, screenshotPath, iBrowser;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
 
+	@BeforeClass
+	public void execute_Prerequisites(){
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
-		Properties prop = CommonMethod
-				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+			
+	}
+			
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
+				
+		// LOAD AND READ THE PROPERTIES FILE
+				
+		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
+
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
-				Constant.sheet_TestCases);
-		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
-				Constant.sheet_AddUserCases);
-		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+								Constant.sheet_TestCases);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+								Constant.sheet_AddUserCases);
+		Reporter.log("The row no for of test Data is : " + iTestData,true);
+		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
-		// WEBDRIVER AND TIMESTAMP METHOD
+		// WEBDRIVER AND TIMESTAMP METHOD				
+		driver = Utils.openBrowser(prop, iBrowser);				
+	}
 
-		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+
+	 @Test
+	 public  void addUser() throws InterruptedException, Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 30);	
+		Reporter.log("The Execution started for TC_06_AddUser",true);
 
 		// LOGIN TO DASHBOARD
 
@@ -57,147 +76,151 @@ public class TC_06_AddUser {
 		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userNameLogin = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddUserCases);
-		System.out.println("The userName read from excel is : " + userNameLogin);
+		Reporter.log("The userName read from excel is : " + userNameLogin,true);
 		String passwordLogin = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_AddUserCases);
-		System.out.println("The userName read from excel is : " + passwordLogin);
+		Reporter.log("The userName read from excel is : " + passwordLogin,true);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userNameLogin);
-		System.out.println("The value "+userNameLogin+" is entered as userName in the text-box");
+		Reporter.log("The value "+userNameLogin+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("txtPassword")).sendKeys(passwordLogin);
-		System.out.println("The value "+passwordLogin+" is entered as userName in the text-box");
+		Reporter.log("The value "+passwordLogin+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed on Login button");
+		Reporter.log("Click action is performed on Login button",true);
 
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
-			System.out.println("Screen shot is  taken for Dashboard ");
+			Reporter.log("Screen shot is  taken for Dashboard ");
 
 		} catch (Exception user) {
-			System.out.println("Dashboard is not available, Test case id failed");
+			Reporter.log("Dashboard is not available, Test case id failed",true);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 					CommonMethod.pathExcel);
-			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+					+" in the "+Constant.sheet_TestCases,true);
 			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
 					Constant.sheet_TestCases, CommonMethod.pathExcel);
-			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+					+" in the "+Constant.sheet_TestCases,true);
 			throw new Exception();
 		}
 
 		// CLICK FOR USER AMENDMENT
 
 		driver.findElement(By.xpath("//span[text()='Admin']")).click();
-		System.out.println("Click action is performed on Admin in the Menu bar");
+		Reporter.log("Click action is performed on Admin in the Menu bar",true);
 		driver.findElement(By.xpath("//span[text()='User Management']")).click();
-		System.out.println("Click action is performed on User Management in the Menu bar");
+		Reporter.log("Click action is performed on User Management in the Menu bar",true);
 		driver.findElement(By.xpath("//span[text()='Users']")).click();
-		System.out.println("Click action is performed on Users in the Menu bar");
+		Reporter.log("Click action is performed on Users in the Menu bar",true);
 
 		// STORING ALL THE EMPLOYEE NAME IN THE PAGE
 
 		int totalElementNo = driver.findElements(By.xpath("//tbody[@ng-if='!listData.staticBody']/tr/td[4]/ng-include/span")).size();
-		System.out.println("The total no of employee in the page is: " + totalElementNo);
+		Reporter.log("The total no of employee in the page is: " + totalElementNo,true);
 		List<WebElement> webelement_empName = driver
 				.findElements(By.xpath("//tbody[@ng-if='!listData.staticBody']/tr/td[4]/ng-include/span"));
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
 		String employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		System.out.println("The employeeName selected by random no is:" + employeeName);
+		Reporter.log("The employeeName selected by random no is:" + employeeName,true);
 		String empNameSearch[] = employeeName.split(" ");
 
 		driver.findElement(By.xpath("//i[text()='add']")).click();
-		System.out.println("Click action is performed on add button");
+		Reporter.log("Click action is performed on add button",true);
 
 		WebElement webelement1 = driver.findElement(By.xpath("//input[@id='selectedEmployee_value']"));
 		webelement1.sendKeys(empNameSearch[0]);
 		Thread.sleep(3000);
 		webelement1.sendKeys(Keys.DOWN);
 		webelement1.sendKeys(Keys.ENTER);
-		System.out.println("The Employee name entered for search is: " + empNameSearch[0]);
+		Reporter.log("The Employee name entered for search is: " + empNameSearch[0]);
 
 		String randomAlphabet = RandomStringUtils.randomAlphabetic(4);
 		String userName = empNameSearch[0].concat(randomAlphabet);
 		driver.findElement(By.xpath("//input[@id='user_name']")).sendKeys(userName);
-		System.out.println("The value "+ userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+ userName+" is entered as userName in the text-box",true);
 		ExcelConfig.setCellData(userName, iTestData, Constant.col_UserID, Constant.sheet_AddUserCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+userName+" is written as userName against to RowNumber "+iTestData +", column Number " +Constant.col_UserID
-				+" in the "+Constant.sheet_AddUserCases);
+		Reporter.log("The value "+userName+" is written as userName against to RowNumber "+iTestData +", column Number " +Constant.col_UserID
+				+" in the "+Constant.sheet_AddUserCases,true);
 		String adminRole = ExcelConfig.getCellData(iTestData, Constant.col_AdminRole, Constant.sheet_AddUserCases);
-		System.out.println("The adminRole read from excel is : " + adminRole);
+		Reporter.log("The adminRole read from excel is : " + adminRole,true);
 
 		driver.findElement(By.xpath("//div[@id='adminrole_inputfileddiv']/div/input")).click();
 		driver.findElement(By.xpath("//span[text()='" + adminRole + "']")).click();
-		System.out.println("The value "+ adminRole+" is entered as adminRole in the drop down");
+		Reporter.log("The value "+ adminRole+" is entered as adminRole in the drop down",true);
 		driver.findElement(By.xpath("//div[@id='status_inputfileddiv']/div/input")).click();
 		driver.findElement(By.xpath("//div[@id='status_inputfileddiv']/div/ul/li/span[text()='Enabled']")).click();
-		System.out.println("Admin Role is Enabled ");
+		Reporter.log("Admin Role is Enabled ",true);
 		String password1 = ExcelConfig.getCellData(iTestData, Constant.col_UserPassword, Constant.sheet_AddUserCases);
-		System.out.println("The password read from excel is : " + password1);
+		Reporter.log("The password read from excel is : " + password1,true);
 
 		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password1);
-		System.out.println("The value "+ password1+" is entered as password in the text-box");
+		Reporter.log("The value "+ password1+" is entered as password in the text-box",true);
 		driver.findElement(By.xpath("//input[@id='confirmpassword']")).sendKeys(password1);
-		System.out.println("The value "+ password1+" is entered as Confirm password in the text-box");
+		Reporter.log("The value "+ password1+" is entered as Confirm password in the text-box",true);
 		driver.findElement(By.xpath("//a[@id='systemUserSaveBtn']")).click();
-		System.out.println("Click action is performed on Save button");
+		Reporter.log("Click action is performed on Save button",true);
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions
 				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='modal-footer']/a[text()='Save']")));
 
 
 		driver.findElement(By.xpath("//div[@class='modal-footer']/a[text()='Save']")).click();
-		System.out.println("Click action is performed on Save button is for region");
+		Reporter.log("Click action is performed on Save button is for region",true);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[text()='ohrm_filter']")));
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
-		System.out.println("Click action is performed on Filter");
+		Reporter.log("Click action is performed on Filter",true);
 		driver.findElement(By.xpath("//input[@id='systemuser_uname_filter']")).sendKeys(userName);
-		System.out.println("The value "+ userName+" is entered as userName in the Search text-box");
+		Reporter.log("The value "+ userName+" is entered as userName in the Search text-box",true);
 		driver.findElement(By.xpath("//a[text()='Search']")).click();
-		System.out.println("Click action is performed on serched button");
+		Reporter.log("Click action is performed on serched button",true);
 
 		try {
 			WebElement userfoundmsg = driver.findElement(By.xpath("//div[text()='No Records Found']"));
 			if (userfoundmsg.isDisplayed()) {
-				System.out.println("The User is not found message displayed");
+				Reporter.log("The User is not found message displayed",true);
 			}
 		} catch (Exception user) {
 			Utils.screenShot(screenshotPath + "\\OrangeHRMUser.jpg", driver);
-			System.out.println("User detail page is found for the user"+userName);
+			Reporter.log("User detail page is found for the user"+userName,true);
 		}
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
 		
-		System.out.println("The login will be done and validated for new user");
+		Reporter.log("The login will be done and validated for new user",true);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("txtPassword")).sendKeys(password1);
-		System.out.println("The value "+password1+" is entered as password in the text-box");
+		Reporter.log("The value "+password1+" is entered as password in the text-box",true);
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed  on log in button for new user");
+		Reporter.log("Click action is performed  on log in button for new user",true);
 		String username1_validation = driver.findElement(By.xpath("//span[@id='account-name']")).getText();
 		Utils.screenShot(screenshotPath + "\\" + userName + "_Login.jpg", driver);
 		CommonMethod.validation(employeeName, username1_validation, iTestCase);
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
+	 }
+	@AfterMethod
+	public void afterMethod() throws Exception{
+
 		driver.quit();
 
-		System.out.println("Click action is performed on Logoout button for New User");
+		Reporter.log("Click action is performed on Logoout button for New User",true);
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+				+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
 				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
-		System.out.println("The file are closed");
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+				+" in the "+Constant.sheet_TestCases,true);
+		Reporter.log("The file are closed",true);
 
 	}
 

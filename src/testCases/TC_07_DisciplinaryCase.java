@@ -10,6 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
 import utilities.Utils;
@@ -18,64 +23,83 @@ import utilities.ExcelConfig;
 
 public class TC_07_DisciplinaryCase {
 
-	// CLASS VARIABLE DECLARATION
+	//CLASS VARIABLE DECLARATION
+	public static String timestamp, screenshotPath, iBrowser;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
 
-	public static void main(String[] args) throws Exception {
-        
-		System.out.println("The Execution started for TC_07_DisciplinaryCase");
-		// LOAD AND READ THE PROPERTIES FILE
+	@BeforeClass
+	public void execute_Prerequisites(){
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+	
+	}
+	
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
+		
+		// LOAD AND READ THE PROPERTIES FILE
+		
 		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
+
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
-		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_DeciplinaryCases);
-		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+						Constant.sheet_TestCases);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+						Constant.sheet_DeciplinaryCases);
+		Reporter.log("The row no for of test Data is : " + iTestData,true);
+		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
-		// WEBDRIVER AND TIMESTAMP METHOD
-		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
+		// WEBDRIVER AND TIMESTAMP METHOD				
+		driver = Utils.openBrowser(prop, iBrowser);		
+				
+	}
 
+
+	@Test
+	public  void disciplinaryCase() throws InterruptedException, Exception {
+		Reporter.log("The Execution started for TC_07_DisciplinaryCse",true);
+				
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
 		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_DeciplinaryCases);
-		System.out.println("The userName read from excel is : " + userName);
+		Reporter.log("The userName read from excel is : " + userName,true);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_DeciplinaryCases);
-		System.out.println("The password read from excel is : " + password);
+		Reporter.log("The password read from excel is : " + password,true);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as Password in the text-box");
+		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed on Login button");
+		Reporter.log("Click action is performed on Login button",true);
 
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin.jpg", driver);
-			System.out.println("Screen shot is  taken for Dashboard ");
+			Reporter.log("Screen shot is  taken for Dashboard ");
 			
 		} catch (Exception user) {
-			System.out.println("Dashboard is not available, Test case is failed");
+			Reporter.log("Dashboard is not available, Test case is failed",true);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
-			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+					+" in the "+Constant.sheet_TestCases,true);
 			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
-			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+					+" in the "+Constant.sheet_TestCases,true);
 
 			throw new Exception();
 		}
@@ -84,85 +108,85 @@ public class TC_07_DisciplinaryCase {
 		// SELECT EMP NAME AND OWNER NAME
 
 		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-		System.out.println("Click action is performed on PLM in the Menu bar");
+		Reporter.log("Click action is performed on PLM in the Menu bar",true);
 		driver.findElement(By.xpath("//span[text()='Employee List']")).click();
-		System.out.println("Click action is performed on Employee list in the Menu bar");
+		Reporter.log("Click action is performed on Employee list in the Menu bar",true);
 		int totalElementNo = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]")).size();
-		System.out.println("The total no of employee in the page is: " + totalElementNo);
+		Reporter.log("The total no of employee in the page is: " + totalElementNo,true);
 		List<WebElement> webelement_empName = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]"));
-		System.out.println("All employeeName are stored in the WebElement");
+		Reporter.log("All employeeName are stored in the WebElement",true);
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
-		System.out.println("All employeeName are stored in the Array");
+		Reporter.log("All employeeName are stored in the Array",true);
 		String employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		System.out.println("The employeeName selected by random no is:" + employeeName);
+		Reporter.log("The employeeName selected by random no is:" + employeeName,true);
 		String ownerName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		System.out.println("The ownerName selected by random no is:" + ownerName);
+		Reporter.log("The ownerName selected by random no is:" + ownerName,true);
 		Utils.screenShot(screenshotPath + "\\EmployeeList.jpg", driver);
-		System.out.println("Screen shot is  taken for Employee List ");
+		Reporter.log("Screen shot is  taken for Employee List ",true);
 
 		// THE BLOCK IS TO CREATE DECIPLINARY RECORD
 
 		driver.findElement(By.xpath("//span[text()='Discipline']")).click();
-		System.out.println("Click action is performed on Discipline in the Menu bar");
+		Reporter.log("Click action is performed on Discipline in the Menu bar",true);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Disciplinary Cases']")));
 		driver.findElement(By.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']")).click();
 		// span[contains(text(),'Disciplinary Cases')]
-		System.out.println("Click action is performed on Disciplinary Cases in the Menu bar");
+		Reporter.log("Click action is performed on Disciplinary Cases in the Menu bar",true);
 		driver.switchTo().frame(0);
-		System.out.println("Switched the Frame");
+		Reporter.log("Switched the Frame",true);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[text()='add']")));
 		driver.findElement(By.xpath("//i[text()='add']")).click();
-		System.out.println("Click action is performed on Add button");
+		Reporter.log("Click action is performed on Add button",true);
 		WebElement webelement_empname = driver.findElement(By.xpath("//input[@id='addCase_employeeName_empName']"));
 		webelement_empname.sendKeys(employeeName);
 		webelement_empname.sendKeys(Keys.DOWN);
 		webelement_empname.sendKeys(Keys.ENTER);
-		System.out.println("The value "+employeeName+" is entered as employeeName in the text-box");
+		Reporter.log("The value "+employeeName+" is entered as employeeName in the text-box",true);
 		String caseNo = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_DeciplinaryCases);
-		System.out.println("The caseNo read from excel is:" + caseNo);
+		Reporter.log("The caseNo read from excel is:" + caseNo,true);
 		// String caseNo=sht.getRow(R1).getCell(4).getStringCellValue();
 		driver.findElement(By.xpath("//input[@id='addCase_caseName']")).sendKeys(caseNo);
-		System.out.println("The value "+ caseNo+" is entered as caseName in the text-box");
+		Reporter.log("The value "+ caseNo+" is entered as caseName in the text-box",true);
 		String description = ExcelConfig.getCellData(iTestData, Constant.col_Desciption,Constant.sheet_DeciplinaryCases);
-		System.out.println("The description read from excel is:" + description);		
+		Reporter.log("The description read from excel is:" + description,true);		
 		driver.findElement(By.xpath("//textarea[@id='addCase_description']")).sendKeys(description);
-		System.out.println("The value "+description +" is entered as description in the text-box");
+		Reporter.log("The value "+description +" is entered as description in the text-box",true);
 		driver.findElement(By.xpath("//a[text()='Save']")).click();
 		driver.findElement(By.xpath("//a[text()='Take Disciplinary Action']")).click();
-		System.out.println("Click action is performed on Take Disciplinary Action button");
+		Reporter.log("Click action is performed on Take Disciplinary Action button",true);
 		String action = ExcelConfig.getCellData(iTestData, Constant.col_DisciplinaryAction,Constant.sheet_DeciplinaryCases);
-		System.out.println("The action read from excel is: " + action);
+		Reporter.log("The action read from excel is: " + action,true);
 		// String action=sht.getRow(R1).getCell(11).getStringCellValue();
 		String actionNo[] = action.split(" ");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[@for='" + actionNo[0] + "']")));
 		driver.findElement(By.xpath("//label[@for='" + actionNo[0] + "']")).click();
-		System.out.println("The value "+actionNo[0]+ " is selected as deciplinary action");
+		Reporter.log("The value "+actionNo[0]+ " is selected as deciplinary action",true);
 		driver.findElement(By.xpath("//a[text()='Select']")).click();
-		System.out.println("Click action is performed on Select button");
+		Reporter.log("Click action is performed on Select button",true);
 		String dueDate = ExcelConfig.getCellData(iTestData, Constant.col_DueDate, Constant.sheet_DeciplinaryCases);
-		System.out.println("The dueDate read from excel is: " + dueDate);
+		Reporter.log("The dueDate read from excel is: " + dueDate,true);
 		// String dueDate=sht.getRow(R1).getCell(9).getStringCellValue();
 		driver.findElement(By.xpath("//input[@id='createDate']")).click();
-		System.out.println("The value "+dueDate+ " is selected as due date from calender");
+		Reporter.log("The value "+dueDate+ " is selected as due date from calender");
 		CommonMethod.date_HRM(dueDate, driver, 1);
 		WebElement webelement_owner = driver.findElement(By.xpath("//input[@id='defaultAction_owner_empName']"));
 		webelement_owner.sendKeys(ownerName);
 		webelement_owner.sendKeys(Keys.DOWN);
 		webelement_owner.sendKeys(Keys.ENTER);
-		System.out.println("The value "+ownerName+"is entered as ownerName in the text-box");
+		Reporter.log("The value "+ownerName+"is entered as ownerName in the text-box",true);
 		String status = ExcelConfig.getCellData(iTestData, Constant.col_ActionStatus, Constant.sheet_DeciplinaryCases);
-		System.out.println("The status read from excel is" + status);
+		Reporter.log("The status read from excel is" + status,true);
 		driver.findElement(By.xpath("//label[text()='Status']//parent::div//child::input")).click();
 		driver.findElement(By.xpath("//span[text()='" + status + "']")).click();
-		System.out.println("The value "+status+" is selected as status in the dropdown");		
+		Reporter.log("The value "+status+" is selected as status in the dropdown",true);		
 		Utils.screenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
-		System.out.println("Screen shot is  taken for Desciplinary case");
+		Reporter.log("Screen shot is  taken for Desciplinary case",true);
 		driver.findElement(By.xpath("//a[text()='Save']")).click();
-		System.out.println("Click action is performed on Save button");
+		Reporter.log("Click action is performed on Save button",true);
 
 		driver.findElement(By.xpath("//span[text()='Disciplinary Cases']")).click();
-		System.out.println("Click action is performed on Disciplinary Cases in the Menu bar");
+		Reporter.log("Click action is performed on Disciplinary Cases in the Menu bar",true);
 		
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
 		WebElement webelement_filter=driver.findElement(By.xpath("//input[@id='DisciplinaryCaseSearch_empName_empName']"));
@@ -170,7 +194,7 @@ public class TC_07_DisciplinaryCase {
 		webelement_filter.sendKeys(Keys.ARROW_DOWN);
 		webelement_filter.sendKeys(Keys.ENTER);
 		driver.findElement(By.xpath("//a[@id='searchBtn']")).click();
-		System.out.println("click action is performed for search button");
+		Reporter.log("click action is performed for search button",true);
 		Thread.sleep(3000);
 
 
@@ -190,7 +214,7 @@ public class TC_07_DisciplinaryCase {
 		String createdOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
 
 		driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[7]/a")).click();
-		System.out.println("Click action is performed on view Link");
+		Reporter.log("Click action is performed on view Link",true);
 
 		String validation_Status = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
 		CommonMethod.validation(status, validation_Status, iTestCase);
@@ -198,11 +222,11 @@ public class TC_07_DisciplinaryCase {
 		// TO VIEW THE ACTION STATUS AND COMPLETE IF ITS NOT COMPLETED
 
 		driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td/a")).click();
-		System.out.println("Click action is performed on Item Link");
+		Reporter.log("Click action is performed on Item Link",true);
 		driver.findElement(By.xpath("//a[text()='View Disciplinary Case']")).click();
-		System.out.println("Click action is performed on View Disciplinary case button");
+		Reporter.log("Click action is performed on View Disciplinary case button",true);
 		driver.findElement(By.xpath("//a[text()='Close Case']")).click();
-		System.out.println("Click action is performed on close case button");
+		Reporter.log("Click action is performed on close case button",true);
 	
 		// VERIFY CLOSE STATUS FOR THE CASE
 		
@@ -211,47 +235,53 @@ public class TC_07_DisciplinaryCase {
 		CommonMethod.validation("Close", validation_StatusClose, iTestCase);
 
 		Utils.screenShot(screenshotPath + "\\CaseStatus.jpg", driver);
-		System.out.println("Screen shot is  taken for Case Status");
+		Reporter.log("Screen shot is  taken for Case Status",true);
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
-		driver.quit();
-
 		// WRITE THE DATA IN THE EXCEL FILE.
 
 		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EmpName, Constant.sheet_DeciplinaryCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+employeeName+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EmpName
-				+" in the "+Constant.sheet_DeciplinaryCases);
+		Reporter.log("The value "+employeeName+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EmpName
+				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
 		ExcelConfig.setCellData(ownerName, iTestData, Constant.col_OwnerName, Constant.sheet_DeciplinaryCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+ownerName+" is written as ownerName against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
-				+" in the "+Constant.sheet_DeciplinaryCases);
+		Reporter.log("The value "+ownerName+" is written as ownerName against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
+				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
 		ExcelConfig.setCellData(createdBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+createdBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
-				+" in the "+Constant.sheet_DeciplinaryCases);
+		Reporter.log("The value "+createdBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
+				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
 		ExcelConfig.setCellData(createdOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,
 				CommonMethod.pathExcel);
-		System.out.println("The value "+createdOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
-				+" in the "+Constant.sheet_DeciplinaryCases);
+		Reporter.log("The value "+createdOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
+				+" in the "+Constant.sheet_DeciplinaryCases,true);
+
+
+	}
+	
+	@AfterMethod
+	public void afterMethod() throws Exception{
+
+		driver.quit();
 
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
+				+" in the "+Constant.sheet_TestCases,true);
 
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
 				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
+				+" in the "+Constant.sheet_TestCases,true);
 
 
-		System.out.println("The file are closed");
+		Reporter.log("The file are closed",true);
 
 	}
 
