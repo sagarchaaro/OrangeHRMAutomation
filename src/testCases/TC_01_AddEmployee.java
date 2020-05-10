@@ -10,6 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
 import utilities.Utils;
@@ -19,33 +23,42 @@ import utilities.ExcelConfig;
 //CLASS VARIABLE DECLARATION
 
 public class TC_01_AddEmployee {
-
-	public static void main(String[] args) throws Exception {
-		System.out.println("The Execution started for TC_01_AddEmployee");
-		// LOAD AND READ THE PROPERTIES FILE
+	
+	public static String timestamp, screenshotPath, browser;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
+	
+	@BeforeClass
+	public void execute_Prerequisites(){
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+		
+	}
+	
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		System.out.println("The Data read from Properties file.");		
-		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
+		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		System.out.println("The Browser for the excecution is : " + browser);
+		driver = Utils.openBrowser(prop, browser);
+	}
 
-		// WEBDRIVER AND TIMESTAMP METHOD
-
-		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
-
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
+	@Test
+	public void addEmployee() throws Exception {
+		System.out.println("The Execution started for TC_01_AddEmployee");
+		// LOAD AND READ THE PROPERTIES FILE
 
 		// LOGIN AND DASHBOARD VALDATION
 
@@ -166,21 +179,19 @@ public class TC_01_AddEmployee {
 		Thread.sleep(3000);
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
+		
+	}
+	
+	@AfterMethod
+	public void tearDown() throws Exception{
 		driver.quit();
-		
-		
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases, CommonMethod.pathExcel);
+		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases);
 
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases);
 
 		System.out.println("The file are closed");
-
 	}
 
 }

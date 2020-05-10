@@ -1,8 +1,6 @@
 package testCases;
 
-import java.awt.Robot;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Properties;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -10,7 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
 import utilities.Utils;
@@ -18,32 +19,42 @@ import utilities.Constant;
 import utilities.ExcelConfig;
 
 public class TC_08_TravelRequest {
-
-	public static void main(String[] args) throws Exception {
-		System.out.println("The Execution started for TC_08_TravelRequest");
-		// LOAD AND READ THE PROPERTIES FILE
+	
+	public static String timestamp, screenshotPath, browser, vacancy_Name, employee_Name, currency_Name, dest_Address, requestStatus, requestID;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
+	
+	@BeforeClass
+	public void execute_Prerequisites(){
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+		
+	}
+	
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
-		Properties prop = CommonMethod
-				.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		System.out.println("The Data read from Properties file.");		
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TravelRequestCases);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
-
-		// WEBDRIVER AND TIMESTAMP METHOD
-		//String driverPath = CommonMethod.selectDriverPath(iBrowser, prop);
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
-
+		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		System.out.println("The Browser for the excecution is : " + browser);
+		driver = Utils.openBrowser(prop, browser);
+	}
+	@Test
+	public void travelRequest(String[] args) throws Exception {
+		System.out.println("The Execution started for TC_08_TravelRequest");
+		// LOAD AND READ THE PROPERTIES FILE
+		
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
@@ -382,39 +393,34 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.id("logoutLink")).click();
 		System.out.println("Click action is performed on Logout button");
 		
+		}
+	
+	@AfterMethod
+	public void tearDown() throws Exception{
 		driver.quit();
+		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
+		
+		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.pathExcel);
+		System.out.println("The value "+vacancy_Name+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_Vacancy_name+" in the "+Constant.sheet_AddVacancyCases);
+		
+		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		System.out.println("The value "+employee_Name+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_Employee_Name+" in the "+Constant.sheet_TravelRequestCases);
+		ExcelConfig.setCellData(currency_Name, iTestData, Constant.col_Currency_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		System.out.println("The value "+currency_Name+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Currency_Name+" in the "+Constant.sheet_TravelRequestCases);
+		ExcelConfig.setCellData(dest_Address, iTestData, Constant.col_Destination_Address,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
+		System.out.println("The value "+dest_Address+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Destination_Address+" in the "+Constant.sheet_TravelRequestCases);
+		ExcelConfig.setCellData(requestStatus, iTestData, Constant.col_Request_Status,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
+		System.out.println("The value "+requestStatus+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_Status+" in the "+Constant.sheet_TravelRequestCases);
+		ExcelConfig.setCellData(requestID, iTestData, Constant.col_Request_ID, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		System.out.println("The value "+requestID+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_ID+" in the "+Constant.sheet_TravelRequestCases);
 
-		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,
-				CommonMethod.pathExcel);
-		System.out.println("The value "+employee_Name+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_Employee_Name
-				+" in the "+Constant.sheet_TravelRequestCases);
-		ExcelConfig.setCellData(currency_Name, iTestData, Constant.col_Currency_Name, Constant.sheet_TravelRequestCases,
-				CommonMethod.pathExcel);
-		System.out.println("The value "+currency_Name+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Currency_Name
-				+" in the "+Constant.sheet_TravelRequestCases);
-		ExcelConfig.setCellData(dest_Address, iTestData, Constant.col_Destination_Address,
-				Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
-		System.out.println("The value "+dest_Address+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Destination_Address
-				+" in the "+Constant.sheet_TravelRequestCases);
-		ExcelConfig.setCellData(requestStatus, iTestData, Constant.col_Request_Status,
-				Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
-		System.out.println("The value "+requestStatus+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_Status
-				+" in the "+Constant.sheet_TravelRequestCases);
-		ExcelConfig.setCellData(requestID, iTestData, Constant.col_Request_ID, Constant.sheet_TravelRequestCases,
-				CommonMethod.pathExcel);
-		System.out.println("The value "+requestID+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_ID
-				+" in the "+Constant.sheet_TravelRequestCases);
-
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,
-				CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,CommonMethod.pathExcel);
+		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
+		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases);
 
 		System.out.println("The file are closed");
 
 	}
+
 }

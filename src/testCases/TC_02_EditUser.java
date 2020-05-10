@@ -11,6 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import pages.HRM_TestCase_Method;
 
@@ -21,33 +25,43 @@ import utilities.Constant;
 import utilities.ExcelConfig;
 
 public class TC_02_EditUser {
-
-	public static void main(String[] args) throws Exception {
-		System.out.println("The Execution started for TC_02_EditUser");
-		// LOAD AND READ THE PROPERTIES FILE
+	
+	public static String timestamp, screenshotPath, browser, existingLocationName, newLocationName, employeeName_New, randomInt;
+	public static Properties prop;
+	public static int iTestCase, iTestData ;
+	public static WebDriver driver;
+	
+	@BeforeClass
+	public void execute_Prerequisites(){
+		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
+		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		Utils.createDir(screenshotPath);
+		
+	}
+	
+	@BeforeMethod()
+	public void browserLaunch() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Project Path is:"+CommonMethod.projectpath);
-
-		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-
+		System.out.println("The Data read from Properties file.");		
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
 		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_TestCases);
+		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		System.out.println("The row no for Test Case is : " + iTestCase);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_EditUserCases);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		System.out.println("The row no for test Data is : " + iTestData);
-		String iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + iBrowser);
-
+		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		System.out.println("The Browser for the excecution is : " + browser);
+		driver = Utils.openBrowser(prop, browser);
+	}
+	@Test
+	public void editUser() throws Exception {
+		System.out.println("The Execution started for TC_02_EditUser");
 		// WEBDRIVER AND TIMESTAMP METHOD
 
-		WebDriver driver = Utils.openBrowser(prop, iBrowser);
 
-		String timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		String screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
-		Utils.createDir(screenshotPath);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		// LOGIN AND DASHBOARD VALDATION
 
@@ -196,56 +210,61 @@ public class TC_02_EditUser {
 		CommonMethod.validation(validate_locationName, newLocationName, iTestCase);
 
 		CommonMethod.logoutJaveExecuter(driver);
-		driver.quit();
-		int rowCount=ExcelConfig.getRowUsed(Constant.sheet_AddEmployeeCases);
-		boolean found=false;
-		for(int row=1;row<rowCount;row++){
-			String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
-			if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
-				ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, CommonMethod.pathExcel);
-				System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
-				found=true;
+		
+		
 			}
+
+	@AfterMethod
+	public void tearDown() throws Exception{
+	driver.quit();
+	int rowCount=ExcelConfig.getRowUsed(Constant.sheet_AddEmployeeCases);
+	boolean found=false;
+	for(int row=1;row<rowCount;row++){
+		String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
+		if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+			ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, CommonMethod.pathExcel);
+			System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
+			found=true;
 		}
-		
-		if(!found){
-			System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
+	}
+	
+	if(!found){
+		System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
+	}
+	
+	
+	int rowCount_TC_03=ExcelConfig.getRowUsed(Constant.sheet_AddVacancyCases);
+	boolean found_03=false;
+	for(int row=1;row<rowCount_TC_03;row++){
+		String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases);
+		if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+			ExcelConfig.setCellData(newLocationName, row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases, CommonMethod.pathExcel);
+			System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
+			found_03=true;
 		}
-		
-		
-		int rowCount_TC_03=ExcelConfig.getRowUsed(Constant.sheet_AddVacancyCases);
-		boolean found_03=false;
-		for(int row=1;row<rowCount_TC_03;row++){
-			String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases);
-			if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
-				ExcelConfig.setCellData(newLocationName, row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases, CommonMethod.pathExcel);
-				System.out.println(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet");
-				found_03=true;
-			}
-		}
-		
-		if(!found_03){
-			System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
-		}
-		// WRITE THE DATA IN THE EXCEL FILE.
-		ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
-		ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
-		System.out.println("The value "+newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases);
+	}
+	
+	if(!found_03){
+		System.out.println(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location);
+	}
+	// WRITE THE DATA IN THE EXCEL FILE.
+	ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+	ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+	System.out.println("The value "+newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases);
 
-		ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
-		ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
-		System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases);
+	ExcelConfig.setCellData(employeeName_New, iTestData, Constant.col_OwnerName, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+	ExcelConfig.setCellData("+91 " + randomInt, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,CommonMethod.pathExcel);
+	System.out.println("The value "+randomInt+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases);
 
-		
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+	
+	ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
 
-		
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status	+" in the "+Constant.sheet_TestCases);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases);
+	
+	System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status	+" in the "+Constant.sheet_TestCases);
+	ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+	System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases);
 
-		System.out.println("The file are closed");
-
+	System.out.println("The file are closed");
 	}
 
 }
