@@ -30,9 +30,14 @@ public class TC_07_DisciplinaryCase {
 	public static WebDriver driver;
 
 	@BeforeClass
-	public void execute_Prerequisites(){
+	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		// LOAD AND READ THE PROPERTIES FILE
+		
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
+
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -42,11 +47,6 @@ public class TC_07_DisciplinaryCase {
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{
 		
-		// LOAD AND READ THE PROPERTIES FILE
-		
-		Properties prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
-
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
@@ -67,7 +67,7 @@ public class TC_07_DisciplinaryCase {
 
 	@Test
 	public  void disciplinaryCase() throws InterruptedException, Exception {
-		Reporter.log("The Execution started for TC_07_DisciplinaryCse",true);
+		Reporter.log("The Execution started for TC_07_DisciplinaryCase",true);
 				
 		// LOGIN AND DASHBOARD VALDATION
 
