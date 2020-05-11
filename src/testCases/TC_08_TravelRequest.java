@@ -27,9 +27,11 @@ public class TC_08_TravelRequest {
 	public static WebDriver driver;
 	
 	@BeforeClass
-	public void execute_Prerequisites(){
+	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);	
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -39,8 +41,6 @@ public class TC_08_TravelRequest {
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{
 			
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
@@ -52,6 +52,7 @@ public class TC_08_TravelRequest {
 		Reporter.log("The Browser for the excecution is : " + browser,true);
 		driver = Utils.openBrowser(prop, browser);
 	}
+	
 	@Test
 	public void travelRequest(String[] args) throws Exception {
 		Reporter.log("The Execution started for TC_08_TravelRequest",true);

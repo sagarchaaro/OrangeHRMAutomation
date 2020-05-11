@@ -25,9 +25,11 @@ public class TC_03_AddVacancy {
 	public static WebDriver driver;
 	
 	@BeforeClass
-	public void execute_Prerequisites(){
+	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);
+		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -37,8 +39,6 @@ public class TC_03_AddVacancy {
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{
 				
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
