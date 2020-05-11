@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -25,6 +26,8 @@ public class TC_03_AddVacancy {
 	
 	@BeforeClass
 	public void execute_Prerequisites(){
+		CommonMethod.projectpath = System.getProperty("user.dir");
+		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -33,24 +36,23 @@ public class TC_03_AddVacancy {
 	
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{
-		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Data read from Properties file.");		
+				
 		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
 		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
-		System.out.println("The row no for Test Case is : " + iTestCase);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
 		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
-		System.out.println("The row no for test Data is : " + iTestData);
+		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + browser);
+		Reporter.log("The Browser for the excecution is : " + browser,true);
 		driver = Utils.openBrowser(prop, browser);
 	}
 	@Test
 	public void addVacancy() throws Exception {
-		System.out.println("The Execution started for TC_03_AddVacancy");
+		Reporter.log("The Execution started for TC_03_AddVacancy",true);
 		// LOAD AND READ THE PROPERTIES FILE
 
 
@@ -60,101 +62,93 @@ public class TC_03_AddVacancy {
 		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddVacancyCases);
-		System.out.println("The userName read from excel is : " + userName);
+		Reporter.log("The userName read from excel is : " + userName,true);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_AddVacancyCases);
-		System.out.println("The password read from excel is : " + password);
+		Reporter.log("The password read from excel is : " + password,true);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as Password in the text-box");
+		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed on log in button ");
+		Reporter.log("Click action is performed on log in button ",true);
 
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			Utils.screenShot(screenshotPath + "\\Add_Vacancy.jpg", driver);
-			System.out.println("Screen shot is  taken for Dashboard ");
+			Reporter.log("Screen shot is  taken for Dashboard ",true);
 
 		} catch (Exception user) {
-			System.out.println("Dashboard is not available, Test case is failed");
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-					CommonMethod.pathExcel);
-			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
-					Constant.sheet_TestCases, CommonMethod.pathExcel);
-			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Dashboard is not available, Test case is failed",true);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 			throw new Exception();
 		}
 
 		driver.findElement(By.xpath("//span[text()='Recruitment']")).click();
-		System.out.println("Click action is performed on Recruitment in the Menu bar");
+		Reporter.log("Click action is performed on Recruitment in the Menu bar",true);
 		Thread.sleep(10000);
 
 		int size = driver.findElements(By.tagName("iframe")).size();
-		System.out.println("Number of iframes are : " + size);
+		Reporter.log("Number of iframes are : " + size,true);
 
 		// driver.switchTo().frame(0);
 		// driver.switchTo().frame("noncoreIframe");
 		WebElement element_iframe = driver.findElement(By.xpath("//iframe[@id='noncoreIframe']"));
 		driver.switchTo().frame(element_iframe);
 
-		System.out.println("Switched into iframe");
+		Reporter.log("Switched into iframe",true);
 		driver.findElement(By.xpath("(//i[text()='add'])[1]")).click();
-		System.out.println("Click action is performed on Add or import vacancy button");
+		Reporter.log("Click action is performed on Add or import vacancy button",true);
 
 		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
-		System.out.println("Click action is performed on Add or import vacancy to Add");
+		Reporter.log("Click action is performed on Add or import vacancy to Add",true);
 
 		String vacancy_Name = "Testing_" + RandomStringUtils.randomAlphabetic(6);
 		driver.findElement(By.id("addJobVacancy_name")).sendKeys(vacancy_Name);
-		System.out.println("The value "+ vacancy_Name+" is entered as vacancy_Name in the text-box");
+		Reporter.log("The value "+ vacancy_Name+" is entered as vacancy_Name in the text-box",true);
 
 		driver.findElement(By.id("textarea_addJobVacancy_jobTitle")).click();
-		String vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,
-				Constant.sheet_AddVacancyCases);
-		System.out.println("The vacancy_JobTitle read from excel is : " + vacancy_JobTitle);
+		String vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,Constant.sheet_AddVacancyCases);
+		Reporter.log("The vacancy_JobTitle read from excel is : " + vacancy_JobTitle,true);
 		driver.findElement(By.xpath("//div[@id='textarea_addJobVacancy_jobTitle']")).click();
 		driver.findElement(By.xpath("(//p[text()='" + vacancy_JobTitle.trim() + "'])[1]")).click();
-		System.out.println("The value "+ vacancy_JobTitle+" is selected as vacancy_JobTitle in the dropdown");
+		Reporter.log("The value "+ vacancy_JobTitle+" is selected as vacancy_JobTitle in the dropdown",true);
 
 		driver.findElement(By.id("textarea_addJobVacancy_location")).click();
-		String vacancy_location = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_location,
-				Constant.sheet_AddVacancyCases);
-		System.out.println("The vacancy_location read from excel is : " + vacancy_location);
+		String vacancy_location = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_location,Constant.sheet_AddVacancyCases);
+		Reporter.log("The vacancy_location read from excel is : " + vacancy_location,true);
 		driver.findElement(By.xpath("(//p[contains(text(),'" + vacancy_location.trim() + "')])[1]")).click();
-		System.out.println("The value "+ vacancy_location+" is selected as vacancy_location in the dropdown");
+		Reporter.log("The value "+ vacancy_location+" is selected as vacancy_location in the dropdown",true);
 
 		driver.findElement(By.id("textarea_addJobVacancy_sub_unit")).click();
 		String subUnit = ExcelConfig.getCellData(iTestData, Constant.col_subUnit, Constant.sheet_AddVacancyCases);
-		System.out.println("The subUnit read from excel is : " + subUnit);
+		Reporter.log("The subUnit read from excel is : " + subUnit,true);
 		driver.findElement(By.xpath("(//p[text()='" + subUnit + "'])[1]")).click();
-		System.out.println("The value "+ subUnit+" is selected as subUnit in the dropdown");
+		Reporter.log("The value "+ subUnit+" is selected as subUnit in the dropdown",true);
 
 		driver.findElement(By.id("textarea_addJobVacancy_hiringManagers")).click();
-		String hiringManagers = ExcelConfig.getCellData(iTestData, Constant.col_HiringManagers,
-				Constant.sheet_AddVacancyCases);
-		System.out.println("The hiringManagers read from excel is : " + hiringManagers);
+		String hiringManagers = ExcelConfig.getCellData(iTestData, Constant.col_HiringManagers,Constant.sheet_AddVacancyCases);
+		Reporter.log("The hiringManagers read from excel is : " + hiringManagers,true);
 		driver.findElement(By.xpath("//p[text()='" + hiringManagers + "']")).click();
-		System.out.println("The value "+ hiringManagers+" is selected as hiringManagers in the dropdown");
+		Reporter.log("The value "+ hiringManagers+" is selected as hiringManagers in the dropdown",true);
 
-		String noOfPositions = ExcelConfig.getCellData(iTestData, Constant.col_NoOfPositions,
-				Constant.sheet_AddVacancyCases);
-		System.out.println("The noOfPositions read from excel is : " + noOfPositions);
+		String noOfPositions = ExcelConfig.getCellData(iTestData, Constant.col_NoOfPositions,Constant.sheet_AddVacancyCases);
+		Reporter.log("The noOfPositions read from excel is : " + noOfPositions,true);
 		driver.findElement(By.id("addJobVacancy_noOfPositions")).sendKeys(noOfPositions);
-		System.out.println("The value "+ noOfPositions+" is entered as noOfPositions in the text-box");
+		Reporter.log("The value "+ noOfPositions+" is entered as noOfPositions in the text-box",true);
 
 		driver.findElement(By.id("saveVacancy")).click();
-		System.out.println("Click action is performed on Save Button");
+		Reporter.log("Click action is performed on Save Button",true);
 		
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//i[@class='material-icons mdi-navigation-menu']")).click();
 
 		driver.findElement(By.linkText("Home")).click();
-		System.out.println("Click action is performed on Home link");
+		Reporter.log("Click action is performed on Home link",true);
 
 		// LOGOUT AND CLOSING THE BROWSER.
 		CommonMethod.logoutJaveExecuter(driver);
@@ -168,13 +162,13 @@ public class TC_03_AddVacancy {
 		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
 		
 		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.pathExcel);
-		System.out.println("The value "+vacancy_Name+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_Vacancy_name+" in the "+Constant.sheet_AddVacancyCases);
+		Reporter.log("The value "+vacancy_Name+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_Vacancy_name+" in the "+Constant.sheet_AddVacancyCases,true);
 		
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases);
-		System.out.println("The file are closed");
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
+		Reporter.log("The file are closed",true);
 	}
 
 }

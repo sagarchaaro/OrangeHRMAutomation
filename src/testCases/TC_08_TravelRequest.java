@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -27,6 +28,8 @@ public class TC_08_TravelRequest {
 	
 	@BeforeClass
 	public void execute_Prerequisites(){
+		CommonMethod.projectpath = System.getProperty("user.dir");
+		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);	
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
 		Utils.createDir(screenshotPath);
@@ -35,24 +38,23 @@ public class TC_08_TravelRequest {
 	
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{
-		CommonMethod.projectpath = System.getProperty("user.dir");
-		System.out.println("The Data read from Properties file.");		
+			
 		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
-		System.out.println("The Testcase id executing is :"+CommonMethod.testCaseID);
+		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
 		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
-		System.out.println("The row no for Test Case is : " + iTestCase);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
 		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
-		System.out.println("The row no for test Data is : " + iTestData);
+		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
-		System.out.println("The Browser for the excecution is : " + browser);
+		Reporter.log("The Browser for the excecution is : " + browser,true);
 		driver = Utils.openBrowser(prop, browser);
 	}
 	@Test
 	public void travelRequest(String[] args) throws Exception {
-		System.out.println("The Execution started for TC_08_TravelRequest");
+		Reporter.log("The Execution started for TC_08_TravelRequest",true);
 		// LOAD AND READ THE PROPERTIES FILE
 		
 		// LOGIN AND DASHBOARD VALDATION
@@ -61,157 +63,149 @@ public class TC_08_TravelRequest {
 		CommonMethod.validation("OrangeHRM", title, iTestCase);
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_TravelRequestCases);
-		System.out.println("The userName read from excel is : " + userName);
+		Reporter.log("The userName read from excel is : " + userName,true);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_TravelRequestCases);
-		System.out.println("The password read from excel is : " + password);
+		Reporter.log("The password read from excel is : " + password,true);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as password in the text-box");
+		Reporter.log("The value "+password+" is entered as password in the text-box",true);
 		driver.findElement(By.id("btnLogin")).submit();
-		System.out.println("Click action is performed on Login button");
+		Reporter.log("Click action is performed on Login button",true);
 
 		try {
 
 			driver.findElement(By.xpath("//li[text()='Dashboard']"));
 			// String filename=screenshotPath+"\\OrangeHRMLogin_.jpg";
 			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
-			System.out.println("Screen shot is  taken for Dashboard ");
+			Reporter.log("Screen shot is  taken for Dashboard ",true);
 
 		} catch (Exception user) {
-			System.out.println("Dashboard is not available, Test case is failed");
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-					CommonMethod.pathExcel);
-			System.out.println("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
-					Constant.sheet_TestCases, CommonMethod.pathExcel);
-			System.out.println("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
+			Reporter.log("Dashboard is not available, Test case is failed",true);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 			throw new Exception();
 		}
 
 		// CHANGING USER PASSWORD
 		driver.findElement(By.xpath("//span[text()='Admin']")).click();
-		System.out.println("Click action is performed on Admin in the Menu bar");
+		Reporter.log("Click action is performed on Admin in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='User Management']")).click();
-		System.out.println("Click action is performed on User Management in the Menu bar");
+		Reporter.log("Click action is performed on User Management in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='Users']")).click();
-		System.out.println("Click action is performed on Users in the Menu bar");
+		Reporter.log("Click action is performed on Users in the Menu bar",true);
 
-		Thread.sleep(10000);
-		List<WebElement> employeeName = driver
-				.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
-		System.out.println("All EmployeeName are stored in the WebElement");
+		Thread.sleep(5000);
+		List<WebElement> employeeName = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
+		Reporter.log("All EmployeeName are stored in the WebElement",true);
 		String[] empName = Utils.dataIntoArray(employeeName, 50);
-		System.out.println("All EmployeeName are stored in the Array");
+		Reporter.log("All EmployeeName are stored in the Array",true);
 		String employee_Name = Utils.selectWithRandomIndex(50, empName);
-		System.out.println("The EmployeeName is selected by random no is :" + employee_Name);
-		driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"
-				+ employee_Name + "']/../../../td[8]")).click();
-		System.out.println("Click action is performed on Edit Link");
+		Reporter.log("The EmployeeName is selected by random no is :" + employee_Name,true);
+		driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ employee_Name + "']/../../../td[8]")).click();
+		Reporter.log("Click action is performed on Edit Link",true);
 
 		Utils.screenShot(screenshotPath + "\\Travel_Request.jpg", driver);
-		System.out.println("Screen shot is  taken for Travel Request ");
+		Reporter.log("Screen shot is  taken for Travel Request ",true);
 
 		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
-		System.out.println("Click action is performed  on change password checkbox");
+		Reporter.log("Click action is performed  on change password checkbox",true);
 
 		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[8]")).sendKeys(password);
-		System.out.println("The value "+ password+" is entered as password in the text-box");
+		Reporter.log("The value "+ password+" is entered as password in the text-box",true);
 
 		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[9]")).sendKeys(password);
-		System.out.println("The value "+ password+" is entered as Confirm password in the text-box");
+		Reporter.log("The value "+ password+" is entered as Confirm password in the text-box",true);
 
 		driver.findElement(By.id("systemUserSaveBtn")).click();
-		System.out.println("Click action is performed on Save button");
+		Reporter.log("Click action is performed on Save button",true);
 		Thread.sleep(5000);
 
 		CommonMethod.logoutJaveExecuter(driver);
 
 		// LOGGING INTO USER PROFILE
 		driver.findElement(By.id("txtUsername")).sendKeys(employee_Name);
-		System.out.println("The value "+ employee_Name+" is entered as employee_Name in the text-box");
+		Reporter.log("The value "+ employee_Name+" is entered as employee_Name in the text-box",true);
 
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+ password+" is entered as password in the text-box");
+		Reporter.log("The value "+ password+" is entered as password in the text-box",true);
 
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-		System.out.println("Click action is performed on Login button for the employee login");
+		Reporter.log("Click action is performed on Login button for the employee login",true);
 
 		Utils.screenShot(screenshotPath + "\\Travel_Request.jpg", driver);
-		System.out.println("Screen shot is  taken for the employee login ");
+		Reporter.log("Screen shot is  taken for the employee login ",true);
 		Thread.sleep(2000);
 
 		driver.findElement(By.xpath("//span[text()='Expense']")).click();
-		System.out.println("Click action is performed on Expense in the Menu bar");
+		Reporter.log("Click action is performed on Expense in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='Travel Requests']")).click();
-		System.out.println("Click action is performed on Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on Travel Requests in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
-		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on My Travel Requests in the Menu bar",true);
 
 		Thread.sleep(5000);
 		driver.switchTo().frame(0);
 
 		driver.findElement(By.xpath("//i[text()='add']")).click();
-		System.out.println("Click action is performed on Add button");
+		Reporter.log("Click action is performed on Add button",true);
 		// driver.switchTo().defaultContent();
 
 		Thread.sleep(3000);
 
 		driver.findElement(By.cssSelector("#estimateAddForEmployee div div div div input")).click();
-		List<WebElement> currencyName = driver
-				.findElements(By.cssSelector("#estimateAddForEmployee div div div div ul li span"));
-		System.out.println("All CurrencyName are stored in the WebElement");
+		List<WebElement> currencyName = driver.findElements(By.cssSelector("#estimateAddForEmployee div div div div ul li span"));
+		Reporter.log("All CurrencyName are stored in the WebElement",true);
 		String[] cur_Name = Utils.dataIntoArray(currencyName, 160);
-		System.out.println("All CurrencyName are stored in the Array");
+		Reporter.log("All CurrencyName are stored in the Array",true);
 		String currency_Name = Utils.selectWithRandomIndex(160, cur_Name);
-		System.out.println("The CurrencyName is selected by random no is :" + currency_Name);
+		Reporter.log("The CurrencyName is selected by random no is :" + currency_Name,true);
 		//driver.findElement(By.xpath("//form[@id='estimateAddForEmployee']/child::div/div/div/div/input")).click();
 		Thread.sleep(3000);
 		//driver.findElement(By.xpath("//form[@id='estimateAddForEmployee']/child::div/div/div/div/ul/li/span[text()='"+ currency_Name + "']")).click();
 		driver.findElement(By.xpath("//span[text()='"+ currency_Name + "']")).click();
-		System.out.println("Click action is performed on Currency option");
+		Reporter.log("Click action is performed on Currency option",true);
 
 		driver.findElement(By.xpath("//a[text()='Next']")).click();
-		System.out.println("Click action is performed on Next button");
+		Reporter.log("Click action is performed on Next button",true);
 
 		driver.findElement(By.xpath("(//button[text()='Add'])[1]")).click();
-		System.out.println("Click action is performed  on Add button");
+		Reporter.log("Click action is performed  on Add button",true);
 
-		String main_Destination = ExcelConfig.getCellData(iTestData, Constant.col_Main_Destination,
-				Constant.sheet_TravelRequestCases);
-		System.out.println("The Main_Destination read from excel is : " + main_Destination);
+		String main_Destination = ExcelConfig.getCellData(iTestData, Constant.col_Main_Destination,Constant.sheet_TravelRequestCases);
+		Reporter.log("The Main_Destination read from excel is : " + main_Destination,true);
 		driver.findElement(By.xpath("//input[@name='TravelInformation[main_destination]']")).sendKeys(main_Destination);
-		System.out.println("The value "+ main_Destination+" is entered as Main_Destination in the text-box");
+		Reporter.log("The value "+ main_Destination+" is entered as Main_Destination in the text-box",true);
 
 		String fromDate = ExcelConfig.getCellData(iTestData, Constant.col_From_Date, Constant.sheet_TravelRequestCases);
-		System.out.println("The FromDate read from excel is : " + fromDate);
+		Reporter.log("The FromDate read from excel is : " + fromDate,true);
 		Thread.sleep(3000);
 		//driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_from]']")).click();
 		WebElement element_FromDate = driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_from]']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_FromDate);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_FromDate);
 		
-		System.out.println("Click action is performed on calender for FromDate");
+		Reporter.log("Click action is performed on calender for FromDate",true);
 		Thread.sleep(5000);
 		CommonMethod.date_HRM_08(fromDate, driver, 1);
 		
 		Thread.sleep(5000);
 		String toDate = ExcelConfig.getCellData(iTestData, Constant.col_To_Date, Constant.sheet_TravelRequestCases);
-		System.out.println("The ToDate read from excel is : " + toDate);
+		Reporter.log("The ToDate read from excel is : " + toDate,true);
 		Thread.sleep(3000);
 		//driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_to]']")).click();
 		WebElement element_ToDate =driver.findElement(By.xpath("//input[@name='TravelInformation[travel_period_to]']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_ToDate);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_ToDate);
 
-		System.out.println("Click action is performed on calender for ToDate");
+		Reporter.log("Click action is performed on calender for ToDate",true);
 		Thread.sleep(5000);
 		String date[] = toDate.split("/");
 		// Select Year
@@ -220,28 +214,28 @@ public class TC_08_TravelRequest {
 		driver.findElement(By.xpath("(//span[text()='"+date[2]+"'])[2]")).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_year);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_year);
-		System.out.println("The Year selected from calender is:" + date[2]);
+		Reporter.log("The Year selected from calender is:" + date[2],true);
 		// Select Month
 		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[2]")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//span[text()='" + date[0] + "'])[2]")).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_month);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_month);
-		System.out.println("The Month selected from calender is:" + date[0]);
+		Reporter.log("The Month selected from calender is:" + date[0],true);
 		// Select Date
 		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr")).size();
 		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr[1]/td")).size();
-		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
+		Reporter.log("The no of cols is:" + cols + ", The no of rows is:" + rows,true);
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
-			System.out.println("entered row for loop");
+			Reporter.log("entered row for loop",true);
 		for (int colsNo = 1; colsNo <= cols; colsNo++) {
-			System.out.println("entered column for loop");
+			Reporter.log("entered column for loop",true);
 				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div)[3]")).getText();
-				System.out.println(calDate);
+				Reporter.log(calDate,true);
 				if (calDate.equalsIgnoreCase(date[1])) {
-					System.out.println("entered if loop");
+					Reporter.log("entered if loop",true);
 					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[3]")).click();
-					System.out.println("The Date is selected from calender is:" + toDate);
+					Reporter.log("The Date is selected from calender is:" + toDate,true);
 					break rows;
 				}
 
@@ -252,27 +246,26 @@ public class TC_08_TravelRequest {
 		//CommonMethod.date_HRM_08(toDate, driver, 2);
 
 		String dest_Address = RandomStringUtils.randomAlphabetic(6);
-		System.out.println("The Dest_Address is selected by random Util is :" + dest_Address);
+		Reporter.log("The Dest_Address is selected by random Util is :" + dest_Address,true);
 		driver.findElement(By.name("TravelInformation[destination_address]")).sendKeys(dest_Address);
-		System.out.println("The value "+ dest_Address+" is entered as Dest_Address in the text-box");
+		Reporter.log("The value "+ dest_Address+" is entered as Dest_Address in the text-box",true);
 		driver.findElement(By.xpath("(//a[text()='Save'])[3]")).click();
-		System.out.println("Click action is performed on Save button");
+		Reporter.log("Click action is performed on Save button",true);
 
 		driver.findElement(By.xpath("(//button[text()='Add'])[2]")).click();
-		System.out.println("Click action is performed on Add");
+		Reporter.log("Click action is performed on Add",true);
 
 		driver.findElement(By.xpath("//form[@id='selectionForm']/div/div/div/input")).click();
-		String expense_Type = ExcelConfig.getCellData(iTestData, Constant.col_Expense_Type,
-				Constant.sheet_TravelRequestCases);
-		System.out.println("The Expense_Type read from excel is : " + expense_Type);
+		String expense_Type = ExcelConfig.getCellData(iTestData, Constant.col_Expense_Type,Constant.sheet_TravelRequestCases);
+		Reporter.log("The Expense_Type read from excel is : " + expense_Type,true);
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[text()='"+expense_Type+"']")).click();
 		
 		
-		System.out.println("The value "+ expense_Type+" is selected as Expense_Type in the dropdown");
+		Reporter.log("The value "+ expense_Type+" is selected as Expense_Type in the dropdown",true);
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[2]")).click();
-		System.out.println("Currency paid in is clicked");
+		Reporter.log("Currency paid in is clicked",true);
 		driver.findElement(By.xpath("//span[text()='"+currency_Name+"']")).click();
 		/*
 		 * Robot r = new Robot(); r.keyPress(KeyEvent.VK_DOWN);
@@ -281,109 +274,107 @@ public class TC_08_TravelRequest {
 		 * Thread.sleep(2000); r.keyPress(KeyEvent.VK_ENTER);
 		 * r.keyRelease(KeyEvent.VK_ENTER);
 		 */
-		System.out.println("Selected currency");
+		Reporter.log("Selected currency",true);
 		
 		String amount = RandomStringUtils.randomNumeric(6);
-		System.out.println("The amount is selected by random Util is :" + amount);
+		Reporter.log("The amount is selected by random Util is :" + amount,true);
 		driver.findElement(By.xpath("//input[@name='estimation[amount]']")).sendKeys(amount);
-		System.out.println("The value "+ amount+" is entered as Amount in the text-box");
+		Reporter.log("The value "+ amount+" is entered as Amount in the text-box",true);
 		driver.findElement(By.xpath("//select[@id='estimation_paid_by_id']/../input")).click();
 		String paid_By = ExcelConfig.getCellData(iTestData, Constant.col_Paid_By, Constant.sheet_TravelRequestCases);
-		System.out.println("The paid_By read from excel is : " + paid_By);
-		driver.findElement(
-				By.xpath("//span[text()='" + paid_By + "']"))
-				.click();
-		System.out.println("The value "+ paid_By+" is selected as paid_By in the dropdown");
+		Reporter.log("The paid_By read from excel is : " + paid_By,true);
+		driver.findElement(By.xpath("//span[text()='" + paid_By + "']")).click();
+		Reporter.log("The value "+ paid_By+" is selected as paid_By in the dropdown",true);
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//a[text()='Save'])[2]")).click();
-		System.out.println("Click action is performed on Save button");
+		Reporter.log("Click action is performed on Save button",true);
 
 		Utils.screenShot(screenshotPath + "\\TravelRequest.jpg", driver);
-		System.out.println("Screen shot is taken for Employee List ");
+		Reporter.log("Screen shot is taken for Employee List ",true);
 
 		driver.findElement(By.xpath("//a[text()='Submit']")).click();
-		System.out.println("Click action is performed on Submit button");
+		Reporter.log("Click action is performed on Submit button",true);
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='OK']")).click();
-		System.out.println("Click action is performed on OK button");
+		Reporter.log("Click action is performed on OK button",true);
 
 		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
-		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on My Travel Requests in the Menu bar",true);
 
 		String requestID = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td a")).getText();
-		System.out.println("Request ID is "+requestID);
+		Reporter.log("Request ID is "+requestID,true);
 		String requestStatus = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)")).getText();
-		System.out.println("Request status is "+requestStatus);
+		Reporter.log("Request status is "+requestStatus,true);
 		Utils.screenShot(screenshotPath + "\\RequestID.jpg", driver);
-		System.out.println("Screen shot is taken for Travel Request Id ");
+		Reporter.log("Screen shot is taken for Travel Request Id ",true);
 
 		CommonMethod.logoutJaveExecuter(driver);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		System.out.println("The value "+userName+" is entered as userName in the text-box");
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
 
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as password in the text-box");
+		Reporter.log("The value "+password+" is entered as password in the text-box",true);
 
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-		System.out.println("Click action is performed on Login button for Admin");
+		Reporter.log("Click action is performed on Login button for Admin",true);
 
 		driver.findElement(By.xpath("//span[text()='Expense']")).click();
-		System.out.println("Click action is performed on Expenses in the Menu bar");
+		Reporter.log("Click action is performed on Expenses in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='Travel Requests']")).click();
-		System.out.println("Click action is performed on Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on Travel Requests in the Menu bar",true);
 
 		driver.findElement(By.xpath("//a[@id='menu_expense_viewEmployeeEstimateRequest']/span[2]")).click();
-		System.out.println("Click action is performed on Employee Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on Employee Travel Requests in the Menu bar",true);
 		Thread.sleep(5000);
 		driver.switchTo().frame(0);
 		driver.findElement(By.xpath("//i[text()='ohrm_filter']")).click();
-		System.out.println("Click action is performed on Search button");
+		Reporter.log("Click action is performed on Search button",true);
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//form[@id='estimateSearchForEmployee']/div/div/div/div/input")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[text()='Pending Supervisor Approval']")).click();
-		System.out.println("The value Pending Supervisor Approval is selected as RequestStatus in the dropdown");
+		Reporter.log("The value Pending Supervisor Approval is selected as RequestStatus in the dropdown",true);
 
 		driver.findElement(By.xpath("//a[text()='Search']")).click();
-		System.out.println("Click action is performed on Search button");
+		Reporter.log("Click action is performed on Search button",true);
 
 		//driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/a[text()='" + requestID + "']")).click();
-		//System.out.println("Clicked on Request ID link");
+		//Reporter.log("Clicked on Request ID link");
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//a[text()='"+requestID+"']")).click();
 		driver.findElement(By.xpath("//a[text()='Approve']")).click();
-		System.out.println("Click action is performed  on Approve button");
+		Reporter.log("Click action is performed  on Approve button",true);
 
 		driver.findElement(By.xpath("//a[text()='OK']")).click();
-		System.out.println("Click action is performed on OK button");
+		Reporter.log("Click action is performed on OK button",true);
 		Thread.sleep(1000);
 		CommonMethod.logoutJaveExecuter(driver);
 
 		driver.findElement(By.id("txtUsername")).sendKeys(employee_Name);
-		System.out.println("The value "+employee_Name+" is entered as userName in the text-box");
+		Reporter.log("The value "+employee_Name+" is entered as userName in the text-box",true);
 
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		System.out.println("The value "+password+" is entered as password in the text-box");
+		Reporter.log("The value "+password+" is entered as password in the text-box",true);
 
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-		System.out.println("Click action is performed on Login button for Employee");
+		Reporter.log("Click action is performed on Login button for Employee",true);
 
 		Utils.screenShot(screenshotPath + "\\OrangeHRMEmplopyeeLogin.jpg", driver);
-		System.out.println("Screen shot is taken for Employee Login ");
+		Reporter.log("Screen shot is taken for Employee Login ",true);
 
 		driver.findElement(By.xpath("//span[text()='Expense']")).click();
-		System.out.println("Click action is performed on Expenses in the Menu bar");
+		Reporter.log("Click action is performed on Expenses in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='Travel Requests']")).click();
-		System.out.println("Click action is performed on Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on Travel Requests in the Menu bar",true);
 
 		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
-		System.out.println("Click action is performed on My Travel Requests in the Menu bar");
+		Reporter.log("Click action is performed on My Travel Requests in the Menu bar",true);
 
 		Utils.screenShot(screenshotPath + "\\TravelRequest.jpg", driver);
-		System.out.println("Screen shot is taken for Approved Travel Request ");
+		Reporter.log("Screen shot is taken for Approved Travel Request ",true);
 		Thread.sleep(2000);
 		//CommonMethod.logoutJaveExecuter(driver);
 		WebElement element_Logout = driver.findElement(By.xpath("//*[@id='account-job']/i"));
@@ -391,35 +382,33 @@ public class TC_08_TravelRequest {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_Logout);
 		Thread.sleep(3000);
 		driver.findElement(By.id("logoutLink")).click();
-		System.out.println("Click action is performed on Logout button");
+		Reporter.log("Click action is performed on Logout button",true);
 		
 		}
 	
 	@AfterMethod
 	public void tearDown() throws Exception{
 		driver.quit();
-		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
+		// ENTERING IN EXCEL SHEET
 		
-		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.pathExcel);
-		System.out.println("The value "+vacancy_Name+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_Vacancy_name+" in the "+Constant.sheet_AddVacancyCases);
 		
 		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
-		System.out.println("The value "+employee_Name+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_Employee_Name+" in the "+Constant.sheet_TravelRequestCases);
+		Reporter.log("The value "+employee_Name+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_Employee_Name+" in the "+Constant.sheet_TravelRequestCases,true);
 		ExcelConfig.setCellData(currency_Name, iTestData, Constant.col_Currency_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
-		System.out.println("The value "+currency_Name+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Currency_Name+" in the "+Constant.sheet_TravelRequestCases);
+		Reporter.log("The value "+currency_Name+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Currency_Name+" in the "+Constant.sheet_TravelRequestCases,true);
 		ExcelConfig.setCellData(dest_Address, iTestData, Constant.col_Destination_Address,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
-		System.out.println("The value "+dest_Address+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Destination_Address+" in the "+Constant.sheet_TravelRequestCases);
+		Reporter.log("The value "+dest_Address+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Destination_Address+" in the "+Constant.sheet_TravelRequestCases,true);
 		ExcelConfig.setCellData(requestStatus, iTestData, Constant.col_Request_Status,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
-		System.out.println("The value "+requestStatus+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_Status+" in the "+Constant.sheet_TravelRequestCases);
+		Reporter.log("The value "+requestStatus+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_Status+" in the "+Constant.sheet_TravelRequestCases,true);
 		ExcelConfig.setCellData(requestID, iTestData, Constant.col_Request_ID, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
-		System.out.println("The value "+requestID+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_ID+" in the "+Constant.sheet_TravelRequestCases);
+		Reporter.log("The value "+requestID+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_ID+" in the "+Constant.sheet_TravelRequestCases,true);
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,CommonMethod.pathExcel);
-		System.out.println("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
-		System.out.println("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases);
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
 
-		System.out.println("The file are closed");
+		Reporter.log("The file are closed",true);
 
 	}
 

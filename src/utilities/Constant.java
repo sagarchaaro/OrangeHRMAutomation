@@ -43,6 +43,8 @@ public class Constant {
 	public static final int col_Region = 12;
 	public static final int col_FTE = 13;
 	public static final int col_Temp_Department = 14;
+	public static final int col_employeeName = 15;
+	public static final int col_employeeID = 16;
 
 	// Edit User test data columns
 	public static final int col_ExistingLocationName = 5;
