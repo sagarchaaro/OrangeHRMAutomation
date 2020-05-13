@@ -46,7 +46,7 @@ public class TC_08_TravelRequest {
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
 		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
+		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,Constant.sheet_TravelRequestCases);
 		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);
