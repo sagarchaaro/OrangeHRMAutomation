@@ -2,7 +2,6 @@ package testCases;
 
 import java.util.Properties;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +17,7 @@ import utilities.CommonMethod;
 import utilities.Utils;
 import utilities.Constant;
 import utilities.ExcelConfig;
+import utilities.RandomGenerator;
 
 public class TC_03_AddVacancy {
 	
@@ -111,11 +111,11 @@ public class TC_03_AddVacancy {
 		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
 		Reporter.log("Click action is performed on Add or import vacancy to Add",true);
 
-		String vacancy_Name = "Testing_" + RandomStringUtils.randomAlphabetic(6);
+		String vacancy_Name = "Testing_" + RandomGenerator.randomAlphabetic(6);
 		driver.findElement(By.id("addJobVacancy_name")).sendKeys(vacancy_Name);
 		Reporter.log("The value "+ vacancy_Name+" is entered as vacancy_Name in the text-box",true);
 
-		driver.findElement(By.id("textarea_addJobVacancy_jobTitle")).click();
+		//driver.findElement(By.id("textarea_addJobVacancy_jobTitle")).click();
 		String vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,Constant.sheet_AddVacancyCases);
 		Reporter.log("The vacancy_JobTitle read from excel is : " + vacancy_JobTitle,true);
 		driver.findElement(By.xpath("//div[@id='textarea_addJobVacancy_jobTitle']")).click();

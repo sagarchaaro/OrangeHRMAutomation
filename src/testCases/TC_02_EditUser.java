@@ -2,9 +2,7 @@ package testCases;
 
 import java.util.Properties;
 
-import java.util.Random;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -131,7 +129,7 @@ public class TC_02_EditUser {
 
 		driver.findElement(By.xpath("//input[@id='name']")).clear();
 		Reporter.log("The Country name is cleared in the webpage",true);
-		String randomAlphabet = RandomStringUtils.randomAlphabetic(6);
+		String randomAlphabet = RandomGenerator.randomAlphabetic(6);
 		String newLocationName = country.concat(randomAlphabet);
 		Reporter.log("The new location  generated is:"+newLocationName,true);
 		driver.findElement(By.xpath("//input[@id='name']")).sendKeys(newLocationName);

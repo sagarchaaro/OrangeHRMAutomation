@@ -3,7 +3,6 @@ package testCases;
 
 import java.util.List;
 import java.util.Properties;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +19,7 @@ import utilities.CommonMethod;
 import utilities.Utils;
 import utilities.Constant;
 import utilities.ExcelConfig;
+import utilities.RandomGenerator;
 
 public class TC_08_TravelRequest {
 	
@@ -250,7 +250,7 @@ public class TC_08_TravelRequest {
 
 		//CommonMethod.date_HRM_08(toDate, driver, 2);
 
-		String dest_Address = RandomStringUtils.randomAlphabetic(6);
+		String dest_Address = RandomGenerator.randomAlphabetic(6);
 		Reporter.log("The Dest_Address is selected by random Util is :" + dest_Address,true);
 		driver.findElement(By.name("TravelInformation[destination_address]")).sendKeys(dest_Address);
 		Reporter.log("The value "+ dest_Address+" is entered as Dest_Address in the text-box",true);
@@ -281,7 +281,7 @@ public class TC_08_TravelRequest {
 		 */
 		Reporter.log("Selected currency",true);
 		
-		String amount = RandomStringUtils.randomNumeric(6);
+		String amount = RandomGenerator.randomNumeric(6);
 		Reporter.log("The amount is selected by random Util is :" + amount,true);
 		driver.findElement(By.xpath("//input[@name='estimation[amount]']")).sendKeys(amount);
 		Reporter.log("The value "+ amount+" is entered as Amount in the text-box",true);

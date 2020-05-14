@@ -70,5 +70,13 @@ public class RandomGenerator {
 		String randomNumber=RandomStringUtils.randomNumeric(range);
 		return randomNumber;
 	}
+	
+	/*THIS WILL GENERATE RANDOM STRING CHARACTERS BETWEEN SPECIFIED RANGE
+	 * 
+	 */	
+	public static String randomAlphabetic(int range){
+		String randomAlphabet=RandomStringUtils.randomAlphabetic(range);
+		return randomAlphabet;
+	}
 
 }
