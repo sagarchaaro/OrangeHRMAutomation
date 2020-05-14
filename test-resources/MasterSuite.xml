@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="OrangeHRM_Regression_Suite">
+  <test name="TC_01_AddEmployee-TC_01_02">
+    <parameter name="abcd" value="TC_01_02"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_02 -->
+  <test name="TC_02_EditUser-TC_02_01">
+    <parameter name="testID" value="TC_02_01"/>
+    <classes>
+      <class name="testCases.TC_02_EditUser"/>
+    </classes>
+  </test> <!-- TC_02_EditUser-TC_02_01 -->
+  <test name="TC_02_EditUser-TC_02_05">
+    <parameter name="testID" value="TC_02_05"/>
+    <classes>
+      <class name="testCases.TC_02_EditUser"/>
+    </classes>
+  </test> <!-- TC_02_EditUser-TC_02_05 -->
+  <test name="TC_03_AddVacancy-TC_03_03">
+    <parameter name="testID" value="TC_03_03"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_03 -->
+</suite> <!-- OrangeHRM_Regression_Suite -->
