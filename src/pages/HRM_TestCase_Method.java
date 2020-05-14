@@ -13,6 +13,7 @@ import utilities.CommonMethod;
 import utilities.Constant;
 
 import utilities.ExcelConfig;
+import utilities.Utils;
 
 public class HRM_TestCase_Method {
 	public static String AddEmployee(String locationName_New, WebDriver driver) throws Exception {
@@ -24,16 +25,19 @@ public class HRM_TestCase_Method {
 		// add employee click
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Add Employee']")));
+		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Add Employee']")));
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
 		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
 		// enter name
 		
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		CommonMethod.testCaseID=CommonMethod.testCaseID.replace("TC_02", "TC_01");
-		int iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_TestCases);
+		
+		String testID=Constant.TestCaseID.replace("TC_02", "TC_01");
+		int iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		int iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID, Constant.sheet_AddEmployeeCases);
+		int iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_AddEmployeeCases);
 		Reporter.log("The row no for  test Data is : " + iTestData,true);
 
 		String firstName = ExcelConfig.getCellData(iTestData, Constant.col_firstName, Constant.sheet_AddEmployeeCases);
@@ -90,7 +94,8 @@ public class HRM_TestCase_Method {
 		driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
 		Reporter.log(" Click action is performed on Next button",true);
 		
-		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//label[text()='Region']/../div/input")));
+		//((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement());
+		Utils.retry(driver, By.xpath("//label[text()='Region']/../div/input"), "scrollintoview");
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//label[text()='Region']/../div/input")));
 		//driver.findElement(By.xpath("//label[text()='Region']/../div/input")).click();
 		String region = ExcelConfig.getCellData(iTestData, Constant.col_Region, Constant.sheet_AddEmployeeCases);

@@ -11,6 +11,8 @@ import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import utilities.CommonMethod;
@@ -33,25 +35,25 @@ public class TC_04_EditEmployee {
 		// LOAD AND READ THE PROPERTIES FILE
 		
 		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		Reporter.log("The Testcase id executing is :"+CommonMethod.testCaseID,true);
-
+		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		screenshotPath = CommonMethod.screenshotPath + CommonMethod.testCaseID + timestamp;
+		screenshotPath = CommonMethod.screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
 	
 	}
 	
+	@Parameters({"testID"})
 	@BeforeMethod()
-	public void browserLaunch() throws Exception{
+	public void browserLaunch(@Optional(Constant.TestCaseID) String testID) throws Exception{
 		
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
 		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		iTestCase = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
-						Constant.sheet_TestCases);
+		Reporter.log("The Testcase id executing is :"+testID,true);
+		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(CommonMethod.testCaseID, Constant.col_TestID,
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,
 						Constant.sheet_EditEmployeeCases);
 		Reporter.log("The row no for of test Data is : " + iTestData,true);
 		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);

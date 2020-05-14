@@ -3,22 +3,26 @@ package utilities;
 
 public class Constant {
 
+	
+	public static final String TestCaseID="TC_02_01";
+	
 	// SheetName detail of HRM_TestData sheet
 	public static final String sheet_TestCases = "TestCases";
 	public static final String sheet_AddEmployeeCases = "Add Employee";
 	public static final String sheet_EditUserCases = "Edit User";
-	public static final String sheet_AddVacancyCases = "Add vacancy";
-	public static final String sheet_EditEmployeeCases = "EditEmployee Cases";
-	public static final String sheet_ApplyLeaveCases = "Apply Leave Cases";
-	public static final String sheet_AddUserCases = "Add User Cases";
+	public static final String sheet_AddVacancyCases = "Add Vacancy";
+	public static final String sheet_EditEmployeeCases = "EditEmployee";
+	public static final String sheet_ApplyLeaveCases = "Apply Leave";
+	public static final String sheet_AddUserCases = "Add User";
 	public static final String sheet_DeciplinaryCases = "Deciplinary Cases";
-	public static final String sheet_TravelRequestCases = "Travel_Request";
+	public static final String sheet_TravelRequestCases = "Travel Request";
 
 	/*
 	 * COMMON DATA IN ALL SHEET IN EVERY TEST CASE TEST "CASE ID" AND
 	 * "TEST CASE NAME" WILL BE IN COLOMN 1 AND 2 LOG IN DETAIL, IN EVERY SHEET THE
 	 * USER ID AND PASSWORD WILL BE IN COLOMN 3 AND 4
 	 */
+	public static final int col_Sno = 0;
 	public static final int col_TestCaseName = 1;
 	public static final int col_TestID = 2;
 	public static final int col_UserName = 3;
@@ -29,8 +33,9 @@ public class Constant {
 	public static final int col_TestCaseDesc = 3;
 	public static final int col_Browser = 4;
 	public static final int col_Enviornment = 5;
-	public static final int col_Status = 6;
-	public static final int col_Comments = 7;
+	public static final int col_RunMode = 6;
+	public static final int col_Status = 7;
+	public static final int col_Comments = 8;
 
 	// Add Employee test data columns
 	public static final int col_firstName = 5;

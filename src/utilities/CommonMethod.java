@@ -18,7 +18,6 @@ public class CommonMethod {
 
 	// CLASS VARIABLE DECLARATION
 
-	public static String testCaseID;
 	public static String pathExcel;
 	public static String url;
 	public static String screenshotPath;
@@ -34,7 +33,6 @@ public class CommonMethod {
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(propFile);
 		prop.load(fis);
-		testCaseID = prop.getProperty("TestCaseID");
 		pathExcel = projectpath.concat(prop.getProperty("PathExcel"));
 		url = prop.getProperty("orangehrmURL");
 		screenshotPath = projectpath.concat(prop.getProperty("screenshotPath"));
