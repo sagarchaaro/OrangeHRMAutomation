@@ -13,7 +13,24 @@ public class RandomGenerator {
 		Random r = new Random();
 		int RandomNumber=r.nextInt(number);
 		return RandomNumber;
+	}	
+	
+	/*THIS WILL GENERATE RANDOM STRING  BETWEEN SPECIFIED RANGE
+	 * 
+	 */	
+	public static String randomAlphabet(int minRange, int maxRange){
+		String randomAlphabet=RandomStringUtils.randomAlphabetic(minRange,maxRange);
+		return randomAlphabet;
 	}
+	
+	/*THIS WILL GENERATE RANDOM STRING  BETWEEN SPECIFIED RANGE
+	 * 
+	 */	
+	public static String randomAlphabet(int range){
+		String randomAlphabet=RandomStringUtils.randomAlphabetic(range);
+		return randomAlphabet;
+	}
+
 	
 	/*THIS WILL GENERATE RANDOM STRING  BETWEEN SPECIFIED RANGE
 	 * 
@@ -40,7 +57,7 @@ public class RandomGenerator {
 	}
 	
 	/*THIS WILL GENERATE RANDOM STRING  BETWEEN SPECIFIED RANGE
-	 * IT WILL CONTAIN ONLY CHARACTER
+	 * 
 	 */
 	public static String randomAlphaNumeric(int range){
 		String randomNumber=RandomStringUtils.randomAlphanumeric(range);

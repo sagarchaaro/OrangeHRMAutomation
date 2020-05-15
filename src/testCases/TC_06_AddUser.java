@@ -24,6 +24,7 @@ import utilities.CommonMethod;
 import utilities.Utils;
 import utilities.Constant;
 import utilities.ExcelConfig;
+import utilities.RandomGenerator;
 
 public class TC_06_AddUser {
 	//CLASS VARIABLE DECLARATION
@@ -137,7 +138,8 @@ public class TC_06_AddUser {
 		webelement1.sendKeys(Keys.ENTER);
 		Reporter.log("The Employee name entered for search is: " + empNameSearch[0]);
 
-		String randomAlphabet = RandomStringUtils.randomAlphabetic(4);
+		//String randomAlphabet = RandomStringUtils.randomAlphabetic(4);
+		String randomAlphabet = RandomGenerator.randomAlphabet(4);
 		String userName = empNameSearch[0].concat(randomAlphabet);
 		driver.findElement(By.xpath("//input[@id='user_name']")).sendKeys(userName);
 		Reporter.log("The value "+ userName+" is entered as userName in the text-box",true);
