@@ -5,6 +5,8 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -21,7 +23,7 @@ import utilities.RandomGenerator;
 
 public class TC_03_AddVacancy {
 	
-	public static String timestamp, screenshotPath, browser, vacancy_Name;
+	public static String timestamp, screenshotPath, browser, vacancy_Name, reason;
 	public static Properties prop;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -85,11 +87,8 @@ public class TC_03_AddVacancy {
 
 		} catch (Exception user) {
 			Reporter.log("Dashboard is not available, Test case is failed",true);
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
-			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
-			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			throw new Exception();
+			reason="Dashboard is not available";		
+			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
 		}
 
 		driver.findElement(By.xpath("//span[text()='Recruitment']")).click();
@@ -161,10 +160,10 @@ public class TC_03_AddVacancy {
 		
 	}
 	@AfterMethod
-	public void tearDown() throws Exception{
+	public void tearDown(ITestResult result) throws Exception{
 		driver.quit();
 		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
-		
+		if(result.getStatus() == ITestResult.SUCCESS){
 		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,CommonMethod.pathExcel);
 		Reporter.log("The value "+vacancy_Name+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_Vacancy_name+" in the "+Constant.sheet_AddVacancyCases,true);
 		
@@ -172,7 +171,17 @@ public class TC_03_AddVacancy {
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
-		Reporter.log("The file are closed",true);
+		}else if(result.getStatus() ==ITestResult.FAILURE){
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+		}else if(result.getStatus() == ITestResult.SKIP){
+			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+		}
+		
+		Reporter.log("TestCase execution is completed",true);
+		
 	}
 
 }

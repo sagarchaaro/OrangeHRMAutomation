@@ -1,8 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class Leave_Page {
+public class Leave_Page extends BaseClass{
+	
+	public Leave_Page(WebDriver driver) {
+		super(driver);
+		
+	}
 	By dd_LeaveType = By.xpath("//input[@class='select-dropdown']");
 	By txtbx_LeaveType = By.xpath("//div[@class='input-field col s12 m12 l12']/textarea");
 	By click_DateFrom = By.xpath("(//i[@class='material-icons action-icon date-picker-open-icon'])[1]");

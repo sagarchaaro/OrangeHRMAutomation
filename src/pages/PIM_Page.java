@@ -1,8 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class PIM_Page {
+public class PIM_Page extends BaseClass{
+	
+	public PIM_Page(WebDriver driver) {
+		super(driver);
+		
+	}
 	By txtbx_firstName=By.xpath("//input[@id='firstName']");
 	By txtbx_middleName=By.xpath("//input[@id='middleName']");
 	By txtbx_lastName=By.xpath("//input[@id='lastName']");

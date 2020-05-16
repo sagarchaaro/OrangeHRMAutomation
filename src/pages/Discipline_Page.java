@@ -1,8 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class Discipline_Page {
+public class Discipline_Page extends BaseClass{
+	
+	public Discipline_Page(WebDriver driver) {
+		super(driver);
+	}
+	
 	By btn_Add = By.xpath("//i[text()='add']");
 	By txtbx_EmployeeName = By.xpath("//input[@id='addCase_employeeName_empName']");
 	By txtbx_CaseNo = By.xpath("//input[@id='addCase_caseName']");

@@ -1,8 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class Expense_Page {
+public class Expense_Page extends BaseClass{
+	
+	public Expense_Page(WebDriver driver) {
+		super(driver);
+	}
+	
 	By dd_currency = By.cssSelector("#estimateAddForEmployee div div div div input");
 	By btn_next = By.xpath("//a[text()='Next']");
 	By btn_add = By.xpath("(//button[text()='Add'])[1]");

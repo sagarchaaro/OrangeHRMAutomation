@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -28,7 +30,7 @@ import utilities.RandomGenerator;
 
 public class TC_02_EditUser {
 	
-	public static String timestamp, screenshotPath, browser, existingLocationName, newLocationName, employeeName, phoneNumber;
+	public static String timestamp, screenshotPath, browser, existingLocationName, newLocationName, employeeName, phoneNumber, reason;
 	public static Properties prop;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -93,11 +95,8 @@ public class TC_02_EditUser {
 
 		} catch (Exception user) {
 			Reporter.log("Dashboard is not available, Test case is failed",true);
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
-			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
-			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			throw new Exception();
+			reason="Dashboard is not available";		
+			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
 		}
 
 		Utils.screenShot(screenshotPath + "\\Edit_User.jpg", driver);
@@ -213,8 +212,10 @@ public class TC_02_EditUser {
 			}
 
 	@AfterMethod
-	public void tearDown() throws Exception{
+	public void tearDown(ITestResult result) throws Exception{
 	driver.quit();
+	
+	if(result.getStatus() == ITestResult.SUCCESS) {
 	int rowCount=ExcelConfig.getRowUsed(Constant.sheet_AddEmployeeCases);
 	boolean found=false;
 	for(int row=1;row<rowCount;row++){
@@ -267,6 +268,17 @@ public class TC_02_EditUser {
 	Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases,true);
 
 	Reporter.log("The file are closed",true);
+	}
+	else if(result.getStatus() ==ITestResult.FAILURE){
+		ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+		Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+		ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+		Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+	}else if(result.getStatus() == ITestResult.SKIP){
+		Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+	}
+	
+	Reporter.log("TestCase execution is completed",true);
 	}
 
 }

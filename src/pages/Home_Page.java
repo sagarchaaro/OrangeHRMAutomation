@@ -1,8 +1,15 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class Home_Page {
+public class Home_Page extends BaseClass{
+	
+	public Home_Page(WebDriver driver) {
+		super(driver);
+		
+	}
+	
 	By link_PIM =By.xpath("//span[text()='PIM']");
 	By link_AddEmployee = By.xpath("//span[text()='Add Employee']");	
 	By link_admin = By.xpath("//span[@class='left-menu-title'][text()='Admin']");
