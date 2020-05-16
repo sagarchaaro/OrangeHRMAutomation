@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +20,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import pages.BaseClass;
 import utilities.CommonMethod;
 import utilities.Utils;
 import utilities.Constant;
@@ -27,7 +30,7 @@ import utilities.ExcelConfig;
 
 public class TC_01_AddEmployee {
 	
-	public static String timestamp, screenshotPath, browser, employeeName, employeeID;
+	public static String timestamp, screenshotPath, browser, employeeName, employeeID, reason;
 	public static Properties prop;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -59,6 +62,7 @@ public class TC_01_AddEmployee {
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);
 		driver = Utils.openBrowser(prop, browser);
+		new BaseClass(driver);
 	}
 
 	@Test
@@ -91,13 +95,8 @@ public class TC_01_AddEmployee {
 
 		} catch (Exception user) {
 			Reporter.log("Dashboard is not available, Test case is failed",true);
-			Reporter.log(user.getMessage(),true);
-			user.printStackTrace();
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
-			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
-			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			throw new Exception();
+			reason="Dashboard is not available";		
+			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
 		}
 
 		// PIM Click
@@ -199,22 +198,30 @@ public class TC_01_AddEmployee {
 	}
 	
 	@AfterMethod
-	public void tearDown() throws Exception{
+	public void tearDown(ITestResult result) throws Exception{
 		driver.quit();
 		
-		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_employeeName, Constant.sheet_AddEmployeeCases,CommonMethod.pathExcel);
-		Reporter.log("The value "+employeeName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_employeeName +" in the "+Constant.sheet_AddEmployeeCases,true);
+		if(result.getStatus() == ITestResult.SUCCESS){
+			ExcelConfig.setCellData(employeeName, iTestData, Constant.col_employeeName, Constant.sheet_AddEmployeeCases,CommonMethod.pathExcel);
+			Reporter.log("The value "+employeeName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_employeeName +" in the "+Constant.sheet_AddEmployeeCases,true);
+			
+			ExcelConfig.setCellData(employeeID, iTestData, Constant.col_employeeID, Constant.sheet_AddEmployeeCases,CommonMethod.pathExcel);
+			Reporter.log("The value "+employeeID+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_employeeID +" in the "+Constant.sheet_AddEmployeeCases,true);
+			ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
+			
+			ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases,true);
+		}else if(result.getStatus() ==ITestResult.FAILURE){
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+		}else if(result.getStatus() == ITestResult.SKIP){
+			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+		}
 		
-		ExcelConfig.setCellData(employeeID, iTestData, Constant.col_employeeID, Constant.sheet_AddEmployeeCases,CommonMethod.pathExcel);
-		Reporter.log("The value "+employeeID+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_employeeID +" in the "+Constant.sheet_AddEmployeeCases,true);
-		
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases, CommonMethod.pathExcel);
-		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
-
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
-		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments +" in the "+Constant.sheet_TestCases,true);
-
-		Reporter.log("The file are closed",true);
+		Reporter.log("TestCase execution is completed",true);
 	}
 
 }

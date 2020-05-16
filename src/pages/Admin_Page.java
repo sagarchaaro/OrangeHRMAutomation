@@ -1,8 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class Admin_Page {
+public class Admin_Page extends BaseClass{
+	
+	public Admin_Page(WebDriver driver) {
+		super(driver);
+	}
+
 	By dd_country = By.xpath("(//input[@class='select-dropdown'])[2]");
 	By txtbx_location = By.xpath("//input[@id='name']");
 	By txtbx_phone = By.xpath("//input[@id='phone']");
@@ -30,4 +36,8 @@ public class Admin_Page {
 	By txtbx_UserFilter = By.xpath("//input[@id='systemuser_uname_filter']");
 	By btn_Search = By.xpath("//a[text()='Search']");
 	By msg_Record = By.xpath("//div[text()='No Records Found']");
+	
+	public void demo(){
+		driver.findElement(btn_save).click();
+	}
 }
