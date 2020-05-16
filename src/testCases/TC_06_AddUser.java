@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -28,7 +30,7 @@ import utilities.RandomGenerator;
 
 public class TC_06_AddUser {
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser;
+	public static String timestamp, screenshotPath, iBrowser,reason;
 	public static Properties prop;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -97,16 +99,9 @@ public class TC_06_AddUser {
 
 		} catch (Exception user) {
 			Reporter.log("Dashboard is not available, Test case id failed",true);
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-					CommonMethod.pathExcel);
-			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData("Dashboard is not available, Test case is failed", iTestCase, Constant.col_Comments,
-					Constant.sheet_TestCases, CommonMethod.pathExcel);
-			Reporter.log("Dashboard is not available is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases,true);
-			throw new Exception();
-		}
+			reason="Dashboard is not available";		
+			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
+		}		
 
 		// CLICK FOR USER AMENDMENT
 
@@ -209,10 +204,10 @@ public class TC_06_AddUser {
 		CommonMethod.logoutJaveExecuter(driver);
 	 }
 	@AfterMethod
-	public void afterMethod() throws Exception{
+	public void afterMethod(ITestResult result) throws Exception{
 
 		driver.quit();
-
+		if(result.getStatus() == ITestResult.SUCCESS){
 		Reporter.log("Click action is performed on Logoout button for New User",true);
 
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
@@ -223,7 +218,17 @@ public class TC_06_AddUser {
 				Constant.sheet_TestCases, CommonMethod.pathExcel);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 				+" in the "+Constant.sheet_TestCases,true);
-		Reporter.log("The file are closed",true);
+		}else if(result.getStatus() ==ITestResult.FAILURE){
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+		}else if(result.getStatus() == ITestResult.SKIP){
+			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+		}
+		
+		
+		Reporter.log("TestCase execution is completed",true);
 
 	}
 

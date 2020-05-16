@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -15,6 +16,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import pages.BaseClass;
 import utilities.CommonMethod;
 import utilities.Utils;
 import utilities.Constant;
@@ -22,7 +24,7 @@ import utilities.ExcelConfig;
 
 public class TC_04_EditEmployee {
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser;
+	public static String timestamp, screenshotPath, iBrowser,reason;
 	public static Properties prop;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -60,7 +62,8 @@ public class TC_04_EditEmployee {
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 		// WEBDRIVER AND TIMESTAMP METHOD				
-		driver = Utils.openBrowser(prop, iBrowser);		
+		driver = Utils.openBrowser(prop, iBrowser);	
+		new BaseClass(driver);
 				
 	}
 
@@ -203,10 +206,10 @@ public class TC_04_EditEmployee {
 	}
 		
 	@AfterMethod
-	public void afterMethod() throws Exception{
+	public void afterMethod(ITestResult result) throws Exception{
 
 		driver.quit();		
-		
+		if(result.getStatus() == ITestResult.SUCCESS){
 		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
 				CommonMethod.pathExcel);
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
@@ -215,7 +218,13 @@ public class TC_04_EditEmployee {
 				Constant.sheet_TestCases, CommonMethod.pathExcel);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
 				+" in the "+Constant.sheet_TestCases);
-		Reporter.log("The file are closed",true);
+		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Reporter.log("Testcase is failed with the reason as :"+reason,true);
+		}else if(result.getStatus() == ITestResult.SKIP){
+			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+		}
+	
+		Reporter.log("TestCase execution is completed",true);
 	}
 
 }
