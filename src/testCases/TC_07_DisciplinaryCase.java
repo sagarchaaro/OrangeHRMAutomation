@@ -1,8 +1,7 @@
 package testCases;
 
 import java.util.List;
-import java.util.Properties;
-
+import java.util.Map;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.Keys;
@@ -29,7 +28,7 @@ public class TC_07_DisciplinaryCase {
 
 	//CLASS VARIABLE DECLARATION
 	public static String timestamp, screenshotPath, iBrowser,reason;
-	public static Properties prop;
+	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 
@@ -39,7 +38,7 @@ public class TC_07_DisciplinaryCase {
 		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
 		// LOAD AND READ THE PROPERTIES FILE
 		
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + timestamp;
@@ -63,7 +62,7 @@ public class TC_07_DisciplinaryCase {
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 		// WEBDRIVER AND TIMESTAMP METHOD				
-		driver = Utils.openBrowser(prop, iBrowser);		
+		driver = Utils.openBrowser(yaml, iBrowser);		
 				
 	}
 

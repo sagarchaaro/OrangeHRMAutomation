@@ -1,12 +1,8 @@
-credentinals: 
-  password: Admin@123
-  username: SagarCh
-path: 
-  EdgeDriverPath: ""
-  FirefoxDriverPath: ""
-  IEDriverPath: ""
-  OperaDriverPath: ""
-  chromeDriverPath: "C:\\Selenium Catalogue\\Drivers\\Chrome\\chromedriver_win32\\chromedriver.exe"
-url: 
-  FBURL: "https://www.facebook.com"
-  orangeHRMURL: "https://seleniumprep-trials65101.orangehrmlive.com"
+PathExcel: \test-resources\HRM_TestData.xlsx
+chromePath: "C:\\Selenium Catalogue\\Drivers\\Chrome\\chromedriver_win32\\chromedriver.exe"
+edgePath: ""
+geckoPath: ""
+internateExplorePath: ""
+operaPath: ""
+orangeHRMURL: "https://testersselenium-trials65101.orangehrmlive.com"
+screenshotPath: \Screen-Shot\

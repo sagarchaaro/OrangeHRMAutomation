@@ -1,7 +1,6 @@
 package testCases;
 
-import java.util.Properties;
-
+import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import pages.BaseClass;
@@ -25,7 +23,8 @@ import utilities.ExcelConfig;
 public class TC_04_EditEmployee {
 	//CLASS VARIABLE DECLARATION
 	public static String timestamp, screenshotPath, iBrowser,reason;
-	public static Properties prop;
+	//public static Properties prop;
+	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 
@@ -36,8 +35,8 @@ public class TC_04_EditEmployee {
 		
 		// LOAD AND READ THE PROPERTIES FILE
 		
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
-		
+	//	prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
@@ -62,7 +61,7 @@ public class TC_04_EditEmployee {
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 		// WEBDRIVER AND TIMESTAMP METHOD				
-		driver = Utils.openBrowser(prop, iBrowser);	
+		driver = Utils.openBrowser(yaml, iBrowser);	
 		new BaseClass(driver);
 				
 	}
@@ -215,7 +214,10 @@ public class TC_04_EditEmployee {
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments	+" in the "+Constant.sheet_TestCases);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Reporter.log("Testcase is failed with the reason as :"+reason,true);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
 		}

@@ -3,13 +3,14 @@ package frameworkScripts;
 
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import org.yaml.snakeyaml.Yaml;
 import utilities.ExcelConfig;
 
 /*THE "CommonMethod" CLASS IS DEFINED FOR THE  HRM TEST CASES
@@ -24,6 +25,30 @@ public class CommonMethod {
 	public static String url;
 	public static String screenshotPath;
 	public static String projectpath;
+	
+	
+	/*
+	 * DATA READING FROM THR YAML FILE. This will read the data into the
+	 * class variable input: properties file path It return the Properties
+	 * "prop" THROW EXCEPTION FOR FILE NOT FOUND
+	 */
+	public static Map<String, String> yamlFileRead(String yamlFilePath) throws Exception {
+		
+		FileInputStream fis = new FileInputStream(yamlFilePath);
+
+		Yaml yaml=new Yaml();
+		Map<String, String> map=yaml.load(fis);
+		pathExcel = projectpath.concat(map.get("PathExcel"));
+		url = map.get("orangeHRMURL");
+		screenshotPath = projectpath.concat(map.get("screenshotPath"));
+		System.out.println("The Yaml file is read in the method yamlFileRead");	
+		System.out.println("The excel Path read is:"+CommonMethod.pathExcel);
+		System.out.println("The url read is:"+CommonMethod.url);
+		System.out.println("The screenshotPath read is:"+CommonMethod.screenshotPath);		
+		return map;
+		
+	}
+
 
 	/*
 	 * DATA READING FROM THR PROPERTIES FILE. This will read the data into the

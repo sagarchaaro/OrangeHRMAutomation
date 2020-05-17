@@ -1,6 +1,6 @@
 package testCases;
 
-import java.util.Properties;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,15 +24,15 @@ import utilities.RandomGenerator;
 public class TC_03_AddVacancy {
 	
 	public static String timestamp, screenshotPath, browser, vacancy_Name, reason;
-	public static Properties prop;
+	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 	
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + timestamp;
@@ -54,7 +54,7 @@ public class TC_03_AddVacancy {
 		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);
-		driver = Utils.openBrowser(prop, browser);
+		driver = Utils.openBrowser(yaml, browser);
 	}
 	@Test
 	public void addVacancy() throws Exception {

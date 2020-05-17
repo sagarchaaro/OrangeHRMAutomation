@@ -1,8 +1,5 @@
 package testCases;
 
-import java.util.Properties;
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +21,7 @@ import frameworkScripts.Constant;
 import pages.HRM_TestCase_Method;
 
 import java.util.List;
+import java.util.Map;
 
 import utilities.Utils;
 import utilities.ExcelConfig;
@@ -32,15 +30,15 @@ import utilities.RandomGenerator;
 public class TC_02_EditUser {
 	
 	public static String timestamp, screenshotPath, browser, existingLocationName, newLocationName, employeeName, phoneNumber, reason;
-	public static Properties prop;
+	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 	
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		Reporter.log("The Data read from Properties file."+CommonMethod.projectpath,true);
-		prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\test-resources\\TestInfo.properties");
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + timestamp;
@@ -62,7 +60,7 @@ public class TC_02_EditUser {
 		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);
-		driver = Utils.openBrowser(prop, browser);
+		driver = Utils.openBrowser(yaml, browser);
 	}
 	@Test
 	public void editUser() throws Exception {

@@ -1,7 +1,6 @@
 package testCases;
 
-import java.util.Properties;
-
+import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +24,7 @@ import utilities.ExcelConfig;
 public class TC_05_ApplyLeave {
 		//CLASS VARIABLE DECLARATION
 		public static String timestamp, screenshotPath, iBrowser,reason;
-		public static Properties prop;
+		public static Map<String, String> yaml;
 		public static int iTestCase, iTestData ;
 		public static WebDriver driver;
 
@@ -35,7 +34,7 @@ public class TC_05_ApplyLeave {
 			Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
 			// LOAD AND READ THE PROPERTIES FILE
 			
-			prop = CommonMethod.propertilesRead(CommonMethod.projectpath + "\\Test-Resources\\TestInfo.properties");
+			yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 
 			timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 			screenshotPath = CommonMethod.screenshotPath + timestamp;
@@ -59,7 +58,7 @@ public class TC_05_ApplyLeave {
 			Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 			// WEBDRIVER AND TIMESTAMP METHOD				
-			driver = Utils.openBrowser(prop, iBrowser);				
+			driver = Utils.openBrowser(yaml, iBrowser);				
 		}
 
 
@@ -192,7 +191,10 @@ public class TC_05_ApplyLeave {
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Reporter.log("Testcase is failed with the reason as :"+reason,true);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
 		}		

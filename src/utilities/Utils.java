@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +24,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Reporter;
-
 import frameworkScripts.CommonMethod;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -36,32 +35,32 @@ public class Utils {
 	 * IT READING PROPERTIES FILE FOR DRIVER PATH AND GETTING BROWSER AS ARGUMENT 
 	 * IT SET DERVER, LUNCH THE URL AND IMPLICITY TIME AND MAXIMISE THE SCREEN
 	 */
-	public static WebDriver openBrowser(Properties prop, String browser) throws Exception{
+	public static WebDriver openBrowser(Map<String, String> map, String browser) throws Exception{
 		browser.trim();
 		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
-			String path = prop.getProperty("chromePath");
+			String path = map.get("chromePath");
 			System.setProperty("webdriver.chrome.driver", path);
 			driver= new ChromeDriver();
 			System.out.println("Chrome Browser is launched");
 		}else if(browser.equalsIgnoreCase("Firefox")) {
-			String path = prop.getProperty("geckoPath");
+			String path = map.get("geckoPath");
 			System.setProperty("webdriver.gecko.driver", path);
 			driver = new FirefoxDriver();			
 			System.out.println("Firefox browser is launched");
 		}else if(browser.equalsIgnoreCase("Opera")){
-			String path = prop.getProperty("operaPath");
+			String path = map.get("operaPath");
 			System.setProperty("webdriver.opera.driver", path);
 			driver = new OperaDriver();
 			System.out.println("Opera brower is launched");
 		}else if(browser.equalsIgnoreCase("Edge")){
-			String path = prop.getProperty("internateExplorePath");
+			String path = map.get("edgePath");
 			System.setProperty("webdriver.edge.driver", path);
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			System.out.println("Edge browser is launched");
 		}else if(browser.equalsIgnoreCase("InternateExplore")){
-			String path = prop.getProperty("edgePath");
+			String path = map.get("internateExplorePath");
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
 			System.out.println("InternateExplore browser is launched");
