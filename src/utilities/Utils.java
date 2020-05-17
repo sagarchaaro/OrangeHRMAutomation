@@ -25,6 +25,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Reporter;
 
+import frameworkScripts.CommonMethod;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Utils {

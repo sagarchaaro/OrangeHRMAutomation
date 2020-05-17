@@ -20,10 +20,10 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import frameworkScripts.CommonMethod;
+import frameworkScripts.Constant;
 import pages.BaseClass;
-import utilities.CommonMethod;
 import utilities.Utils;
-import utilities.Constant;
 import utilities.ExcelConfig;
 
 //CLASS VARIABLE DECLARATION

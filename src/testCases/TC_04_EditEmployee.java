@@ -16,10 +16,10 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import frameworkScripts.CommonMethod;
+import frameworkScripts.Constant;
 import pages.BaseClass;
-import utilities.CommonMethod;
 import utilities.Utils;
-import utilities.Constant;
 import utilities.ExcelConfig;
 
 public class TC_04_EditEmployee {
@@ -210,14 +210,10 @@ public class TC_04_EditEmployee {
 
 		driver.quit();		
 		if(result.getStatus() == ITestResult.SUCCESS){
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.pathExcel);
-		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases,true);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments	+" in the "+Constant.sheet_TestCases);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
 			Reporter.log("Testcase is failed with the reason as :"+reason,true);
 		}else if(result.getStatus() == ITestResult.SKIP){

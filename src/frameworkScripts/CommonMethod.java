@@ -1,4 +1,4 @@
-package utilities;
+package frameworkScripts;
 
 
 import java.io.FileInputStream;
@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import utilities.ExcelConfig;
 
 /*THE "CommonMethod" CLASS IS DEFINED FOR THE  HRM TEST CASES
  * ALL THE COMMON METHOD THAT CAN BE USED ACCROSS HRM TEST CASE, IS WRITTEN HERE

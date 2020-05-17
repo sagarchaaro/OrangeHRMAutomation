@@ -1,5 +1,5 @@
 
-package utilities;
+package frameworkScripts;
 
 public class Constant {
 

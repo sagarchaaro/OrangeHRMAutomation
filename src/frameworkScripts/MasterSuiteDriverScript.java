@@ -1,4 +1,4 @@
-package utilities;
+package frameworkScripts;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +10,8 @@ import java.util.Map;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
+
+import utilities.ExcelConfig;
 
 public class MasterSuiteDriverScript {
 	

@@ -19,12 +19,13 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import frameworkScripts.CommonMethod;
+import frameworkScripts.Constant;
 import pages.HRM_TestCase_Method;
 
 import java.util.List;
-import utilities.CommonMethod;
+
 import utilities.Utils;
-import utilities.Constant;
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
 

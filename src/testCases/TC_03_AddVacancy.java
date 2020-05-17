@@ -15,9 +15,9 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import utilities.CommonMethod;
+import frameworkScripts.CommonMethod;
+import frameworkScripts.Constant;
 import utilities.Utils;
-import utilities.Constant;
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
 
