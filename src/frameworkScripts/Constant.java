@@ -4,10 +4,11 @@ package frameworkScripts;
 public class Constant {
 
 	
-	public static final String TestCaseID="TC_01_03";
+	public static final String TestCaseID="TC_00_05";
 	
 	// SheetName detail of HRM_TestData sheet
 	public static final String sheet_TestCases = "TestCases";
+	public static final String sheet_Login = "Login";
 	public static final String sheet_AddEmployeeCases = "Add Employee";
 	public static final String sheet_EditUserCases = "Edit User";
 	public static final String sheet_AddVacancyCases = "Add Vacancy";
@@ -36,6 +37,12 @@ public class Constant {
 	public static final int col_RunMode = 6;
 	public static final int col_Status = 7;
 	public static final int col_Comments = 8;
+	
+	// Login Sheet Columns,
+	
+	public static final int col_NewUserName = 5;
+	public static final int col_NewPassword = 6;
+	
 
 	// Add Employee test data columns
 	public static final int col_firstName = 5;
