@@ -22,7 +22,7 @@ import pages.BaseClass;
 import utilities.ExcelConfig;
 import utilities.Utils;
 
-public class TC_01_Login {
+public class TC_00_Login {
 	public static String timestamp, screenshotPath, browser, reason;
 	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
