@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
+import org.testng.annotations.DataProvider;
 import org.yaml.snakeyaml.Yaml;
 import utilities.ExcelConfig;
 
@@ -48,6 +50,29 @@ public class CommonMethod {
 		return map;
 		
 	}
+	/*
+	 * DATA PROVIDER FOR LOGIN. IT READ THE eXCEL fILE AND STORE THE DATA IN THE 
+	 * OBJECT FOR EXECUTION
+	 */	
+		
+		@DataProvider(name="Login")
+		public static Object[][] loginData() throws Exception{
+			System.out.println("DATA PROVIDER Executed");
+			Object[][] ob= new Object[10][3];
+			int excelRow=0;
+			
+			for(int arryRow=0;arryRow<10;arryRow++){
+				excelRow++;
+				ob[arryRow][0]=ExcelConfig.getCellData(excelRow, Constant.col_UserName, Constant.sheet_Login);
+				ob[arryRow][1]=ExcelConfig.getCellData(excelRow, Constant.col_Password, Constant.sheet_Login);	
+				ob[arryRow][2]=ExcelConfig.getCellData(excelRow, Constant.col_TestID,Constant.sheet_Login);				
+				
+			}
+					
+			return ob;
+		
+	}
+
 
 
 	/*
