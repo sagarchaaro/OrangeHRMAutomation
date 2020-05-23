@@ -1,10 +1,12 @@
 package frameworkScripts;
 
+import java.io.FileInputStream;
 import java.util.List;
 
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.ITestResult;
@@ -13,6 +15,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.yaml.snakeyaml.Yaml;
 
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
@@ -20,7 +23,7 @@ import utilities.Utils;
 
 public class AddLoginData {
 		public static String timestamp, screenshotPath, browser, reason, newPassword;
-		public static Map<String, String> yaml;
+		public static Map<String, String> yaml, userName, passWord;
 		public static int iTestCase, iTestData;
 		public static WebDriver driver;
 
@@ -32,6 +35,8 @@ public class AddLoginData {
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
 		screenshotPath = CommonMethod.screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
+		//userName = CommonMethod.yamlFileRead(CommonMethod.userName);
+		//passWord = CommonMethod.yamlFileRead(CommonMethod.passWord);
 	}
 
 	@BeforeMethod()
@@ -48,11 +53,20 @@ public class AddLoginData {
 		// LOGIN AND DASHBOARD VALDATION
 		String title = driver.getTitle();
 		CommonMethod.validation("OrangeHRM", title, iTestCase);
-
-
-		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		String projPath=System.getProperty("user.dir");
+		FileInputStream fis = new FileInputStream(projPath+"\\test-resources\\test-info.yaml");
+		
+		Yaml yaml=new Yaml();
+		Map<String, String> map=yaml.load(fis);
+		
+		String username=map.get("userName");
+		System.out.println(username);
+		
+		String password=map.get("password");
+		System.out.println(password);
+		driver.findElement(By.id("txtUsername")).sendKeys(username);
 		Reporter.log("The value Admin is entered as userName in the text-box", true);
-		driver.findElement(By.id("txtPassword")).sendKeys("Admin@123");
+		driver.findElement(By.id("txtPassword")).sendKeys(password);
 		Reporter.log("The value Admin@123 is entered as password in the text-box", true);
 		driver.findElement(By.id("btnLogin")).submit();
 		Reporter.log("Click action is performed on Login button for Admin", true);
@@ -74,22 +88,30 @@ public class AddLoginData {
 		String[] empName = Utils.dataIntoArray(employeeName, 50);
 		Reporter.log("All EmployeeName are stored in the Array", true);
 		int rowCount=ExcelConfig.getRowUsed(Constant.sheet_Login);
+		System.out.println("rowCount" +rowCount);
 		int datacount=1;
 		iTestData=1;
 		nextUser:while (datacount <= 10){
 			String newUser = Utils.selectWithRandomIndex(50, empName);
 			Reporter.log("The EmployeeName is selected by random no is :" + newUser, true);
 			for(int row=1;row<rowCount;row++){
-				String existingUser=ExcelConfig.getCellData(row, Constant.col_NewUserName, Constant.sheet_Login);
+				String existingUser=ExcelConfig.getCellData(row, Constant.col_UserName, Constant.sheet_Login);
+				System.out.println("existingUser" +existingUser);
 				if(newUser.equalsIgnoreCase(existingUser)){
 					//ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_NewUserName, Constant.sheet_Login,CommonMethod.pathExcel);
 					Reporter.log("The value "+newUser+" is already set up");
-					break nextUser;
+					continue nextUser;
 				}
 
 			}			
+		//	driver.findElement(By.xpath("//span[text()='Users']")).click();
+		//	Reporter.log("Click action is performed on Users in the Menu bar", true);
+			Thread.sleep(5000);
+			WebElement element = driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ newUser + "']/../../../td[8]"));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 			
-			driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ newUser + "']/../../../td[8]")).click();
+		//	driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ newUser + "']/../../../td[8]")).click();
 			Reporter.log("Click action is performed on Edit Link", true);
 
 			driver.findElement(By.xpath("//label[@for='changepassword']")).click();
@@ -103,11 +125,8 @@ public class AddLoginData {
 
 			driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[9]")).sendKeys(newPassword);
 			Reporter.log("The value " + newPassword + " is entered as Confirm password in the text-box", true);
-
-			driver.findElement(By.xpath("//a[text()='Save']")).click();
-		/*	WebElement element = driver.findElement(By.id("systemUserSaveBtn"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);*/
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//a[text()='Save']")).click();		
 			
 			Reporter.log("Click action is performed on Save button", true);	
 			Thread.sleep(5000);

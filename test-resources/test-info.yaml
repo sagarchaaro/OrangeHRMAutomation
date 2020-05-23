@@ -6,3 +6,5 @@ internateExplorePath: ""
 operaPath: ""
 orangeHRMURL: "https://testersselenium-trials65101.orangehrmlive.com"
 screenshotPath: \Screen-Shot\
+userName: Admin
+password: Admin@123
