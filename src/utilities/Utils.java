@@ -70,7 +70,7 @@ public class Utils {
 		}
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.get(CommonMethod.url);
+		driver.get(CommonMethod.getYamlData("orangeHRMUrl"));
 		driver.manage().window().maximize();
 		return driver;
 	

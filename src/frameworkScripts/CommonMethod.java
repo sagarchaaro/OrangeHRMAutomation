@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
+import org.testng.asserts.SoftAssert;
 import org.yaml.snakeyaml.Yaml;
 import utilities.ExcelConfig;
 
@@ -22,34 +24,22 @@ import utilities.ExcelConfig;
 public class CommonMethod {
 
 	// CLASS VARIABLE DECLARATION
-
-	public static String pathExcel;
-	public static String url;
-	public static String screenshotPath;
-	public static String projectpath;
+	public static String projectpath, reason;
+	public static Map<String, String> yamlData;
 	
-	
-	/*
-	 * DATA READING FROM THR YAML FILE. This will read the data into the
-	 * class variable input: properties file path It return the Properties
-	 * "prop" THROW EXCEPTION FOR FILE NOT FOUND
-	 */
-	public static Map<String, String> yamlFileRead(String yamlFilePath) throws Exception {
-		
+	public static Map<String, String> loadYamlFile(String yamlFilePath) throws Exception {		
 		FileInputStream fis = new FileInputStream(yamlFilePath);
-
 		Yaml yaml=new Yaml();
-		Map<String, String> map=yaml.load(fis);
-		pathExcel = projectpath.concat(map.get("PathExcel"));
-		url = map.get("orangeHRMURL");
-		screenshotPath = projectpath.concat(map.get("screenshotPath"));
-		System.out.println("The Yaml file is read in the method yamlFileRead");	
-		System.out.println("The excel Path read is:"+CommonMethod.pathExcel);
-		System.out.println("The url read is:"+CommonMethod.url);
-		System.out.println("The screenshotPath read is:"+CommonMethod.screenshotPath);		
-		return map;
-		
+		yamlData=yaml.load(fis);	
+		return yamlData;		
 	}
+	
+	public static String getYamlData(String key){
+		String value=yamlData.get(key);
+		return value;
+	}
+	
+	
 	/*
 	 * DATA PROVIDER FOR LOGIN. IT READ THE eXCEL fILE AND STORE THE DATA IN THE 
 	 * OBJECT FOR EXECUTION
@@ -80,18 +70,18 @@ public class CommonMethod {
 	 * class variable input: properties file path It return the Properties
 	 * "prop" THROW EXCEPTION FOR FILE NOT FOUND
 	 */
-	public static Properties propertilesRead(String propFile) throws Exception {
+	/*public static Properties getPropertyData(String excelPath, String propFile) throws Exception {
 
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(propFile);
 		prop.load(fis);
-		pathExcel = projectpath.concat(prop.getProperty("PathExcel"));
+		excelPath = projectpath.concat(prop.getProperty("excelPath"));
 		url = prop.getProperty("orangehrmURL");
 		screenshotPath = projectpath.concat(prop.getProperty("screenshotPath"));
 		System.out.println("The Properties file is read in the method propertilesRead");
 		return prop;
 		
-	}
+	}*/
 
 
 	/*
@@ -115,23 +105,14 @@ public class CommonMethod {
 	 * MESSAGE INTO THE EXCEL FILE FOR THE TEST CASE ID
 	 */
 
-	public static void validation(String string1, String string2, int iTestCase) throws Exception {
-
-		if (string1.equalsIgnoreCase(string2)) {
-			System.out.println("The string " + string2 + " is verified with "+string1);
-		} else {
-			System.out.println("The string " + string2 + " is not verified with "+string1);
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, pathExcel);
-			System.out.println("Fail is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-					+" in the "+Constant.sheet_TestCases);
-			ExcelConfig.setCellData(string2 + " is not validated with , Test case is failed", iTestCase,
-					Constant.col_Comments, Constant.sheet_TestCases, pathExcel);
-			System.out.println(string2 + " is not validated with , Test case is failed is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-					+" in the "+Constant.sheet_TestCases);
-
-			throw new Exception();
-
-		}
+	public static String verifyData(String actualValue, String expectedValue) {
+		
+		SoftAssert assertion= new SoftAssert();
+		reason="Actual value is not matched with Expected value :"+actualValue;
+		assertion.assertEquals(actualValue, expectedValue, reason);
+		assertion.assertAll();
+		
+		return reason;
 
 	}
 

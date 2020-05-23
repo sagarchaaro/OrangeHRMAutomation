@@ -27,7 +27,7 @@ import utilities.Utils;
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
 
-public class TC_02_EditUser {
+public class TC_02_EditLocation {
 	
 	public static String timestamp, screenshotPath, browser, existingLocationName, newLocationName, employeeName, phoneNumber, reason;
 	public static Map<String, String> yaml;

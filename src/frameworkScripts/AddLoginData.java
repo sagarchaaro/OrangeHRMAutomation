@@ -47,7 +47,7 @@ public class AddLoginData {
 	public void addLogin()throws Exception {
 		// LOGIN AND DASHBOARD VALDATION
 		String title = driver.getTitle();
-		CommonMethod.validation("OrangeHRM", title, iTestCase);
+		CommonMethod.verifyData("OrangeHRM", title);
 
 
 		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
