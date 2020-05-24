@@ -1,15 +1,12 @@
 package testCases;
 
 import java.util.List;
-import java.util.Map;
 import org.openqa.selenium.By;
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -21,14 +18,16 @@ import org.testng.annotations.Test;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
+import pages.BaseClass;
+import pages.Home_Page;
+import pages.Login_Page;
 import utilities.Utils;
 import utilities.ExcelConfig;
 
 public class TC_07_DisciplinaryCase {
 
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser,reason;
-	public static Map<String, String> yaml;
+	public static String timestamp, screenshotPath, iBrowser,reason,url, excelPath;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 
@@ -36,12 +35,12 @@ public class TC_07_DisciplinaryCase {
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
-		// LOAD AND READ THE PROPERTIES FILE
 		
-		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
-
+		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
+		
+		screenshotPath=CommonMethod.getYamlData("screenshotPath");		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		screenshotPath = CommonMethod.screenshotPath + timestamp;
+		screenshotPath = CommonMethod.projectpath+ screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
 	
 	}
@@ -51,8 +50,8 @@ public class TC_07_DisciplinaryCase {
 	public void browserLaunch(@Optional(Constant.TestCaseID) String testID) throws Exception{
 		
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
-
-		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
+		ExcelConfig.setExcelFile(excelPath);
 		Reporter.log("The Testcase id executing is :"+testID,true);
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
@@ -62,51 +61,22 @@ public class TC_07_DisciplinaryCase {
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 		// WEBDRIVER AND TIMESTAMP METHOD				
-		driver = Utils.openBrowser(yaml, iBrowser);		
+		driver = Utils.openBrowser(CommonMethod.yamlData, iBrowser);
+		new BaseClass(driver);
 				
 	}
 
 
 	@Test
 	public  void disciplinaryCase() throws InterruptedException, Exception {
-		Reporter.log("The Execution started for TC_07_DisciplinaryCase",true);
-				
-		// LOGIN AND DASHBOARD VALDATION
-
-		String title = driver.getTitle();
-		CommonMethod.validation("OrangeHRM", title, iTestCase);
-
-		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_DeciplinaryCases);
-		Reporter.log("The userName read from excel is : " + userName,true);
-		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_DeciplinaryCases);
-		Reporter.log("The password read from excel is : " + password,true);
-
-		driver.findElement(By.id("txtUsername")).sendKeys(userName);
-		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
-		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
-		driver.findElement(By.id("btnLogin")).submit();
-		Reporter.log("Click action is performed on Login button",true);
-
-		try {
-
-			driver.findElement(By.xpath("//li[text()='Dashboard']"));
-			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin.jpg", driver);
-			Reporter.log("Screen shot is  taken for Dashboard ");
-			
-		} catch (Exception user) {
-			Reporter.log("Dashboard is not available, Test case is failed",true);
-			reason="Dashboard is not available";		
-			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
-		}
-
-		// GOTO THE EMPLOYEELIST AND SET ALL EMPLOYEE NAME INTO THE ARRY TO
-		// SELECT EMP NAME AND OWNER NAME
-
-		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-		Reporter.log("Click action is performed on PLM in the Menu bar",true);
-		driver.findElement(By.xpath("//span[text()='Employee List']")).click();
-		Reporter.log("Click action is performed on Employee list in the Menu bar",true);
+		Reporter.log("The Execution started for TC_07_DisciplinaryCase",true);				
+	
+		Login_Page.login(iTestData);	
+		
+		Home_Page.verifyDashboard(screenshotPath);
+		
+		Home_Page.navigateMenu("PIM", "Employee List");
+		
 		int totalElementNo = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]")).size();
 		Reporter.log("The total no of employee in the page is: " + totalElementNo,true);
 		List<WebElement> webelement_empName = driver.findElements(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]"));
@@ -197,14 +167,14 @@ public class TC_07_DisciplinaryCase {
 		// THE BLOCK IS VALIDATING THE DICIPLINARY CREATED RECORD
 
 		String validation_name = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[2]")).getText();
-		CommonMethod.validation(employeeName, validation_name, iTestCase);
+		CommonMethod.verifyData(employeeName, validation_name);
 
 		String validation_case = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[3]")).getText();
-		CommonMethod.validation(caseNo, validation_case, iTestCase);
+		CommonMethod.verifyData(caseNo, validation_case);
 
 		String validation_description = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[4]"))
 				.getText();
-		CommonMethod.validation(description, validation_description, iTestCase);
+		CommonMethod.verifyData(description, validation_description);
 
 		String createdBy = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
 		String createdOn = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[6]")).getText();
@@ -213,7 +183,7 @@ public class TC_07_DisciplinaryCase {
 		Reporter.log("Click action is performed on view Link",true);
 
 		String validation_Status = driver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr/td[5]")).getText();
-		CommonMethod.validation(status, validation_Status, iTestCase);
+		CommonMethod.verifyData(status, validation_Status);
 
 		// TO VIEW THE ACTION STATUS AND COMPLETE IF ITS NOT COMPLETED
 
@@ -228,7 +198,7 @@ public class TC_07_DisciplinaryCase {
 		
 		String validation_StatusClose = driver.findElement(By.xpath("//td[text()='" + employeeName + "']/../td[8]"))
 				.getText();
-		CommonMethod.validation("Close", validation_StatusClose, iTestCase);
+		CommonMethod.verifyData("Close", validation_StatusClose);
 
 		Utils.screenShot(screenshotPath + "\\CaseStatus.jpg", driver);
 		Reporter.log("Screen shot is  taken for Case Status",true);
@@ -237,23 +207,21 @@ public class TC_07_DisciplinaryCase {
 		CommonMethod.logoutJaveExecuter(driver);
 		// WRITE THE DATA IN THE EXCEL FILE.
 
-		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EmpName, Constant.sheet_DeciplinaryCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EmpName, Constant.sheet_DeciplinaryCases,excelPath);
+				
 		Reporter.log("The value "+employeeName+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EmpName
 				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
-		ExcelConfig.setCellData(ownerName, iTestData, Constant.col_OwnerName, Constant.sheet_DeciplinaryCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData(ownerName, iTestData, Constant.col_OwnerName, Constant.sheet_DeciplinaryCases,excelPath);
+			
 		Reporter.log("The value "+ownerName+" is written as ownerName against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName
 				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
-		ExcelConfig.setCellData(createdBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData(createdBy, iTestData, Constant.col_CreatedBy, Constant.sheet_DeciplinaryCases,excelPath);
 		Reporter.log("The value "+createdBy+" is written as CreatedBy against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedBy
 				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
-		ExcelConfig.setCellData(createdOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData(createdOn, iTestData, Constant.col_CreatedOn, Constant.sheet_DeciplinaryCases,excelPath);
 		Reporter.log("The value "+createdOn+" is written as CreatedOn against to RowNumber "+iTestData +", column Number " +Constant.col_CreatedOn
 				+" in the "+Constant.sheet_DeciplinaryCases,true);
 
@@ -266,19 +234,14 @@ public class TC_07_DisciplinaryCase {
 		driver.quit();
 
 		if(result.getStatus() == ITestResult.SUCCESS){
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases,true);
-
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments
-				+" in the "+Constant.sheet_TestCases,true);
+		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);

@@ -18,10 +18,13 @@ public class Login_Page extends BaseClass{
 	static By txtbx_password = By.id("txtPassword");
 	static By btn_login = By.xpath("//input[@id='btnLogin']");
 	
-	public static void login(int iTestData) throws Exception{
+	public static void loginPageVerify(){
 		String title = driver.getTitle();
 		CommonMethod.verifyData(title, "OrangeHRM");
-		
+	}
+	
+	public static void login(int iTestData) throws Exception{
+				
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddEmployeeCases);
 		Reporter.log("The userName read from excel is : " + userName,true);
 		String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_AddEmployeeCases);

@@ -62,6 +62,8 @@ public class TC_01_AddEmployee {
 	public void addEmployee() throws Exception {
 		Reporter.log("The Execution started for TC_01_AddEmployee",true);
 		
+		Login_Page.loginPageVerify();
+		
 		Login_Page.login(iTestData);
 		
 		Home_Page.navigateMenu("PIM", "Add Employee");

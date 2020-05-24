@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 
+import frameworkScripts.CommonMethod;
 import utilities.Utils;
 
 public class Home_Page extends BaseClass{
@@ -34,7 +35,7 @@ public class Home_Page extends BaseClass{
 	static By link_Decipline = By.xpath("//span[text()='Discipline']");
 	static By link_DeciplineCases = By.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']");
 	
-	public static void verifyDashboard(String reason, String screenshotPath) throws Exception{
+	public static void verifyDashboard(String screenshotPath) throws Exception{
 		Thread.sleep(3000);
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -44,7 +45,7 @@ public class Home_Page extends BaseClass{
 
 		} catch (Exception user) {
 			Reporter.log("Dashboard is not available, Test case is failed",true);
-			reason="Dashboard is not available";		
+			CommonMethod.reason="Dashboard is not available";		
 			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
 		}
 	}

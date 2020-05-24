@@ -18,12 +18,15 @@ import org.testng.annotations.Test;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
+import pages.BaseClass;
+import pages.Home_Page;
+import pages.Login_Page;
 import utilities.Utils;
 import utilities.ExcelConfig;
 
 public class TC_05_ApplyLeave {
 		//CLASS VARIABLE DECLARATION
-		public static String timestamp, screenshotPath, iBrowser,reason;
+		public static String timestamp, screenshotPath, iBrowser,reason,url, excelPath;
 		public static Map<String, String> yaml;
 		public static int iTestCase, iTestData ;
 		public static WebDriver driver;
@@ -32,14 +35,13 @@ public class TC_05_ApplyLeave {
 		public void execute_Prerequisites() throws Exception{
 			CommonMethod.projectpath = System.getProperty("user.dir");
 			Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
-			// LOAD AND READ THE PROPERTIES FILE
 			
-			yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
-
+			CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
+			
+			screenshotPath=CommonMethod.getYamlData("screenshotPath");		
 			timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-			screenshotPath = CommonMethod.screenshotPath + timestamp;
+			screenshotPath = CommonMethod.projectpath+ screenshotPath + timestamp;
 			Utils.createDir(screenshotPath);
-		
 		}
 		
 		@Parameters({"testID"})
@@ -47,8 +49,8 @@ public class TC_05_ApplyLeave {
 		public void browserLaunch(@Optional(Constant.TestCaseID) String testID) throws Exception{
 			
 			// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
-
-			ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+			excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
+			ExcelConfig.setExcelFile(excelPath);
 			Reporter.log("The Testcase id executing is :"+testID,true);
 			iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 			Reporter.log("The row no for Test Case is : " + iTestCase,true);
@@ -58,7 +60,8 @@ public class TC_05_ApplyLeave {
 			Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 			// WEBDRIVER AND TIMESTAMP METHOD				
-			driver = Utils.openBrowser(yaml, iBrowser);				
+			driver = Utils.openBrowser(CommonMethod.yamlData,iBrowser);	
+			new BaseClass(driver);
 		}
 
 
@@ -66,22 +69,10 @@ public class TC_05_ApplyLeave {
 		public  void applyLeave() throws InterruptedException, Exception {
 			WebDriverWait wait = new WebDriverWait(driver, 30);	
 			Reporter.log("The Execution started for TC_05_AplyLeave",true);
-			// LOGIN TO DASHBOARD
 
-			String title = driver.getTitle();
-			CommonMethod.validation("OrangeHRM", title, iTestCase);
-
-			String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_ApplyLeaveCases);
-			Reporter.log("The userName read from excel is : " + userName,true);
-			String password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_ApplyLeaveCases);
-			Reporter.log("The password read from excel is : " + password,true);
-
-			driver.findElement(By.id("txtUsername")).sendKeys(userName);
-			Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
-			driver.findElement(By.id("txtPassword")).sendKeys(password);
-			Reporter.log("The value "+password+" is entered as Password in the text-box",true);
-			driver.findElement(By.id("btnLogin")).submit();
-			Reporter.log("Click action is performed on Login button",true);
+			Login_Page.login(iTestData);	
+			
+			Home_Page.verifyDashboard(screenshotPath);
 
 			// CLICKING FOR APPLY LEAVE FORM AND APPLY
 
@@ -182,18 +173,14 @@ public class TC_05_ApplyLeave {
 
 		driver.quit();
 		if(result.getStatus() == ITestResult.SUCCESS){
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,
-				CommonMethod.pathExcel);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
 				+" in the "+Constant.sheet_TestCases,true);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,
-				Constant.sheet_TestCases, CommonMethod.pathExcel);
-		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status
-				+" in the "+Constant.sheet_TestCases,true);
+
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases,excelPath);
 			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
