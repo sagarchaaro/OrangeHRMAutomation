@@ -60,4 +60,16 @@ public class Home_Page extends BaseClass{
 		Reporter.log("Click action is performed on "+subHeader+" in the Menu bar",true);
 	}
 	
+	public static void navigateMenu(String mainHeader, String subHeader,String branch){
+		
+		driver.findElement(By.xpath("//span[text()='"+mainHeader+"']")).click();
+		Reporter.log("Click action is performed on "+mainHeader+" in the Menu bar",true);
+
+		driver.findElement(By.xpath("//span[text()='"+subHeader+"']")).click();
+		Reporter.log("Click action is performed on "+subHeader+" in the Menu bar",true);
+		
+		driver.findElement(By.xpath("//span[text()='"+branch+"']")).click();
+		Reporter.log("Click action is performed on "+branch+" in the Menu bar",true);
+	}
+	
 }

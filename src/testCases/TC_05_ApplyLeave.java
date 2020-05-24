@@ -73,6 +73,8 @@ public class TC_05_ApplyLeave {
 			Login_Page.login(iTestData);	
 			
 			Home_Page.verifyDashboard(screenshotPath);
+			
+			Home_Page.navigateMenu("Leave", "Apply");
 
 			// CLICKING FOR APPLY LEAVE FORM AND APPLY
 
@@ -80,10 +82,6 @@ public class TC_05_ApplyLeave {
 			Reporter.log("The leaveType read from excel is:" + leaveType,true);
 			String leaveDesc = ExcelConfig.getCellData(iTestData, Constant.col_leaveDesc, Constant.sheet_ApplyLeaveCases);
 			Reporter.log("The leaveDesc read from excel is:" + leaveDesc,true);
-			driver.findElement(By.xpath("//span[text()='Leave']")).click();
-			Reporter.log("Click action is performed on Leave in the Menu bar",true);
-			driver.findElement(By.xpath("//span[text()='Apply']")).click();
-			Reporter.log("Click action is performed on Apply in the Menu bar",true);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='select-dropdown']")));
 			driver.findElement(By.xpath("//input[@class='select-dropdown']")).click();
 			driver.findElement(By.xpath("//span[text()='" + leaveType + "']")).click();

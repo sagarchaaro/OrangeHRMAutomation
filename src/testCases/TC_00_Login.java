@@ -1,7 +1,11 @@
 package testCases;
 
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -53,14 +57,23 @@ public class TC_00_Login {
 	}
 	@Test (dataProviderClass=CommonMethod.class, dataProvider="Login")
 	public void loginValidation(String userName, String password, String testID) throws Exception{
+		
 		System.out.println("Username from data provider is: "+userName);
 		System.out.println("Password from data provider is:"+password);
 		System.out.println("TestCase Id from data provider is:"+testID);
 		
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
-		Reporter.log("The row no for Test Case is : " + iTestCase,true);	
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);		
+				
+
+		driver.findElement(By.id("txtUsername")).sendKeys(userName);
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
+		driver.findElement(By.id("txtPassword")).sendKeys(password);
+		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
+		driver.findElement(By.id("btnLogin")).submit();
+		Reporter.log("Click action is performed on Login button",true);
 		
-		Login_Page.login(iTestData);	
+		Thread.sleep(3000);			
 		
 		Home_Page.verifyDashboard(screenshotPath);
 
