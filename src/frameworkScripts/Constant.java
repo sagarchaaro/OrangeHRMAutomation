@@ -10,7 +10,7 @@ public class Constant {
 	public static final String sheet_TestCases = "TestCases";
 	public static final String sheet_Login = "Login";
 	public static final String sheet_AddEmployeeCases = "Add Employee";
-	public static final String sheet_EditUserCases = "Edit User";
+	public static final String sheet_EditUserCases = "Edit Location";
 	public static final String sheet_AddVacancyCases = "Add Vacancy";
 	public static final String sheet_EditEmployeeCases = "EditEmployee";
 	public static final String sheet_ApplyLeaveCases = "Apply Leave";

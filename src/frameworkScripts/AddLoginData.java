@@ -14,15 +14,17 @@ import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 import org.yaml.snakeyaml.Yaml;
 
+import pages.BaseClass;
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
 import utilities.Utils;
 
 public class AddLoginData {
-		public static String timestamp, screenshotPath, browser, reason, newPassword;
+		public static String timestamp, excelPath, screenshotPath, browser, reason, newPassword;
 		public static Map<String, String> yaml, userName, passWord;
 		public static int iTestCase, iTestData;
 		public static WebDriver driver;
@@ -30,29 +32,39 @@ public class AddLoginData {
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception {
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		Reporter.log("The Project Path is:" + CommonMethod.projectpath, true);
-		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");		
+		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		
+		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
+		
+		screenshotPath=CommonMethod.getYamlData("screenshotPath");		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		screenshotPath = CommonMethod.screenshotPath + timestamp;
+		screenshotPath = CommonMethod.projectpath+ screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
-		//userName = CommonMethod.yamlFileRead(CommonMethod.userName);
-		//passWord = CommonMethod.yamlFileRead(CommonMethod.passWord);
 	}
 
 	@BeforeMethod()
-	public void browserLaunch() throws Exception {
+	public void browserLaunch(@Optional(Constant.TestCaseID) String testID) throws Exception {
 
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
-		driver = Utils.openBrowser(yaml, "Chrome");
+		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
+		ExcelConfig.setExcelFile(excelPath);
+		Reporter.log("The Testcase id executing is :"+testID,true);
+		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
+		Reporter.log("The row no for Test Case is : " + iTestCase,true);
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
+		Reporter.log("The row no for test Data is : " + iTestData,true);
+		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		Reporter.log("The Browser for the excecution is : " + browser,true);
+		driver = Utils.openBrowser(CommonMethod.yamlData, browser);
+		new BaseClass(driver);
 	}
 
 	@Test
 	public void addLogin()throws Exception {
 		// LOGIN AND DASHBOARD VALDATION
 		String title = driver.getTitle();
-		CommonMethod.validation("OrangeHRM", title, iTestCase);
+		CommonMethod.verifyData(title, "OrangeHRM");
 		String projPath=System.getProperty("user.dir");
 		FileInputStream fis = new FileInputStream(projPath+"\\test-resources\\test-info.yaml");
 		
@@ -130,9 +142,9 @@ public class AddLoginData {
 			
 			Reporter.log("Click action is performed on Save button", true);	
 			Thread.sleep(5000);
-			ExcelConfig.setCellData(newPassword, iTestData, Constant.col_Password, Constant.sheet_Login,CommonMethod.pathExcel);
+			ExcelConfig.setCellData(newPassword, iTestData, Constant.col_Password, Constant.sheet_Login,excelPath);
 			Reporter.log(newPassword+ "is written as password against to RowNumber "+iTestData +", column Number " +Constant.col_Password +" in the "+Constant.sheet_Login,true);
-			ExcelConfig.setCellData(newUser, iTestData, Constant.col_UserName, Constant.sheet_Login,CommonMethod.pathExcel);
+			ExcelConfig.setCellData(newUser, iTestData, Constant.col_UserName, Constant.sheet_Login,excelPath);
 			Reporter.log(newUser+ "is written as newUser against to RowNumber "+iTestData +", column Number " +Constant.col_UserName +" in the "+Constant.sheet_Login,true);
 			iTestData++;	
 			datacount++;
