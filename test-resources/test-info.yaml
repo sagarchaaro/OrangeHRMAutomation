@@ -1,10 +1,10 @@
-PathExcel: \test-resources\HRM_TestData.xlsx
+excelPath: \test-resources\HRM_TestData.xlsx
 chromePath: "C:\\Selenium Catalogue\\Drivers\\Chrome\\chromedriver_win32\\chromedriver.exe"
 edgePath: ""
 geckoPath: ""
 internateExplorePath: ""
 operaPath: ""
-orangeHRMURL: "https://testersselenium-trials65101.orangehrmlive.com"
+orangeHRMUrl: "https://testersselenium-trials65101.orangehrmlive.com"
 screenshotPath: \Screen-Shot\
 userName: Admin
 password: Admin@123

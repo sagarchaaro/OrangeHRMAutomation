@@ -19,13 +19,14 @@ import org.testng.annotations.Test;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
+import pages.BaseClass;
 import utilities.Utils;
 import utilities.ExcelConfig;
 import utilities.RandomGenerator;
 
 public class TC_08_TravelRequest {
 	
-	public static String timestamp, screenshotPath, browser, vacancy_Name, employee_Name, currency_Name, dest_Address, requestStatus, requestID,reason;
+	public static String timestamp, screenshotPath, browser, excelPath, vacancy_Name, employee_Name, currency_Name, dest_Address, requestStatus, requestID,reason;
 	public static Map<String, String> yaml;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -34,10 +35,12 @@ public class TC_08_TravelRequest {
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
 		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
-		yaml = CommonMethod.yamlFileRead(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
-	
+		
+		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
+		
+		screenshotPath=CommonMethod.getYamlData("screenshotPath");		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		screenshotPath = CommonMethod.screenshotPath + timestamp;
+		screenshotPath = CommonMethod.projectpath+ screenshotPath + timestamp;
 		Utils.createDir(screenshotPath);
 		
 	}
@@ -48,15 +51,17 @@ public class TC_08_TravelRequest {
 			
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 
-		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
+		ExcelConfig.setExcelFile(excelPath);
 		Reporter.log("The Testcase id executing is :"+testID,true);
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TravelRequestCases);
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
 		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);
-		driver = Utils.openBrowser(yaml, browser);
+		driver = Utils.openBrowser(CommonMethod.yamlData, browser);
+		new BaseClass(driver);
 	}
 	
 	@Test
@@ -67,7 +72,7 @@ public class TC_08_TravelRequest {
 		// LOGIN AND DASHBOARD VALDATION
 
 		String title = driver.getTitle();
-		CommonMethod.validation("OrangeHRM", title, iTestCase);
+		CommonMethod.verifyData(title, "OrangeHRM");
 
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_TravelRequestCases);
 		Reporter.log("The userName read from excel is : " + userName,true);
@@ -396,25 +401,25 @@ public class TC_08_TravelRequest {
 		// ENTERING IN EXCEL SHEET
 		
 		if(result.getStatus() == ITestResult.SUCCESS){
-		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData(employee_Name, iTestData, Constant.col_Employee_Name, Constant.sheet_TravelRequestCases,excelPath);
 		Reporter.log("The value "+employee_Name+" is written as employeeName against to RowNumber "+iTestData +", column Number " +Constant.col_Employee_Name+" in the "+Constant.sheet_TravelRequestCases,true);
-		ExcelConfig.setCellData(currency_Name, iTestData, Constant.col_Currency_Name, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData(currency_Name, iTestData, Constant.col_Currency_Name, Constant.sheet_TravelRequestCases,excelPath);
 		Reporter.log("The value "+currency_Name+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Currency_Name+" in the "+Constant.sheet_TravelRequestCases,true);
-		ExcelConfig.setCellData(dest_Address, iTestData, Constant.col_Destination_Address,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
+		ExcelConfig.setCellData(dest_Address, iTestData, Constant.col_Destination_Address,Constant.sheet_TravelRequestCases, excelPath);
 		Reporter.log("The value "+dest_Address+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Destination_Address+" in the "+Constant.sheet_TravelRequestCases,true);
-		ExcelConfig.setCellData(requestStatus, iTestData, Constant.col_Request_Status,Constant.sheet_TravelRequestCases, CommonMethod.pathExcel);
+		ExcelConfig.setCellData(requestStatus, iTestData, Constant.col_Request_Status,Constant.sheet_TravelRequestCases, excelPath);
 		Reporter.log("The value "+requestStatus+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_Status+" in the "+Constant.sheet_TravelRequestCases,true);
-		ExcelConfig.setCellData(requestID, iTestData, Constant.col_Request_ID, Constant.sheet_TravelRequestCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData(requestID, iTestData, Constant.col_Request_ID, Constant.sheet_TravelRequestCases,excelPath);
 		Reporter.log("The value "+requestID+" is written as currency_Name against to RowNumber "+iTestData +", column Number " +Constant.col_Request_ID+" in the "+Constant.sheet_TravelRequestCases,true);
 
-		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,CommonMethod.pathExcel);
+		ExcelConfig.setCellData("Pass", iTestCase, Constant.col_NewPhoneNo, Constant.sheet_TestCases,excelPath);
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, CommonMethod.pathExcel);
+		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, excelPath);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,CommonMethod.pathExcel);
+			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, CommonMethod.pathExcel);
+			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);

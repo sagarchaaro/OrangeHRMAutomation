@@ -15,6 +15,7 @@ import utilities.ExcelConfig;
 import utilities.Utils;
 
 public class HRM_TestCase_Method {
+	public static String excelPath;
 	public static String AddEmployee(String locationName_New, WebDriver driver) throws Exception {
 		Reporter.log("The Execution started for HRM_TestCase_Method",true);
 		// PIM Click
@@ -30,8 +31,8 @@ public class HRM_TestCase_Method {
 		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
 		// enter name
 		
-
-		ExcelConfig.setExcelFile(CommonMethod.pathExcel);
+		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");
+		ExcelConfig.setExcelFile(excelPath);
 		
 		String testID=Constant.TestCaseID.replace("TC_02", "TC_01");
 		int iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_TestCases);
