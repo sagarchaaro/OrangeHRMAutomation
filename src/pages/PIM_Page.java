@@ -10,6 +10,7 @@ import org.testng.Reporter;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
+import testCases.TC_04_EditEmployee;
 import utilities.ExcelConfig;
 
 public class PIM_Page extends BaseClass {
@@ -44,7 +45,7 @@ public class PIM_Page extends BaseClass {
 	static By txtbx_EmployeeList = By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]");
 	
 	public static String employeeName, employeeID, firstName, middleName, lastName;
-	
+	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 	
 
 	public static void setEmployeePersonalData(int iTestData) throws Exception{
@@ -135,12 +136,113 @@ public class PIM_Page extends BaseClass {
 		driver.findElement(btn_save).click();
 		Reporter.log("Click action is performed Save button",true);
 	}
-	
+		
 	public static void verifyEmployeeData() throws Exception{
 		
 		driver.findElement(Home_Page.link_EmployeeList).click();
 		employeeName = firstName.concat(" " + middleName).concat(" " + lastName);
 		employeeID = driver.findElement(By.xpath("//td[text()='"+employeeName+" ']/../td[2]")).getText();
+		
+	}
+	
+	public static void employeeToUpdate(){
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(link_FistEmployee));
+		// Search employee
+		driver.findElement(link_FistEmployee).click();
+		Reporter.log("Click action is performed on first Link of Employee list",true);
+		TC_04_EditEmployee.employeeName=driver.findElement(txtbx_EmployeeName).getText();
+		Reporter.log("Edit employee activity is performed  for the employee :"+employeeName,true);
+		TC_04_EditEmployee.employeeID=driver.findElement(txtbx_EmployeeId).getText();
+		Reporter.log("Edit employee activity is performed  for the employee ID :"+employeeID,true);		
+		
+	}
+	
+	public static void editPersonalDtl(int iTestData) throws Exception{
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
+		String lastName = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_EditEmployeeCases);
+		Reporter.log("The lastName read from excel is : " + lastName,true);
+		driver.findElement(txtbx_lastName).clear();
+		driver.findElement(txtbx_lastName).sendKeys(lastName);
+		Reporter.log("The value "+ lastName+" is entered as lastName in the text-box",true);
+		driver.findElement(click_DateDOB).click();
+		Reporter.log("Click action is performed on calender for DOB",true);
+		String dateOfBirthFomat1 = ExcelConfig.getCellData(iTestData, Constant.col_DateOfBirth,Constant.sheet_EditEmployeeCases);
+		CommonMethod.date_HRM(dateOfBirthFomat1, driver, 1);
+		driver.findElement(dd_nationality).click();
+		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,Constant.sheet_EditEmployeeCases);
+		driver.findElement(By.xpath("//span[text()='" + nationalty + "']")).click();
+		Reporter.log("The value "+ nationalty+" is selected as nationalty from dropdown",true);
+		driver.findElement(btn_savePersonalDtl).click();
+		Reporter.log("Click action is performed on save button for the Personal detail update",true);	
+		try {
+			WebElement webelement_EEO = driver.findElement(click_EEO);
+			webelement_EEO.click();
+			driver.findElement(By.xpath("//span[text()='Asian']")).click();
+			Reporter.log("Click action is performed on EEO option ",true);
+		} catch (Exception user) {
+			Reporter.log("EEO Race and Ethnicity is not required",true);
+		}
+
+		try {
+			if (driver.findElement(msg_sucess).isDisplayed()) {
+				Reporter.log("Successfully dispaly message is verified for Personal detail update",true);
+
+			}
+		} catch (Exception user) {
+			Reporter.log("Successfully dispaly message is not verified for Personal detail update",true);
+		}
+		
+	}
+	public static void editImportantDtl(int iTestData) throws Exception{
+		
+		String bloodGroup = ExcelConfig.getCellData(iTestData, Constant.col_BloodGroup,Constant.sheet_EditEmployeeCases);
+		// String bloodGroup=sh.getRow(i).getCell(6).getStringCellValue();
+		driver.findElement(By.xpath("//label[text()='Blood Group']//parent::div//child::input")).click();
+		driver.findElement(By.xpath("//span[text()='" + bloodGroup + "']")).click();
+		Reporter.log("The value "+ bloodGroup+" is selected as bloodGroup from dropdown",true);
+		driver.findElement(btn_saveImportantDtl).click();
+		Reporter.log("Click action is performed on save button for the important detail update",true);
+		try {
+			if (driver.findElement(msg_sucess).isDisplayed()) {
+				Reporter.log("Successfully dispaly message is verified for important detail update",true);
+
+			}
+		} catch (Exception user) {
+			Reporter.log("Successfully dispaly message is not verified for important detail update",true);
+		}
+		
+	}
+	
+	public static void editPreferencesDtl(int iTestData) throws Exception{
+		
+		String hubby1 = ExcelConfig.getCellData(iTestData, Constant.col_HubbyFirst, Constant.sheet_EditEmployeeCases);
+		WebElement Hubby_First = driver.findElement(By.xpath("//label[@for='" + hubby1 + "']"));
+		if (Hubby_First.isSelected()) {
+			Reporter.log("Hubby is already selected as" + hubby1,true);
+		} else {
+			Hubby_First.click();
+			Reporter.log("Hubby is selected as " + hubby1,true);
+		}
+		String hubby2 = ExcelConfig.getCellData(iTestData, Constant.col_HubbySecond, Constant.sheet_EditEmployeeCases);
+		WebElement Hubby_Second = driver.findElement(By.xpath("//label[@for='" + hubby2 + "']"));
+		if (Hubby_Second.isSelected()) {
+			Reporter.log("Hubby is already selected as " + hubby2,true);
+		} else {
+			Hubby_Second.click();
+			Reporter.log("Hubby is selected as " + hubby2,true);
+		}
+		driver.findElement(btn_savePreferenceDtl).submit();
+		Reporter.log("Enter the save for the Preferences Detail update",true);
+		try {
+			if (driver.findElement(msg_sucess).isDisplayed()) {
+				Reporter.log("Successfully dispaly message is verified for Preferences detail update",true);
+
+			}
+		} catch (Exception user) {
+			Reporter.log("Successfully dispaly message is not verified for Preferences detail update",true);
+		}
 		
 	}
 	
