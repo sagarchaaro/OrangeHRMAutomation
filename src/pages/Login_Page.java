@@ -7,6 +7,7 @@ import org.testng.Reporter;
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
+import utilities.Utils;
 
 public class Login_Page extends BaseClass{
 	
@@ -39,5 +40,12 @@ public class Login_Page extends BaseClass{
 		
 	}
 	
-	
+	public static void login(String userName, String password){	
+		driver.findElement(txtbx_userID).sendKeys(userName);
+		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
+		driver.findElement(txtbx_password).sendKeys(password);
+		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
+		driver.findElement(btn_login).submit();
+		Reporter.log("Click action is performed on Login button",true);
+}
 }
