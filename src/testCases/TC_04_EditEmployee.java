@@ -1,10 +1,6 @@
 package testCases;
 
-import java.util.Map;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -69,8 +65,7 @@ public class TC_04_EditEmployee {
 
 
 	@Test
-	public  void editEmployee() throws InterruptedException, Exception {
-		WebDriverWait wait = new WebDriverWait(driver, 30);		
+	public  void editEmployee() throws InterruptedException, Exception {	
 		Reporter.log("The Execution started for TC_04_EditEmployee",true);	
 		
 		Login_Page.login(iTestData);	

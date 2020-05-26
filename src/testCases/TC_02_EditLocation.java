@@ -1,12 +1,6 @@
 package testCases;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -24,12 +18,8 @@ import pages.HRM_TestCase_Method;
 import pages.Home_Page;
 import pages.Login_Page;
 
-import java.util.List;
-import java.util.Map;
-
 import utilities.Utils;
 import utilities.ExcelConfig;
-import utilities.RandomGenerator;
 
 public class TC_02_EditLocation {
 	

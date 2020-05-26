@@ -4,14 +4,11 @@ package frameworkScripts;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.asserts.SoftAssert;
 import org.yaml.snakeyaml.Yaml;
