@@ -34,8 +34,7 @@ public class Home_Page extends BaseClass {
 	static By link_UserMange = By.xpath("//span[text()='User Management']");
 	static By link_Users = By.xpath("//span[text()='Users']");
 	static By link_Decipline = By.xpath("//span[text()='Discipline']");
-	static By link_DeciplineCases = By
-			.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']");
+	static By link_DeciplineCases = By.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']");
 
 	public static void verifyDashboard(String screenshotPath) throws Exception {
 		Thread.sleep(3000);
@@ -73,5 +72,14 @@ public class Home_Page extends BaseClass {
 		driver.findElement(By.xpath("//span[text()='" + branch + "']")).click();
 		Reporter.log("Click action is performed on " + branch + " in the Menu bar", true);
 	}
-
+	public static void navigateDesciplinary() {
+		driver.findElement(link_Decipline).click();
+		Reporter.log("Click action is performed on Discipline in the Menu bar",true);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Disciplinary Cases']")));
+		driver.findElement(link_DeciplineCases).click();
+		// span[contains(text(),'Disciplinary Cases')]
+		Reporter.log("Click action is performed on Disciplinary Cases in the Menu bar",true);		// PIM Click
+		
+	}
 }

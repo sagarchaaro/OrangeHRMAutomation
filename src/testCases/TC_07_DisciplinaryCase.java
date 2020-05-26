@@ -77,15 +77,7 @@ public class TC_07_DisciplinaryCase {
 		
 		Discipline_Page.storeUserInArray(iTestData, screenshotPath);
 		
-	//	Home_Page.navigateMenu("Discipline", "Disciplinary Cases");	
-		
-		driver.findElement(By.xpath("//span[text()='Discipline']")).click();
-		Reporter.log("Click action is performed on Discipline in the Menu bar",true);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Disciplinary Cases']")));
-		driver.findElement(By.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']")).click();
-		// span[contains(text(),'Disciplinary Cases')]
-		Reporter.log("Click action is performed on Disciplinary Cases in the Menu bar",true);
+	    Home_Page.navigateDesciplinary();
 
 		Discipline_Page.addDesciplinaryRecord();
 
@@ -93,7 +85,8 @@ public class TC_07_DisciplinaryCase {
 		
 		Discipline_Page.setDesciplinaryAction(iTestData, screenshotPath);
 
-		Home_Page.navigateMenu("Discipline", "Disciplinary Cases");
+		Home_Page.navigateDesciplinary();
+	//	Home_Page.navigateMenu("Discipline", "Disciplinary Cases");
 		
 		Discipline_Page.verifyDesciplinaryRec(iTestData); 
 
