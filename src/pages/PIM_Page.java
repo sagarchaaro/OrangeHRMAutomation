@@ -14,6 +14,7 @@ import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import testCases.TC_04_EditEmployee;
 import utilities.ExcelConfig;
+import utilities.RandomGenerator;
 import utilities.Utils;
 
 public class PIM_Page extends BaseClass {
@@ -69,8 +70,8 @@ public class PIM_Page extends BaseClass {
 		driver.findElement(txtbx_middleName).sendKeys(middleName);
 		Reporter.log("The value " + middleName + " is entered as middleName in the text-box", true);
 
-		lastName = ExcelConfig.getCellData(iTestData, Constant.col_lastName, Constant.sheet_AddEmployeeCases);
-		Reporter.log("The lastName read from excel is : " + lastName, true);
+		lastName = RandomGenerator.randomAlphabetic(4);
+		Reporter.log("The lastName is : " + lastName, true);
 
 		driver.findElement(txtbx_lastName).sendKeys(lastName);
 		Reporter.log("The value " + lastName + " is entered as lastName in the text-box", true);
@@ -153,9 +154,12 @@ public class PIM_Page extends BaseClass {
 		
 	public static void verifyEmployeeData() throws Exception{
 		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(Home_Page.link_EmployeeList));
 		driver.findElement(Home_Page.link_EmployeeList).click();
 		employeeName = firstName.concat(" " + middleName).concat(" " + lastName);
-		employeeID = driver.findElement(By.xpath("//td[text()='"+employeeName+" ']/../td[2]")).getText();
+		driver.findElement(By.id("employee_name_quick_filter_employee_list_value")).sendKeys(employeeName);
+		employeeID = driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[2]")).getText();
+		
 		
 	}
 	

@@ -51,7 +51,7 @@ public class TC_02_EditLocation {
 		Reporter.log("The Testcase id executing is :"+testID,true);
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_AddEmployeeCases);
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_EditUserCases);
 		Reporter.log("The row no for test Data is : " + iTestData,true);
 		browser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + browser,true);

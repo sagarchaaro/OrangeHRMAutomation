@@ -27,7 +27,7 @@ public class HRM_TestCase_Method {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Add Employee']")));
 		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Add Employee']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
+		//driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
 		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
 		// enter name
 		

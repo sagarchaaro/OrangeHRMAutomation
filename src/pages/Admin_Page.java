@@ -53,7 +53,7 @@ public class Admin_Page extends BaseClass {
 		driver.findElement(btn_save).click();
 	}
 
-	public static String phoneNumber, newLocationName;
+	public static String phoneNumber, newLocationName, password;
 	public static String empFirstName, userName, newPassword, employeeName;
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);
 
@@ -225,6 +225,32 @@ public class Admin_Page extends BaseClass {
 		String username1_validation = driver.findElement(By.xpath("//span[@id='account-name']")).getText();
 		Utils.screenShot(screenshotPath + "\\" + userName + "_Login.jpg", driver);
 		CommonMethod.verifyData(employeeName, username1_validation);
+	}
+	
+	public static String changePassword() throws Exception{
+		Thread.sleep(5000);
+		List<WebElement> employeeName = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
+		Reporter.log("All EmployeeName are stored in the WebElement",true);
+		String[] empName = Utils.dataIntoArray(employeeName, 50);
+		Reporter.log("All EmployeeName are stored in the Array",true);
+		String employee_Name = Utils.selectWithRandomIndex(50, empName);
+		Reporter.log("The EmployeeName is selected by random no is :" + employee_Name,true);
+		driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ employee_Name + "']/../../../td[8]")).click();
+		Reporter.log("Click action is performed on Edit Link",true);
+
+		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
+		Reporter.log("Click action is performed  on change password checkbox",true);
+
+		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[8]")).sendKeys(password);
+		Reporter.log("The value "+ password+" is entered as password in the text-box",true);
+
+		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[9]")).sendKeys(password);
+		Reporter.log("The value "+ password+" is entered as Confirm password in the text-box",true);
+
+		driver.findElement(By.id("systemUserSaveBtn")).click();
+		Reporter.log("Click action is performed on Save button",true);
+		Thread.sleep(5000);
+		return employee_Name;
 	}
 
 }

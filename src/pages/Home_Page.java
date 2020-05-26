@@ -50,6 +50,11 @@ public class Home_Page extends BaseClass {
 			Assert.assertTrue(false, "Dashboard is not available, Test case is failed");
 		}
 	}
+	
+	public static void navigateMenu(String mainHeader) {
+		driver.findElement(By.xpath("//span[text()='" + mainHeader + "']")).click();
+		Reporter.log("Click action is performed on " + mainHeader + " in the Menu bar", true);
+	}
 
 	public static void navigateMenu(String mainHeader, String subHeader) {
 		// PIM Click
