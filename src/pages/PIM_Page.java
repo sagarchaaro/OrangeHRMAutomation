@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +14,7 @@ import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import testCases.TC_04_EditEmployee;
 import utilities.ExcelConfig;
+import utilities.Utils;
 
 public class PIM_Page extends BaseClass {
 
@@ -24,6 +27,7 @@ public class PIM_Page extends BaseClass {
 	static By txtbx_middleName = By.xpath("//input[@id='middleName']");
 	static By txtbx_lastName = By.xpath("//input[@id='lastName']");
 	static By dd_location = By.xpath("(//input[@class='select-dropdown'])[2]");
+	static By dd_location_options = By.xpath("//div[@class='select-wrapper initialized']/ul/li[@class='']");
 	static By btn_next_PersonalDetails = By.xpath("//a[@id='systemUserSaveBtn']");
 	static By dd_bloodGroup = By.xpath("(//input[@class='select-dropdown'])[3]");
 	static By txtbx_hobbies = By.xpath("//input[@id='5']");
@@ -44,7 +48,7 @@ public class PIM_Page extends BaseClass {
 	static By msg_sucess = By.xpath("//div[@class='toast toast-success']");
 	static By txtbx_EmployeeList = By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]");
 	
-	public static String employeeName, employeeID, firstName, middleName, lastName;
+	public static String employeeName, employeeID, firstName, middleName, lastName, location;
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 	
 
@@ -73,8 +77,18 @@ public class PIM_Page extends BaseClass {
 
 		// enter the location
 		driver.findElement(dd_location).click();
-		String location = ExcelConfig.getCellData(iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases);
-		Reporter.log("The location read from excel is : " + location, true);
+		Thread.sleep(5000);
+		int totalElementNo=driver.findElements(dd_location_options).size();
+		Reporter.log("The total no of location in the dropdown is: " + totalElementNo,true);
+		List<WebElement> webelement_location = driver.findElements(dd_location_options);
+		Reporter.log("All locations are stored in the WebElement",true);
+		String[] locationsArray = Utils.dataIntoArray(webelement_location, totalElementNo);
+		Reporter.log("All locations are stored in the Array",true);
+		location = Utils.selectWithRandomIndex(totalElementNo, locationsArray);
+		Reporter.log("The location selected by random no is:" + location,true);
+		location=location.trim();
+	//	String location = ExcelConfig.getCellData(iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases);
+	//	Reporter.log("The location read from excel is : " + location, true);
 
 		driver.findElement(By.xpath("//span[contains(text(),'" + location + "')]")).click();
 		Reporter.log("The value " + location + " is selected as location in the dropdown", true);

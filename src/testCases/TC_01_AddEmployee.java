@@ -72,6 +72,8 @@ public class TC_01_AddEmployee {
 		
 		PIM_Page.setEmployeeImportantData(iTestData);
 		
+		PIM_Page.setEmployeeData(iTestData);
+		
 		PIM_Page.verifyEmployeeData();
 		
 		CommonMethod.logoutJaveExecuter(driver);
@@ -88,7 +90,11 @@ public class TC_01_AddEmployee {
 			
 			ExcelConfig.setCellData(PIM_Page.employeeID, iTestData, Constant.col_employeeID, Constant.sheet_AddEmployeeCases, excelPath);
 			Reporter.log("The value "+PIM_Page.employeeID+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_employeeID +" in the "+Constant.sheet_AddEmployeeCases,true);
+
+			ExcelConfig.setCellData(PIM_Page.location, iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases,excelPath);
+			Reporter.log("The value "+PIM_Page.location+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_location +" in the "+Constant.sheet_AddEmployeeCases,true);
 			
+		
 			ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases, excelPath);
 			Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
 			
