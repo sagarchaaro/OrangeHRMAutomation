@@ -75,10 +75,10 @@ public class TC_02_EditLocation {
 
 		Admin_Page.validateLocation();
 
-		employeeName = HRM_TestCase_Method.AddEmployee(newLocationName, driver);
+		employeeName = HRM_TestCase_Method.AddEmployee(Admin_Page.newLocationName, driver);
 
 		Thread.sleep(10000);
-		Home_Page.navigateMenu("PIM","Employee List");
+		Home_Page.navigateMenu("Employee List");
 		
 		Admin_Page.verifyLocationInEmployeeList(employeeName);
 
@@ -97,7 +97,7 @@ public class TC_02_EditLocation {
 	for(int row=1;row<rowCount;row++){
 		String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
 		if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
-			ExcelConfig.setCellData(newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, excelPath);
+			ExcelConfig.setCellData(Admin_Page.newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, excelPath);
 			Reporter.log(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet",true);
 			found=true;
 		}

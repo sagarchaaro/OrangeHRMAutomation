@@ -91,9 +91,12 @@ public class Recruitment_Page extends BaseClass{
 		driver.findElement(By.id("vacancySearch_jobVacancy")).sendKeys(vacancy_Name);
 		Reporter.log("The value " +vacancy_Name+ " is entered in Vacancy name in the text box", true);
 		
+		Thread.sleep(2000);
+		
 		driver.findElement(By.xpath("//a[text()='Search']")).click();
 		Reporter.log("Search button is clicked");
 		
+		Thread.sleep(3000);
 		driver.findElement(By.xpath("//i[@class='material-icons mdi-navigation-menu']")).click();
 
 		driver.findElement(By.linkText("Home")).click();

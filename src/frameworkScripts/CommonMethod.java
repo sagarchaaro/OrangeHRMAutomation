@@ -186,7 +186,7 @@ public class CommonMethod {
 	 * THE METHOD "logout" TO LOGOUT FROM THE HOME PAGE WEBDRIVER TAKE AS INPUT
 	 */
 	public static void logoutJaveExecuter(WebDriver driver) throws Exception {
-
+		Thread.sleep(2000);
 		WebElement element = driver.findElement(By.xpath("//*[@id='account-job']/i"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);

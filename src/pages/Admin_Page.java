@@ -58,12 +58,13 @@ public class Admin_Page extends BaseClass {
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);
 
 	public static void getLocationData() throws Exception {
-		List<WebElement> element_location = driver
-				.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include"));
+		
+		List<WebElement> element_location = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include"));
 		Reporter.log("All location are stored in the WebElement", true);
-		String[] locationArray = Utils.dataIntoArray(element_location, 16);
+		Thread.sleep(5000);
+		String[] locationArray = Utils.dataIntoArray(element_location, 17);
 		Reporter.log("All location are stored in the Array", true);
-		String existingLocationName = Utils.selectWithRandomIndex(16, locationArray);
+		String existingLocationName = Utils.selectWithRandomIndex(17, locationArray);
 		Reporter.log("The location is selected by random no is :" + existingLocationName, true);
 		driver.findElement(By.xpath("//span[text()='" + existingLocationName + "']//ancestor ::tr/td[8]/i")).click();
 		Reporter.log(" Click action is performed on Edit button", true);
@@ -127,6 +128,7 @@ public class Admin_Page extends BaseClass {
 				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span")).getText();
 		Reporter.log(" The phone no for Validation is : " + validate_PhoneNo, true);
 		CommonMethod.verifyData("+91 " + phoneNumber, validate_PhoneNo);
+		
 	}
 
 	public static void verifyLocationInEmployeeList(String employeeName) throws Exception {
@@ -227,7 +229,7 @@ public class Admin_Page extends BaseClass {
 		CommonMethod.verifyData(employeeName, username1_validation);
 	}
 	
-	public static String changePassword() throws Exception{
+	public static String changePassword(int iTestData) throws Exception{
 		Thread.sleep(5000);
 		List<WebElement> employeeName = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
 		Reporter.log("All EmployeeName are stored in the WebElement",true);
@@ -240,6 +242,8 @@ public class Admin_Page extends BaseClass {
 
 		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
 		Reporter.log("Click action is performed  on change password checkbox",true);
+		
+		password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_TravelRequestCases);
 
 		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[8]")).sendKeys(password);
 		Reporter.log("The value "+ password+" is entered as password in the text-box",true);

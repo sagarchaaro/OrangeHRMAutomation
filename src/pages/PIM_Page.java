@@ -150,6 +150,7 @@ public class PIM_Page extends BaseClass {
 
 		driver.findElement(btn_save).click();
 		Reporter.log("Click action is performed Save button",true);
+		Thread.sleep(10000);
 	}
 		
 	public static void verifyEmployeeData() throws Exception{

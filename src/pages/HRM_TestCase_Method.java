@@ -19,17 +19,22 @@ public class HRM_TestCase_Method {
 	public static String AddEmployee(String locationName_New, WebDriver driver) throws Exception {
 		Reporter.log("The Execution started for HRM_TestCase_Method",true);
 		// PIM Click
-		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-		Reporter.log("Click action is performed on PIM in the Menu bar",true);
-		
-		// add employee click
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Add Employee']")));
-		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Add Employee']")));
-		Thread.sleep(2000);
-		//driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
-		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
+//		driver.findElement(By.xpath("//span[text()='PIM']")).click();
+//		Reporter.log("Click action is performed on PIM in the Menu bar",true);
+//		
+//		// add employee click
+//		Thread.sleep(2000);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Add Employee']")));
+//		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Add Employee']")));
+//		Thread.sleep(2000);
+//		//driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
+//		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
 		// enter name
+		Thread.sleep(3000);
+		
+		Home_Page.navigateMenu("PIM", "Add Employee");
 		
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");
 		ExcelConfig.setExcelFile(excelPath);
