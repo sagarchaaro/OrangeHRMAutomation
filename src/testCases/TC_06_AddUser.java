@@ -21,7 +21,7 @@ import utilities.ExcelConfig;
 
 public class TC_06_AddUser {
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser,reason,url, excelPath;
+	public static String timestamp, screenshotPath, iBrowser,url, excelPath;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 
@@ -47,9 +47,9 @@ public class TC_06_AddUser {
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
 		ExcelConfig.setExcelFile(excelPath);
 		Reporter.log("The Testcase id executing is :"+testID,true);
-		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,	Constant.sheet_TestCases);
+		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_AddUserCases);
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_AddUserCases);
 		Reporter.log("The row no for of test Data is : " + iTestData,true);
 		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
@@ -65,7 +65,7 @@ public class TC_06_AddUser {
 			
 		Reporter.log("The Execution started for TC_06_AddUser",true);
 
-		Login_Page.login(iTestData);	
+		Login_Page.login(iTestData,Constant.sheet_AddUserCases);	
 		
 		Home_Page.verifyDashboard(screenshotPath);
 		
@@ -90,7 +90,7 @@ public class TC_06_AddUser {
 	@AfterMethod
 	public void afterMethod(ITestResult result) throws Exception{
 
-		driver.quit();
+	
 		Reporter.log("Click action is performed on Logoout button for New User",true);
 		
 		if(result.getStatus() == ITestResult.SUCCESS){
@@ -105,15 +105,16 @@ public class TC_06_AddUser {
 				+" in the "+Constant.sheet_TestCases,true);
 		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\_Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
-			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
+			Reporter.log(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
-			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+			Reporter.log("Testcase is Skipped with the reason as :"+CommonMethod.reason,true);
 		}
 		
-		
+		driver.quit();
 		Reporter.log("TestCase execution is completed",true);
 
 	}

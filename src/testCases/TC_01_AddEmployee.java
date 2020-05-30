@@ -64,7 +64,7 @@ public class TC_01_AddEmployee {
 		
 		Login_Page.loginPageVerify();
 		
-		Login_Page.login(iTestData);
+		Login_Page.login(iTestData,Constant.sheet_AddEmployeeCases);
 		
 		Home_Page.navigateMenu("PIM", "Add Employee");
 		
@@ -82,7 +82,7 @@ public class TC_01_AddEmployee {
 	
 	@AfterMethod
 	public void tearDown(ITestResult result) throws Exception{
-		driver.quit();
+	
 		
 		if(result.getStatus() == ITestResult.SUCCESS){
 			ExcelConfig.setCellData(PIM_Page.employeeName, iTestData, Constant.col_employeeName, Constant.sheet_AddEmployeeCases,excelPath);
@@ -99,6 +99,7 @@ public class TC_01_AddEmployee {
 			Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
 			
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 			
@@ -109,6 +110,7 @@ public class TC_01_AddEmployee {
 			Reporter.log("Testcase is Skipped with the reason as :"+CommonMethod.reason,true);
 		}
 		
+		driver.quit();
 		Reporter.log("TestCase execution is completed",true);
 	}
 

@@ -68,7 +68,7 @@ public class TC_08_TravelRequest {
 
 		Login_Page.loginPageVerify();
 		
-		Login_Page.login(iTestData);
+		Login_Page.login(iTestData,Constant.sheet_TravelRequestCases);
 		
 		// CHANGING USER PASSWORD
 		Home_Page.navigateMenu("Admin", "User Management", "Users");
@@ -99,7 +99,7 @@ public class TC_08_TravelRequest {
 
 		CommonMethod.logoutJaveExecuter(driver);
 
-		Login_Page.login(iTestData);
+		Login_Page.login(iTestData,Constant.sheet_TravelRequestCases);
 		
 		Home_Page.navigateMenu("Expense", "Travel Requests", "Employee Travel Requests");
 		
@@ -124,7 +124,7 @@ public class TC_08_TravelRequest {
 	
 	@AfterMethod
 	public void tearDown(ITestResult result) throws Exception{
-		driver.quit();
+		
 		// ENTERING IN EXCEL SHEET
 		
 		if(result.getStatus() == ITestResult.SUCCESS){
@@ -144,6 +144,7 @@ public class TC_08_TravelRequest {
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, excelPath);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
@@ -152,6 +153,7 @@ public class TC_08_TravelRequest {
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
 		}
 		
+		driver.quit();
 		Reporter.log("TestCase execution is completed",true);
 
 	}

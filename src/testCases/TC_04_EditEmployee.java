@@ -1,7 +1,6 @@
 package testCases;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -21,7 +20,7 @@ import utilities.ExcelConfig;
 
 public class TC_04_EditEmployee {
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser,reason,url, excelPath;
+	public static String timestamp, screenshotPath, iBrowser,url, excelPath;
 	public static String employeeName,employeeID;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
@@ -49,12 +48,11 @@ public class TC_04_EditEmployee {
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
 		ExcelConfig.setExcelFile(excelPath);
 		Reporter.log("The Testcase id executing is :"+testID,true);
-		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID, Constant.sheet_TestCases);
+		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Reporter.log("The row no for Test Case is : " + iTestCase,true);
-		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,
-						Constant.sheet_EditEmployeeCases);
+		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_EditEmployeeCases);
 		Reporter.log("The row no for of test Data is : " + iTestData,true);
-		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser, Constant.sheet_TestCases);
+		iBrowser = ExcelConfig.getCellData(iTestCase, Constant.col_Browser,Constant.sheet_TestCases);
 		Reporter.log("The Browser for the excecution is : " + iBrowser,true);
 
 		// WEBDRIVER AND TIMESTAMP METHOD				
@@ -68,7 +66,7 @@ public class TC_04_EditEmployee {
 	public  void editEmployee() throws InterruptedException, Exception {	
 		Reporter.log("The Execution started for TC_04_EditEmployee",true);	
 		
-		Login_Page.login(iTestData);	
+		Login_Page.login(iTestData,Constant.sheet_EditEmployeeCases);	
 		
 		Home_Page.verifyDashboard(screenshotPath);
 		
@@ -88,7 +86,7 @@ public class TC_04_EditEmployee {
 	@AfterMethod
 	public void afterMethod(ITestResult result) throws Exception{
 
-		driver.quit();		
+		
 		if(result.getStatus() == ITestResult.SUCCESS){
 		ExcelConfig.setCellData(employeeName, iTestData, Constant.col_EditEmployeeName, Constant.sheet_EditEmployeeCases,excelPath);
 		Reporter.log("The value "+employeeName+" is written as EditEmployeeName against to RowNumber "+iTestData +", column Number " +Constant.col_EditEmployeeName
@@ -100,14 +98,16 @@ public class TC_04_EditEmployee {
 		Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
 		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\_Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
-			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
+			Reporter.log(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
-			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+			Reporter.log("Testcase is Skipped with the reason as :"+CommonMethod.reason,true);
 		}
-	
+		
+		driver.quit();		
 		Reporter.log("TestCase execution is completed",true);
 	}
 

@@ -3,11 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
-
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
-import utilities.Utils;
+
 
 public class Login_Page extends BaseClass{
 	
@@ -26,11 +25,11 @@ public class Login_Page extends BaseClass{
 	
 	public static String password;
 	
-	public static void login(int iTestData) throws Exception{
+	public static void login(int iTestData, String sheetName) throws Exception{
 				
-		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName, Constant.sheet_AddEmployeeCases);
+		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName,sheetName);
 		Reporter.log("The userName read from excel is : " + userName,true);
-		password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_AddEmployeeCases);
+		password = ExcelConfig.getCellData(iTestData, Constant.col_Password,sheetName);
 		Reporter.log("The password read from excel is : " + password,true);
 
 		driver.findElement(txtbx_userID).sendKeys(userName);

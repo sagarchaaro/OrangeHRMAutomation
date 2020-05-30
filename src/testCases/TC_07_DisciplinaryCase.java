@@ -1,9 +1,6 @@
 package testCases;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -25,7 +22,7 @@ import utilities.ExcelConfig;
 public class TC_07_DisciplinaryCase {
 
 	//CLASS VARIABLE DECLARATION
-	public static String timestamp, screenshotPath, iBrowser,reason,url, excelPath;
+	public static String timestamp, screenshotPath, iBrowser,url, excelPath;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 
@@ -69,7 +66,7 @@ public class TC_07_DisciplinaryCase {
 	public  void disciplinaryCase() throws InterruptedException, Exception {
 		Reporter.log("The Execution started for TC_07_DisciplinaryCase",true);				
 	
-		Login_Page.login(iTestData);	
+		Login_Page.login(iTestData,Constant.sheet_DeciplinaryCases);	
 		
 		Home_Page.verifyDashboard(screenshotPath);
 		
@@ -85,8 +82,7 @@ public class TC_07_DisciplinaryCase {
 		
 		Discipline_Page.setDesciplinaryAction(iTestData, screenshotPath);
 
-		Home_Page.navigateDesciplinary();
-	//	Home_Page.navigateMenu("Discipline", "Disciplinary Cases");
+		Home_Page.navigateDesciplinary();	
 		
 		Discipline_Page.verifyDesciplinaryRec(iTestData); 
 
@@ -99,7 +95,7 @@ public class TC_07_DisciplinaryCase {
 	@AfterMethod
 	public void afterMethod(ITestResult result) throws Exception{
 
-		driver.quit();
+
 
 		if(result.getStatus() == ITestResult.SUCCESS){
 			ExcelConfig.setCellData(Discipline_Page.employeeName, iTestData, Constant.col_EmpName, Constant.sheet_DeciplinaryCases,excelPath);
@@ -128,15 +124,16 @@ public class TC_07_DisciplinaryCase {
 				+" in the "+Constant.sheet_TestCases,true);
 		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\_Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
-			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
-			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
+			Reporter.log(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() == ITestResult.SKIP){
-			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+			Reporter.log("Testcase is Skipped with the reason as :"+CommonMethod.reason,true);
 		}
 		
-
+		driver.quit();
 		Reporter.log("TestCase execution is completed",true);
 
 	}

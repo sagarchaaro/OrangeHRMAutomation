@@ -63,7 +63,7 @@ public class TC_02_EditLocation {
 		Reporter.log("The Execution started for TC_02_EditUser",true);
 		// WEBDRIVER AND TIMESTAMP METHOD
 
-		Login_Page.login(iTestData);
+		Login_Page.login(iTestData,Constant.sheet_EditUserCases);
 
 		Utils.screenShot(screenshotPath + "\\Edit_User.jpg", driver);
 		
@@ -89,7 +89,7 @@ public class TC_02_EditLocation {
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws Exception{
-	driver.quit();
+	
 	
 	if(result.getStatus() == ITestResult.SUCCESS) {
 	int rowCount=ExcelConfig.getRowUsed(Constant.sheet_AddEmployeeCases);
@@ -146,6 +146,7 @@ public class TC_02_EditLocation {
 	Reporter.log("The file are closed",true);
 	}
 	else if(result.getStatus() ==ITestResult.FAILURE){
+		Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
 		ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 		Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 		ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
@@ -154,6 +155,7 @@ public class TC_02_EditLocation {
 		Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
 	}
 	
+	driver.quit();
 	Reporter.log("TestCase execution is completed",true);
 	}
 

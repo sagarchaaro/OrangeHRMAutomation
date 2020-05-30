@@ -66,7 +66,7 @@ public class TC_03_AddVacancy {
 		// LOGIN AND DASHBOARD VALDATION
 		Login_Page.loginPageVerify();
 		
-		Login_Page.login(iTestData);
+		Login_Page.login(iTestData,Constant.sheet_AddVacancyCases);
 		
 		Home_Page.navigateMenu("Recruitment");
 		
@@ -84,7 +84,7 @@ public class TC_03_AddVacancy {
 	}
 	@AfterMethod
 	public void tearDown(ITestResult result) throws Exception{
-		driver.quit();
+	
 		// ENTERING RANDOM VACANCY NAME IN EXCEL SHEET
 		if(result.getStatus() == ITestResult.SUCCESS){
 		ExcelConfig.setCellData(vacancy_Name, iTestData, Constant.col_Vacancy_name, Constant.sheet_AddVacancyCases,excelPath);
@@ -95,6 +95,7 @@ public class TC_03_AddVacancy {
 		ExcelConfig.setCellData("All step completed successfully", iTestCase, Constant.col_Comments,Constant.sheet_TestCases, excelPath);
 		Reporter.log("All step completed successfully is written as comment against to RowNumber "+iTestCase +", column Number " +Constant.col_Comments+" in the "+Constant.sheet_TestCases,true);
 		}else if(result.getStatus() ==ITestResult.FAILURE){
+			Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
 			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
@@ -103,6 +104,7 @@ public class TC_03_AddVacancy {
 			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
 		}
 		
+		driver.quit();
 		Reporter.log("TestCase execution is completed",true);
 		
 	}
