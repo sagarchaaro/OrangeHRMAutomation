@@ -60,7 +60,7 @@ public class TC_08_TravelRequest {
 	}
 	
 	@Test
-	public void travelRequest(String[] args) throws Exception {
+	public void travelRequest() throws Exception {
 		Reporter.log("The Execution started for TC_08_TravelRequest",true);
 		// LOAD AND READ THE PROPERTIES FILE
 		
@@ -73,7 +73,7 @@ public class TC_08_TravelRequest {
 		// CHANGING USER PASSWORD
 		Home_Page.navigateMenu("Admin", "User Management", "Users");
 		
-		employee_Name = Admin_Page.changePassword();
+		employee_Name = Admin_Page.changePassword(iTestData);
 
 		CommonMethod.logoutJaveExecuter(driver);
 
