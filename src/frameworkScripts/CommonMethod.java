@@ -4,6 +4,7 @@ package frameworkScripts;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,6 +24,7 @@ public class CommonMethod {
 	// CLASS VARIABLE DECLARATION
 	public static String projectpath, reason;
 	public static Map<String, String> yamlData;
+	public static Properties prop;
 	
 	public static Map<String, String> loadYamlFile(String yamlFilePath) throws Exception {		
 		FileInputStream fis = new FileInputStream(yamlFilePath);
@@ -63,23 +65,25 @@ public class CommonMethod {
 
 
 	/*
-	 * DATA READING FROM THR PROPERTIES FILE. This will read the data into the
-	 * class variable input: properties file path It return the Properties
-	 * "prop" THROW EXCEPTION FOR FILE NOT FOUND
+	 * LOAD THE PROPERTIES FILE. 
+	 * 
 	 */
-	/*public static Properties getPropertyData(String excelPath, String propFile) throws Exception {
+	public static Properties getPropertyLoad(String excelPath, String propFile) throws Exception {
 
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(propFile);
 		prop.load(fis);
-		excelPath = projectpath.concat(prop.getProperty("excelPath"));
-		url = prop.getProperty("orangehrmURL");
-		screenshotPath = projectpath.concat(prop.getProperty("screenshotPath"));
-		System.out.println("The Properties file is read in the method propertilesRead");
 		return prop;
 		
-	}*/
-
+	}
+	
+	/*
+	 * DATA READING FROM THR PROPERTIES FILE. 
+	 */
+	public static String getPropertyData(String key){
+		String value=prop.getProperty(key);
+		return value;
+	}
 
 	/*
 	 * THE METHOD "selectDropDown" WILL SELECT DATA FROM DROP DOWN INPUT TAKE AS
