@@ -30,7 +30,7 @@ public class Expense_Page extends BaseClass{
 	static By btn_save = By.xpath("(//a[text()='Save'])[3]");
 	static By btn_addRequestEstimates = By.xpath("(//button[text()='Add'])[2]");
 	static By dd_expense = By.xpath("//form[@id='selectionForm']/div/div/div/input");
-	static By dd_currencyName = By.xpath("(//input[@class='select-dropdown'])[2]");
+	static By dd_currencyName = By.xpath("//select[@id='estimation_currency_id']/../input");
 	static By txtbx_amount = By.xpath("//input[@name='estimation[amount]']");
 	static By dd_paidBy = By.xpath("//select[@id='estimation_paid_by_id']/../input");
 	static By btn_saveRequestEstimates = By.xpath("(//a[text()='Save'])[2]");

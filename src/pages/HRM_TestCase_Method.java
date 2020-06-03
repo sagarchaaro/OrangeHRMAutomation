@@ -20,18 +20,7 @@ public class HRM_TestCase_Method {
 		Reporter.log("The Execution started for HRM_TestCase_Method",true);
 		// PIM Click
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
-//		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-//		Reporter.log("Click action is performed on PIM in the Menu bar",true);
-//		
-//		// add employee click
-//		Thread.sleep(2000);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Add Employee']")));
-//		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Add Employee']")));
-//		Thread.sleep(2000);
-//		//driver.findElement(By.xpath("//span[text()='Add Employee']")).click();
-//		Reporter.log("Click action is performed on Add Employee in the Menu bar",true);
-		// enter name
+
 		Thread.sleep(3000);
 		
 		Home_Page.navigateMenu("PIM", "Add Employee");
@@ -99,12 +88,13 @@ public class HRM_TestCase_Method {
 		driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
 		Reporter.log(" Click action is performed on Next button",true);
 		
-		//((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement());
+		Thread.sleep(10000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[text()='Region']/../div/input")));
 		Utils.retry(driver, By.xpath("//label[text()='Region']/../div/input"), "scrollintoview");
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//label[text()='Region']/../div/input")));
-		//driver.findElement(By.xpath("//label[text()='Region']/../div/input")).click();
 		String region = ExcelConfig.getCellData(iTestData, Constant.col_Region, Constant.sheet_AddEmployeeCases);
 		Reporter.log("The Region read from excel is : " + region,true);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='"+region+"']")));
 		driver.findElement(By.xpath("//span[text()='"+region+"']")).click();
 		Reporter.log("The value "+ region+" is selected as Region in the dropdown",true);
 		

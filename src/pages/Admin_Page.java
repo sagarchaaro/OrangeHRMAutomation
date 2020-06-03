@@ -53,7 +53,7 @@ public class Admin_Page extends BaseClass {
 		driver.findElement(btn_save).click();
 	}
 
-	public static String phoneNumber, newLocationName, password;
+	public static String phoneNumber, newLocationName, password, existingLocationName;
 	public static String empFirstName, userName, newPassword, employeeName;
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);
 
@@ -64,7 +64,7 @@ public class Admin_Page extends BaseClass {
 		Thread.sleep(5000);
 		String[] locationArray = Utils.dataIntoArray(element_location, 17);
 		Reporter.log("All location are stored in the Array", true);
-		String existingLocationName = Utils.selectWithRandomIndex(17, locationArray);
+		existingLocationName = Utils.selectWithRandomIndex(17, locationArray);
 		Reporter.log("The location is selected by random no is :" + existingLocationName, true);
 		driver.findElement(By.xpath("//span[text()='" + existingLocationName + "']//ancestor ::tr/td[8]/i")).click();
 		Reporter.log(" Click action is performed on Edit button", true);

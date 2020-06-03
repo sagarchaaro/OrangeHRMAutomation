@@ -23,7 +23,7 @@ import utilities.ExcelConfig;
 
 public class TC_02_EditLocation {
 	
-	public static String timestamp, screenshotPath, excelPath, browser, existingLocationName, newLocationName, employeeName, phoneNumber, reason;
+	public static String timestamp, screenshotPath, excelPath, browser, employeeName, reason;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 	
@@ -96,15 +96,15 @@ public class TC_02_EditLocation {
 	boolean found=false;
 	for(int row=1;row<rowCount;row++){
 		String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_location, Constant.sheet_AddEmployeeCases);
-		if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+		if(Admin_Page.existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
 			ExcelConfig.setCellData(Admin_Page.newLocationName, row, Constant.col_location, Constant.sheet_AddEmployeeCases, excelPath);
-			Reporter.log(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet",true);
+			Reporter.log(Admin_Page.existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet",true);
 			found=true;
 		}
 	}
 	
 	if(!found){
-		Reporter.log(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location,true);
+		Reporter.log(Admin_Page.existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location,true);
 	}
 	
 	
@@ -112,28 +112,28 @@ public class TC_02_EditLocation {
 	boolean found_03=false;
 	for(int row=1;row<rowCount_TC_03;row++){
 		String addEmployeeLocation=ExcelConfig.getCellData(row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases);
-		if(existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
-			ExcelConfig.setCellData(newLocationName, row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases, excelPath);
-			Reporter.log(existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet",true);
+		if(Admin_Page.existingLocationName.equalsIgnoreCase(addEmployeeLocation)){
+			ExcelConfig.setCellData(Admin_Page.newLocationName, row, Constant.col_Vacancy_location, Constant.sheet_AddVacancyCases, excelPath);
+			Reporter.log(Admin_Page.existingLocationName+" is written as Location Name against to RowNumber "+row+" column Number"+Constant.col_location+" in Add Employee Sheet",true);
 			found_03=true;
 		}
 	}
 	
 	if(!found_03){
-		Reporter.log(existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location,true);
+		Reporter.log(Admin_Page.existingLocationName+ " is not found in Add Employee sheet against to the column "+Constant.col_location,true);
 	}
 	// WRITE THE DATA IN THE EXCEL FILE.
-	ExcelConfig.setCellData(existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,excelPath);
-	Reporter.log("The value "+existingLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases,true);
+	ExcelConfig.setCellData(Admin_Page.existingLocationName, iTestData, Constant.col_ExistingLocationName, Constant.sheet_EditUserCases,excelPath);
+	Reporter.log("The value "+Admin_Page.existingLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases,true);
 	
-	ExcelConfig.setCellData(newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,excelPath);
-	Reporter.log("The value "+newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases,true);
+	ExcelConfig.setCellData(Admin_Page.newLocationName, iTestData, Constant.col_NewLocationName, Constant.sheet_EditUserCases,excelPath);
+	Reporter.log("The value "+Admin_Page.newLocationName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases,true);
 
 	ExcelConfig.setCellData(employeeName, iTestData, Constant.col_NewEmployeee, Constant.sheet_EditUserCases,excelPath);
 	Reporter.log("The value "+employeeName+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_NewLocationName +" in the "+Constant.sheet_EditUserCases,true);
 	
-	ExcelConfig.setCellData(phoneNumber, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,excelPath);
-	Reporter.log("The value "+phoneNumber+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases,true);
+	ExcelConfig.setCellData(Admin_Page.phoneNumber, iTestData, Constant.col_NewPhoneNo, Constant.sheet_EditUserCases,excelPath);
+	Reporter.log("The value "+Admin_Page.phoneNumber+" is written as phone no against to RowNumber "+iTestData +", column Number " +Constant.col_OwnerName	+" in the "+Constant.sheet_EditUserCases,true);
 
 	
 	ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
