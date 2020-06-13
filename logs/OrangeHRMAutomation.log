@@ -1,0 +1,28 @@
+13-06-2020 05:23:55 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+13-06-2020 05:23:56 INFO [Log]: The Testcase id executing is :TC_08_01
+13-06-2020 05:23:56 INFO [Log]: The row no for Test Case is : 90
+13-06-2020 05:25:09 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+13-06-2020 05:25:10 INFO [Log]: The Testcase id executing is :TC_01_01
+13-06-2020 05:25:10 INFO [Log]: The row no for Test Case is : 13
+13-06-2020 05:25:10 INFO [Log]: The row no for test Data is : 1
+13-06-2020 05:25:10 INFO [Log]: The Browser for the excecution is : Chrome
+13-06-2020 05:25:20 INFO [Log]: The Execution started for TC_01_AddEmployee
+13-06-2020 05:26:13 INFO [Log]: Fail is written against to RowNumber 13, column Number 7 in the TestCases
+13-06-2020 05:26:13 INFO [Log]: Actual value is not matched with Expected value :OrangeHRM13, column Number 7 in the TestCases
+13-06-2020 05:26:14 INFO [Log]: TestCase execution is completed
+13-06-2020 05:30:59 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+13-06-2020 05:30:59 INFO [Log]: *****************************************************************
+13-06-2020 05:30:59 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+13-06-2020 05:30:59 INFO [Log]: ******************************************************************
+13-06-2020 05:31:00 INFO [Log]: The Testcase id executing is :TC_01_01
+13-06-2020 05:31:00 INFO [Log]: The row no for Test Case is : 13
+13-06-2020 05:31:00 INFO [Log]: The row no for test Data is : 1
+13-06-2020 05:31:00 INFO [Log]: The Browser for the excecution is : Chrome
+13-06-2020 05:31:10 INFO [Log]: The Execution started for TC_01_AddEmployee
+13-06-2020 05:32:10 INFO [Log]: The value John Adam iBtG is written as phone no against to RowNumber 1, column Number 15 in the Add Employee
+13-06-2020 05:32:11 INFO [Log]: The value 1002 is written as phone no against to RowNumber 1, column Number 16 in the Add Employee
+13-06-2020 05:32:11 INFO [Log]: The value South AfricaDjWOXw is written as phone no against to RowNumber 1, column Number 8 in the Add Employee
+13-06-2020 05:32:11 INFO [Log]: Pass is written as Status against to RowNumber 13, column Number 7 in the TestCases
+13-06-2020 05:32:12 INFO [Log]: XXX---------E-N-D--------------XXX
+13-06-2020 05:32:12 INFO [Log]: X
+13-06-2020 05:32:12 INFO [Log]: X

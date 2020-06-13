@@ -26,7 +26,7 @@ public class Login_Page extends BaseClass{
 	public static String password;
 	
 	public static void login(int iTestData, String sheetName) throws Exception{
-				
+		
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName,sheetName);
 		Reporter.log("The userName read from excel is : " + userName,true);
 		password = ExcelConfig.getCellData(iTestData, Constant.col_Password,sheetName);
@@ -38,6 +38,8 @@ public class Login_Page extends BaseClass{
 		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
 		driver.findElement(btn_login).submit();
 		Reporter.log("Click action is performed on Login button",true);
+		
+		Reporter.log("login method execution is completed",true);
 		
 	}
 	
