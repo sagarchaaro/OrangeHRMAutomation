@@ -15,9 +15,18 @@
 			<param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss}%x %-5p[%c{1}]: %m%n"/>
 		</layout>
 	</appender>
+	
+	<appender name="htmlAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="append" value="true"/>
+		<param name="file" value="logs/OrangeHRMAutomation1.html"/>
+		<layout class="org.apache.log4j.HTMLLayout">
+			<param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss}%x %-5p[%c{1}]: %m%n"/>
+		</layout>
+	</appender>
 	<root>
 		<level value="INFO"/>
 		<appender-ref ref="consoleAppender"/>
 		<appender-ref ref="fileAppender"/>
+		<appender-ref ref="htmlAppender"/>
 	</root>
 </log4j:configuration>

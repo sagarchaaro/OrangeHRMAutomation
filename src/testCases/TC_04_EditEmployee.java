@@ -1,5 +1,6 @@
 package testCases;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -19,6 +20,7 @@ import utilities.Utils;
 import utilities.ExcelConfig;
 import utilities.Log;
 
+
 public class TC_04_EditEmployee {
 	//CLASS VARIABLE DECLARATION
 	public static String timestamp, screenshotPath, iBrowser,url, excelPath, testName;
@@ -29,7 +31,8 @@ public class TC_04_EditEmployee {
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		DOMConfigurator.configure(System.getProperty("user.dir")+"//test-resources//Log4j.xml");
+		Log.info("The Project Path is:"+CommonMethod.projectpath);
 		
 		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 		
@@ -50,6 +53,7 @@ public class TC_04_EditEmployee {
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
 		ExcelConfig.setExcelFile(excelPath);
 		Log.info("The Testcase id executing is :"+testID);
+		Reporter.log("The Testcase id executing is :"+testID);
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
 		Log.info("The row no for Test Case is : " + iTestCase);
 		iTestData = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_EditEmployeeCases);

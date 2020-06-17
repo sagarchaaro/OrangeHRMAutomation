@@ -13,6 +13,7 @@ import org.testng.Reporter;
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
+import utilities.Log;
 import utilities.Utils;
 
 public class Discipline_Page extends BaseClass{
@@ -53,28 +54,30 @@ public class Discipline_Page extends BaseClass{
     public static void storeUserInArray(int iTestData,String screenshotPath) throws Exception{		
 
 		int totalElementNo = driver.findElements(list_employee).size();
-		Reporter.log("The total no of employee in the page is: " + totalElementNo,true);
+		Log.info("The total no of employee in the page is: " + totalElementNo);
 		List<WebElement> webelement_empName = driver.findElements(list_employee);
-		Reporter.log("All employeeName are stored in the WebElement",true);
+		Log.info("All employeeName are stored in the WebElement");
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
-		Reporter.log("All employeeName are stored in the Array",true);
+		Log.info("All employeeName are stored in the Array");
 		employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		Reporter.log("The employeeName selected by random no is:" + employeeName,true);
+		Log.info("The employeeName selected by random no is:" + employeeName);
 		ownerName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		Reporter.log("The ownerName selected by random no is:" + ownerName,true);
+		Log.info("The ownerName selected by random no is:" + ownerName);
 		Utils.screenShot(screenshotPath + "\\EmployeeList.jpg", driver);
-		Reporter.log("Screen shot is  taken for Employee List ",true);
+		Log.info("Screen shot is  taken for Employee List ");
+		Reporter.log("storeUserInArray method execution is completed",true);
 	
 }
     
     public static void addDesciplinaryRecord() throws Exception{		
 
 		driver.switchTo().frame(0);
-		Reporter.log("Switched the Frame",true);
+		Log.info("Switched the Frame");
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(btn_Add ));
 		driver.findElement(btn_Add ).click();
-		Reporter.log("Click action is performed on Add button",true);
+		Log.info("Click action is performed on Add button");
+		Reporter.log("addDesciplinaryRecord method execution is completed",true);
 	
 }
     
@@ -84,51 +87,52 @@ public class Discipline_Page extends BaseClass{
 		webelement_empname.sendKeys(employeeName);
 		webelement_empname.sendKeys(Keys.DOWN);
 		webelement_empname.sendKeys(Keys.ENTER);
-		Reporter.log("The value "+employeeName+" is entered as employeeName in the text-box",true);
+		Log.info("The value "+employeeName+" is entered as employeeName in the text-box");
 		caseNo = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_DeciplinaryCases);
-		Reporter.log("The caseNo read from excel is:" + caseNo,true);
+		Log.info("The caseNo read from excel is:" + caseNo);
 		driver.findElement(txtbx_CaseNo).sendKeys(caseNo);
-		Reporter.log("The value "+ caseNo+" is entered as caseName in the text-box",true);
+		Log.info("The value "+ caseNo+" is entered as caseName in the text-box");
 		description = ExcelConfig.getCellData(iTestData, Constant.col_Desciption,Constant.sheet_DeciplinaryCases);
-		Reporter.log("The description read from excel is:" + description,true);		
+		Log.info("The description read from excel is:" + description);		
 		driver.findElement(txtbx_CaseDesc).sendKeys(description);
-		Reporter.log("The value "+description +" is entered as description in the text-box",true);
+		Log.info("The value "+description +" is entered as description in the text-box");
 		driver.findElement(btn_Save).click();
-		Reporter.log("Click action is performed on Save button",true);
+		Log.info("Click action is performed on Save button");
 		driver.findElement(btn_Action).click();
-		Reporter.log("Click action is performed on Take Disciplinary Action button",true);
-	
+		Log.info("Click action is performed on Take Disciplinary Action button");
+		Reporter.log("setDesciplinaryRecord method execution is completed",true);
 }
     
     public static void setDesciplinaryAction(int iTestData,String screenshotPath) throws Exception{		
 
 		action = ExcelConfig.getCellData(iTestData, Constant.col_DisciplinaryAction,Constant.sheet_DeciplinaryCases);
-		Reporter.log("The action read from excel is: " + action,true);
+		Log.info("The action read from excel is: " + action);
 		String actionNo[] = action.split(" ");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[@for='" + actionNo[0] + "']")));
 		driver.findElement(By.xpath("//label[@for='" + actionNo[0] + "']")).click();
-		Reporter.log("The value "+actionNo[0]+ " is selected as deciplinary action",true);
+		Log.info("The value "+actionNo[0]+ " is selected as deciplinary action");
 		driver.findElement(btn_Select ).click();
-		Reporter.log("Click action is performed on Select button",true);
+		Log.info("Click action is performed on Select button");
 		dueDate = ExcelConfig.getCellData(iTestData, Constant.col_DueDate, Constant.sheet_DeciplinaryCases);
-		Reporter.log("The dueDate read from excel is: " + dueDate,true);
+		Log.info("The dueDate read from excel is: " + dueDate);
 		driver.findElement(click_CreateDate).click();
-		Reporter.log("The value "+dueDate+ " is selected as due date from calender");
+		Log.info("The value "+dueDate+ " is selected as due date from calender");
 		CommonMethod.date_HRM(dueDate, driver, 1);
 		WebElement webelement_owner = driver.findElement(txtbx_OwnerName );
 		webelement_owner.sendKeys(ownerName);
 		webelement_owner.sendKeys(Keys.DOWN);
 		webelement_owner.sendKeys(Keys.ENTER);
-		Reporter.log("The value "+ownerName+"is entered as ownerName in the text-box",true);
+		Log.info("The value "+ownerName+"is entered as ownerName in the text-box");
 		status = ExcelConfig.getCellData(iTestData, Constant.col_ActionStatus, Constant.sheet_DeciplinaryCases);
-		Reporter.log("The status read from excel is" + status,true);
+		Log.info("The status read from excel is" + status);
 		driver.findElement(dd_Status).click();
 		driver.findElement(By.xpath("//span[text()='" + status + "']")).click();
-		Reporter.log("The value "+status+" is selected as status in the dropdown",true);		
+		Log.info("The value "+status+" is selected as status in the dropdown");		
 		Utils.screenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
-		Reporter.log("Screen shot is  taken for Desciplinary case",true);
+		Log.info("Screen shot is  taken for Desciplinary case");
 		driver.findElement(btn_Save).click();
-		Reporter.log("Click action is performed on Save button",true);
+		Log.info("Click action is performed on Save button");
+		Reporter.log("setDesciplinaryAction method execution is completed",true);
 }
     
     public static void verifyDesciplinaryRec(int iTestData) throws Exception{	
@@ -140,7 +144,7 @@ public class Discipline_Page extends BaseClass{
 		webelement_filter.sendKeys(Keys.ARROW_DOWN);
 		webelement_filter.sendKeys(Keys.ENTER);
 		driver.findElement(btn_Search).click();
-		Reporter.log("click action is performed for search button",true);
+		Log.info("click action is performed for search button");
 		Thread.sleep(3000);
 
 		String validation_name = driver.findElement(txtbx_NameVal).getText();
@@ -157,21 +161,22 @@ public class Discipline_Page extends BaseClass{
 		createdOn = driver.findElement(txtbx_CreatedOn).getText();
 
 		driver.findElement(click_ViewLink).click();
-		Reporter.log("Click action is performed on view Link",true);
+		Log.info("Click action is performed on view Link");
 
 		String validation_Status = driver.findElement(txtbx_Status).getText();
 		CommonMethod.verifyData(status, validation_Status);    	
+		Reporter.log("verifyDesciplinaryRec method execution is completed",true);
     }
     
     public static void setCloseStatus(int iTestData,String screenshotPath) throws Exception{	
 		// TO VIEW THE ACTION STATUS AND COMPLETE IF ITS NOT COMPLETED
 
 		driver.findElement(click_ViewAction).click();
-		Reporter.log("Click action is performed on Item Link",true);
+		Log.info("Click action is performed on Item Link");
 		driver.findElement(btn_Deciplinary).click();
-		Reporter.log("Click action is performed on View Disciplinary case button",true);
+		Log.info("Click action is performed on View Disciplinary case button");
 		driver.findElement(btn_CloseCase).click();
-		Reporter.log("Click action is performed on close case button",true);
+		Log.info("Click action is performed on close case button");
 	
 		// VERIFY CLOSE STATUS FOR THE CASE
 		
@@ -180,6 +185,7 @@ public class Discipline_Page extends BaseClass{
 		CommonMethod.verifyData("Close", validation_StatusClose);
 
 		Utils.screenShot(screenshotPath + "\\CaseStatus.jpg", driver);
-		Reporter.log("Screen shot is  taken for Case Status",true);
+		Log.info("Screen shot is  taken for Case Status");
+		Reporter.log("setCloseStatus method execution is completed",true);
     }
 }
