@@ -43,7 +43,7 @@ public class ExcelConfig {
 			return sCellData;
 		} catch (Exception e) {
 			System.out.println("Error in excel file in the method: getCellData");			
-			return "";
+			throw (e);
 		}
 	}
 
@@ -90,14 +90,14 @@ public class ExcelConfig {
 					found = true;
 					break;
 				}
-				}
+			}
 			if (!found) {
 				throw new Exception();
 			}
 			
 			return i;
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: getRowContains");
+			System.out.println("Given testid is invalid");
 			throw (e);
 		}
 	}

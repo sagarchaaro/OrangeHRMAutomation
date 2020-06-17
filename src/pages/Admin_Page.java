@@ -12,6 +12,7 @@ import frameworkScripts.CommonMethod;
 import org.testng.Assert;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
+import utilities.Log;
 import utilities.RandomGenerator;
 import utilities.Utils;
 
@@ -60,73 +61,73 @@ public class Admin_Page extends BaseClass {
 	public static void getLocationData() throws Exception {
 		
 		List<WebElement> element_location = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include"));
-		Reporter.log("All location are stored in the WebElement", true);
+		Log.info("All location are stored in the WebElement" );
 		Thread.sleep(5000);
 		String[] locationArray = Utils.dataIntoArray(element_location, 17);
-		Reporter.log("All location are stored in the Array", true);
+		Log.info("All location are stored in the Array" );
 		existingLocationName = Utils.selectWithRandomIndex(17, locationArray);
-		Reporter.log("The location is selected by random no is :" + existingLocationName, true);
+		Log.info("The location is selected by random no is :" + existingLocationName );
 		driver.findElement(By.xpath("//span[text()='" + existingLocationName + "']//ancestor ::tr/td[8]/i")).click();
-		Reporter.log(" Click action is performed on Edit button", true);
+		Log.info(" Click action is performed on Edit button" );
 		// Thread.sleep(5000);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_country));
 
 		WebElement element_country = driver.findElement(dd_country);
 		String country = element_country.getAttribute("value");
-		Reporter.log(" The Country name read from webpage is:" + country, true);
+		Log.info(" The Country name read from webpage is:" + country );
 		Thread.sleep(2000);
 
 		driver.findElement(txtbx_location).clear();
-		Reporter.log("The Country name is cleared in the webpage", true);
+		Log.info("The Country name is cleared in the webpage" );
 		String randomAlphabet = RandomGenerator.randomAlphabetic(6);
 		newLocationName = country.concat(randomAlphabet);
-		Reporter.log("The new location  generated is:" + newLocationName, true);
+		Log.info("The new location  generated is:" + newLocationName );
 		driver.findElement(txtbx_location).sendKeys(newLocationName);
-		Reporter.log("The value " + newLocationName + " is entered as location in the text-box", true);
+		Log.info("The value " + newLocationName + " is entered as location in the text-box" );
 		driver.findElement(txtbx_phone).clear();
-		Reporter.log("The phone number is cleared in the webpage", true);
+		Log.info("The phone number is cleared in the webpage" );
 
 		phoneNumber = RandomGenerator.randomNumeric(10);
-		Reporter.log("The Random number generated is:" + phoneNumber, true);
+		Log.info("The Random number generated is:" + phoneNumber );
 		driver.findElement(txtbx_phone).sendKeys("+91 " + phoneNumber);
-		Reporter.log("The value " + phoneNumber + " is entered as phone no in the text-box", true);
+		Log.info("The value " + phoneNumber + " is entered as phone no in the text-box" );
 
 		try {
 			WebElement webelement_EeoEnable = driver.findElement(chckbx_EEO);
 			if (webelement_EeoEnable.isEnabled()) {
-				Reporter.log("The EEO is already Enabled ", true);
+				Log.info("The EEO is already Enabled " );
 
 			} else {
 
 				webelement_EeoEnable.click();
-				Reporter.log("Click action is performed for EEO is Enabled option", true);
+				Log.info("Click action is performed for EEO is Enabled option" );
 			}
 		} catch (Exception e) {
-			Reporter.log("EEO Enabled option is not available", true);
+			Log.info("EEO Enabled option is not available" );
 		}
 
 		driver.findElement(btn_save).click();
-		Reporter.log("Click action is performed on Save button", true);
+		Log.info("Click action is performed on Save button" );
 	}
 
 	public static void validateLocation() throws Exception {
 		driver.findElement(By.xpath("//a[@class='tooltipped circle']")).click();
-		Reporter.log("Click action is performed on Filter button", true);
+		Log.info("Click action is performed on Filter button" );
 		driver.findElement(By.xpath("//input[@id='location_name_filter']")).sendKeys(newLocationName);
-		Reporter.log("The locaion name entered is:" + newLocationName, true);
+		Log.info("The locaion name entered is:" + newLocationName );
 		driver.findElement(By.xpath("//a[@class='modal-action modal-close waves-effect btn primary-btn']")).click();
-		Reporter.log("Click action is performed on Search button", true);
+		Log.info("Click action is performed on Search button" );
 		Thread.sleep(5000);
 
 		String validate_location = driver
 				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span")).getText();
-		Reporter.log(" The location name for Validation is : " + validate_location, true);
+		Log.info(" The location name for Validation is : " + validate_location );
 		CommonMethod.verifyData(newLocationName, validate_location);
 
 		String validate_PhoneNo = driver
 				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span")).getText();
-		Reporter.log(" The phone no for Validation is : " + validate_PhoneNo, true);
+		Log.info(" The phone no for Validation is : " + validate_PhoneNo );
 		CommonMethod.verifyData("+91 " + phoneNumber, validate_PhoneNo);
 		
 	}
@@ -134,16 +135,16 @@ public class Admin_Page extends BaseClass {
 	public static void verifyLocationInEmployeeList(String employeeName) throws Exception {
 		Thread.sleep(5000);
 		driver.findElement(By.id("employee_name_quick_filter_employee_list_value")).sendKeys(employeeName);
-		Reporter.log("The value " + employeeName + " is entered as search test in the text-box", true);
+		Log.info("The value " + employeeName + " is entered as search test in the text-box" );
 		Thread.sleep(3000);
 		driver.findElement(By.id("quick_search_icon")).click();
-		Reporter.log("Click action is performed on Search button", true);
+		Log.info("Click action is performed on Search button" );
 
 		Thread.sleep(3000);
 		String validate_locationName = driver
 				.findElement(By.xpath("(//table[@id='employeeListTable']/tbody/tr/td[8])[1]")).getText();
 
-		Reporter.log(" The location name for Validation is : " + validate_locationName, true);
+		Log.info(" The location name for Validation is : " + validate_locationName );
 
 		CommonMethod.verifyData(newLocationName, validate_locationName);
 	}
@@ -151,15 +152,15 @@ public class Admin_Page extends BaseClass {
 	public static void storeUserInArray(int iTestData) throws Exception {
 
 		int totalElementNo = driver.findElements(txtbx_UserPage).size();
-		Reporter.log("The total no of employee in the page is: " + totalElementNo, true);
+		Log.info("The total no of employee in the page is: " + totalElementNo );
 		List<WebElement> webelement_empName = driver.findElements(txtbx_UserPage);
 		String[] empNameArray = Utils.dataIntoArray(webelement_empName, totalElementNo);
 		employeeName = Utils.selectWithRandomIndex(totalElementNo, empNameArray);
-		Reporter.log("The employeeName selected by random no is:" + employeeName, true);
+		Log.info("The employeeName selected by random no is:" + employeeName );
 		String empNameSearch[] = employeeName.split(" ");
 		empFirstName = empNameSearch[0];
 		driver.findElement(btn_Add).click();
-		Reporter.log("Click action is performed on add button", true);
+		Log.info("Click action is performed on add button" );
 
 	}
 
@@ -170,55 +171,55 @@ public class Admin_Page extends BaseClass {
 		Thread.sleep(3000);
 		webelement1.sendKeys(Keys.DOWN);
 		webelement1.sendKeys(Keys.ENTER);
-		Reporter.log("The Employee name entered for search is: " + empFirstName);
+		Log.info("The Employee name entered for search is: " + empFirstName);
 		String randomAlphabet = RandomGenerator.randomAlphabet(4);
 		userName = empFirstName.concat(randomAlphabet);
 		driver.findElement(txtbx_UserName).sendKeys(userName);
-		Reporter.log("The value " + userName + " is entered as userName in the text-box", true);
+		Log.info("The value " + userName + " is entered as userName in the text-box" );
 
 		String adminRole = ExcelConfig.getCellData(iTestData, Constant.col_AdminRole, Constant.sheet_AddUserCases);
-		Reporter.log("The adminRole read from excel is : " + adminRole, true);
+		Log.info("The adminRole read from excel is : " + adminRole );
 
 		driver.findElement(dd_AdminRole).click();
 		driver.findElement(By.xpath("//span[text()='" + adminRole + "']")).click();
-		Reporter.log("The value " + adminRole + " is entered as adminRole in the drop down", true);
+		Log.info("The value " + adminRole + " is entered as adminRole in the drop down" );
 		driver.findElement(dd_Status).click();
 		driver.findElement(dd_StatusEnable).click();
-		Reporter.log("Admin Role is Enabled ", true);
+		Log.info("Admin Role is Enabled " );
 		newPassword = ExcelConfig.getCellData(iTestData, Constant.col_UserPassword, Constant.sheet_AddUserCases);
-		Reporter.log("The password read from excel is : " + newPassword, true);
+		Log.info("The password read from excel is : " + newPassword );
 		driver.findElement(txtbx_Password).sendKeys(newPassword);
-		Reporter.log("The value " + newPassword + " is entered as password in the text-box", true);
+		Log.info("The value " + newPassword + " is entered as password in the text-box" );
 		driver.findElement(txtbx_PasswordConfirm).sendKeys(newPassword);
-		Reporter.log("The value " + newPassword + " is entered as Confirm password in the text-box", true);
+		Log.info("The value " + newPassword + " is entered as Confirm password in the text-box" );
 		driver.findElement(btn_Save).click();
-		Reporter.log("Click action is performed on Save button", true);
+		Log.info("Click action is performed on Save button" );
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(btn_SaveRegion));
 		driver.findElement(btn_SaveRegion).click();
-		Reporter.log("Click action is performed on Save button is for region", true);
+		Log.info("Click action is performed on Save button is for region" );
 
 	}
 
 	public static void verifyUser(int iTestData, String screenshotPath) throws Exception {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(click_Search));
 		driver.findElement(click_Search).click();
-		Reporter.log("Click action is performed on Filter", true);
+		Log.info("Click action is performed on Filter" );
 		driver.findElement(txtbx_UserFilter).sendKeys(userName);
-		Reporter.log("The value " + userName + " is entered as userName in the Search text-box", true);
+		Log.info("The value " + userName + " is entered as userName in the Search text-box" );
 		driver.findElement(btn_Search).click();
-		Reporter.log("Click action is performed on serched button", true);
+		Log.info("Click action is performed on serched button" );
 
 		try {
 			WebElement userfoundmsg = driver.findElement(msg_Record);
 			if (userfoundmsg.isDisplayed()) {
-				Reporter.log("The User is not found message displayed", true);
+				Log.info("The User is not found message displayed" );
 				CommonMethod.reason = "The User is not found message displayed";
 				Assert.assertTrue(false, "The User is not found message displayed");
 			}
 		} catch (Exception user) {
 			Utils.screenShot(screenshotPath + "\\OrangeHRMUser.jpg", driver);
-			Reporter.log("User detail page is found for the user" + userName, true);
+			Log.info("User detail page is found for the user" + userName );
 		}
 
 	}
@@ -232,27 +233,27 @@ public class Admin_Page extends BaseClass {
 	public static String changePassword(int iTestData) throws Exception{
 		Thread.sleep(5000);
 		List<WebElement> employeeName = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
-		Reporter.log("All EmployeeName are stored in the WebElement",true);
+		Log.info("All EmployeeName are stored in the WebElement" );
 		String[] empName = Utils.dataIntoArray(employeeName, 50);
-		Reporter.log("All EmployeeName are stored in the Array",true);
+		Log.info("All EmployeeName are stored in the Array" );
 		String employee_Name = Utils.selectWithRandomIndex(50, empName);
-		Reporter.log("The EmployeeName is selected by random no is :" + employee_Name,true);
+		Log.info("The EmployeeName is selected by random no is :" + employee_Name );
 		driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ employee_Name + "']/../../../td[8]")).click();
-		Reporter.log("Click action is performed on Edit Link",true);
+		Log.info("Click action is performed on Edit Link" );
 
 		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
-		Reporter.log("Click action is performed  on change password checkbox",true);
+		Log.info("Click action is performed  on change password checkbox" );
 		
 		password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_TravelRequestCases);
 
 		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[8]")).sendKeys(password);
-		Reporter.log("The value "+ password+" is entered as password in the text-box",true);
+		Log.info("The value "+ password+" is entered as password in the text-box" );
 
 		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[9]")).sendKeys(password);
-		Reporter.log("The value "+ password+" is entered as Confirm password in the text-box",true);
+		Log.info("The value "+ password+" is entered as Confirm password in the text-box" );
 
 		driver.findElement(By.id("systemUserSaveBtn")).click();
-		Reporter.log("Click action is performed on Save button",true);
+		Log.info("Click action is performed on Save button" );
 		Thread.sleep(5000);
 		return employee_Name;
 	}
