@@ -6,6 +6,7 @@ import org.testng.Reporter;
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
+import utilities.Log;
 
 
 public class Login_Page extends BaseClass{
@@ -28,39 +29,42 @@ public class Login_Page extends BaseClass{
 	public static void login(int iTestData, String sheetName) throws Exception{
 		
 		String userName = ExcelConfig.getCellData(iTestData, Constant.col_UserName,sheetName);
-		Reporter.log("The userName read from excel is : " + userName,true);
+		Log.info("The userName read from excel is : " + userName);
 		password = ExcelConfig.getCellData(iTestData, Constant.col_Password,sheetName);
-		Reporter.log("The password read from excel is : " + password,true);
+		Log.info("The password read from excel is : " + password);
 
 		driver.findElement(txtbx_userID).sendKeys(userName);
-		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
+		Log.info("The value "+userName+" is entered as userName in the text-box");
 		driver.findElement(txtbx_password).sendKeys(password);
-		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
+		Log.info("The value "+password+" is entered as Password in the text-box");
 		driver.findElement(btn_login).submit();
-		Reporter.log("Click action is performed on Login button",true);
+		Log.info("Click action is performed on Login button");
 		
+		Log.info("login method execution is completed");
 		Reporter.log("login method execution is completed",true);
 		
 	}
 	
 	public static void login(String userName, String password){	
 		driver.findElement(txtbx_userID).sendKeys(userName);
-		Reporter.log("The value "+userName+" is entered as userName in the text-box",true);
+		Log.info("The value "+userName+" is entered as userName in the text-box");
 		driver.findElement(txtbx_password).sendKeys(password);
-		Reporter.log("The value "+password+" is entered as Password in the text-box",true);
+		Log.info("The value "+password+" is entered as Password in the text-box");
 		driver.findElement(btn_login).submit();
-		Reporter.log("Click action is performed on Login button",true);
+		Log.info("Click action is performed on Login button");
+		Reporter.log("login method execution is completed",true);
 	}
 	
 	public static void loginWithNewUser(String employee_Name) {
 		driver.findElement(By.id("txtUsername")).sendKeys(employee_Name);
-		Reporter.log("The value "+ employee_Name+" is entered as employee_Name in the text-box",true);
+		Log.info("The value "+ employee_Name+" is entered as employee_Name in the text-box");
 
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
-		Reporter.log("The value "+ password+" is entered as password in the text-box",true);
+		Log.info("The value "+ password+" is entered as password in the text-box");
 
 		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-		Reporter.log("Click action is performed on Login button for the employee login",true);
+		Log.info("Click action is performed on Login button for the employee login");
+		Reporter.log("login method execution is completed",true);
 		
 	}
 }
