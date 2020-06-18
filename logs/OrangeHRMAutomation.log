@@ -26,3 +26,157 @@
 13-06-2020 05:32:12 INFO [Log]: XXX---------E-N-D--------------XXX
 13-06-2020 05:32:12 INFO [Log]: X
 13-06-2020 05:32:12 INFO [Log]: X
+17-06-2020 06:26:14 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+17-06-2020 06:26:14 INFO [Log]: *****************************************************************
+17-06-2020 06:26:14 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+17-06-2020 06:26:14 INFO [Log]: ******************************************************************
+17-06-2020 06:26:15 INFO [Log]: The Testcase id executing is :TC_01_01
+17-06-2020 06:26:15 INFO [Log]: The row no for Test Case is : 13
+17-06-2020 06:26:15 INFO [Log]: The row no for test Data is : 1
+17-06-2020 06:26:15 INFO [Log]: The Browser for the excecution is : Chrome
+17-06-2020 06:26:23 INFO [Log]: The Execution started for TC_01_AddEmployee
+17-06-2020 07:02:19 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+17-06-2020 07:02:19 INFO [Log]: *****************************************************************
+17-06-2020 07:02:19 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+17-06-2020 07:02:19 INFO [Log]: ******************************************************************
+17-06-2020 07:02:20 INFO [Log]: The Testcase id executing is :TC_01_01
+17-06-2020 07:02:20 INFO [Log]: The row no for Test Case is : 13
+17-06-2020 07:02:20 INFO [Log]: The row no for test Data is : 1
+17-06-2020 07:02:20 INFO [Log]: The Browser for the excecution is : Chrome
+17-06-2020 07:02:27 INFO [Log]: The Execution started for TC_01_AddEmployee
+17-06-2020 07:07:38 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+17-06-2020 07:07:38 INFO [Log]: *****************************************************************
+17-06-2020 07:07:38 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+17-06-2020 07:07:38 INFO [Log]: ******************************************************************
+17-06-2020 07:07:39 INFO [Log]: The Testcase id executing is :TC_01_01
+17-06-2020 07:07:39 INFO [Log]: The row no for Test Case is : 13
+17-06-2020 07:07:39 INFO [Log]: The row no for test Data is : 1
+17-06-2020 07:07:39 INFO [Log]: The Browser for the excecution is : Chrome
+17-06-2020 07:07:47 INFO [Log]: The Execution started for TC_01_AddEmployee
+17-06-2020 07:12:35 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+17-06-2020 07:12:36 INFO [Log]: *****************************************************************
+17-06-2020 07:12:36 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+17-06-2020 07:12:36 INFO [Log]: ******************************************************************
+17-06-2020 07:12:36 INFO [Log]: The Testcase id executing is :TC_01_01
+17-06-2020 07:12:36 INFO [Log]: The row no for Test Case is : 13
+17-06-2020 07:12:36 INFO [Log]: The row no for test Data is : 1
+17-06-2020 07:12:36 INFO [Log]: The Browser for the excecution is : Chrome
+17-06-2020 07:12:43 INFO [Log]: The Execution started for TC_01_AddEmployee
+17-06-2020 07:14:40 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+17-06-2020 07:14:41 INFO [Log]: *****************************************************************
+17-06-2020 07:14:41 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+17-06-2020 07:14:41 INFO [Log]: ******************************************************************
+17-06-2020 07:14:41 INFO [Log]: The Testcase id executing is :TC_01_01
+17-06-2020 07:14:41 INFO [Log]: The row no for Test Case is : 13
+17-06-2020 07:14:41 INFO [Log]: The row no for test Data is : 1
+17-06-2020 07:14:41 INFO [Log]: The Browser for the excecution is : Chrome
+17-06-2020 07:14:48 INFO [Log]: The Execution started for TC_01_AddEmployee
+18-06-2020 04:26:06 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+18-06-2020 04:26:07 INFO [Log]: *****************************************************************
+18-06-2020 04:26:07 INFO [Log]: **********TC_04_EditEmployee_TC_04_01************
+18-06-2020 04:26:07 INFO [Log]: ******************************************************************
+18-06-2020 04:26:08 INFO [Log]: The Testcase id executing is :TC_04_01
+18-06-2020 04:26:08 INFO [Log]: The row no for Test Case is : 46
+18-06-2020 04:26:08 INFO [Log]: The row no for of test Data is : 1
+18-06-2020 04:26:08 INFO [Log]: The Browser for the excecution is : Chrome
+18-06-2020 04:26:16 INFO [Log]: The Execution started for TC_04_EditEmployee
+18-06-2020 04:26:16 INFO [Log]: The userName read from excel is : Admin
+18-06-2020 04:26:16 INFO [Log]: The password read from excel is : Admin@123
+18-06-2020 04:26:16 INFO [Log]: The value Admin is entered as userName in the text-box
+18-06-2020 04:26:16 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+18-06-2020 04:26:21 INFO [Log]: Click action is performed on Login button
+18-06-2020 04:26:21 INFO [Log]: login method execution is completed
+18-06-2020 04:26:25 INFO [Log]: Screen shot is  taken for Dashboard 
+18-06-2020 04:26:25 INFO [Log]: Click action is performed on PIM in the Menu bar
+18-06-2020 04:26:25 INFO [Log]: Click action is performed on Employee List in the Menu bar
+18-06-2020 04:26:28 INFO [Log]: Click action is performed on first Link of Employee list
+18-06-2020 04:26:28 INFO [Log]: Edit employee activity is performed  for the employee :null
+18-06-2020 04:26:28 INFO [Log]: Edit employee activity is performed  for the employee ID :null
+18-06-2020 04:26:35 INFO [Log]: The lastName read from excel is : sahu
+18-06-2020 04:26:36 INFO [Log]: The value sahu is entered as lastName in the text-box
+18-06-2020 04:26:36 INFO [Log]: Click action is performed on calender for DOB
+18-06-2020 04:26:39 INFO [Log]: The value Indian is selected as nationalty from dropdown
+18-06-2020 04:26:39 INFO [Log]: Click action is performed on save button for the Personal detail update
+18-06-2020 04:26:59 INFO [Log]: EEO Race and Ethnicity is not required
+18-06-2020 04:27:19 INFO [Log]: Successfully dispaly message is not verified for Personal detail update
+18-06-2020 04:27:20 INFO [Log]: The value A is selected as bloodGroup from dropdown
+18-06-2020 04:27:20 INFO [Log]: Click action is performed on save button for the important detail update
+18-06-2020 04:27:40 INFO [Log]: Successfully dispaly message is not verified for important detail update
+18-06-2020 04:27:40 INFO [Log]: Hubby is selected as 15Baseball
+18-06-2020 04:27:40 INFO [Log]: Hubby is selected as 15Basketball
+18-06-2020 04:27:40 INFO [Log]: Enter the save for the Preferences Detail update
+18-06-2020 04:27:41 INFO [Log]: Successfully dispaly message is verified for Preferences detail update
+18-06-2020 04:27:48 INFO [Log]: The value Amadi Aswad is written as EditEmployeeName against to RowNumber 1, column Number 11 in the EditEmployee
+18-06-2020 04:27:49 INFO [Log]: The value 0073 is written as EditEmployeeName against to RowNumber 1, column Number 12 in the EditEmployee
+18-06-2020 04:27:49 INFO [Log]: Pass is written as Status against to RowNumber 46, column Number 7 in the TestCases
+18-06-2020 04:27:50 INFO [Log]: XXX---------E-N-D--------------XXX
+18-06-2020 04:27:50 INFO [Log]: X
+18-06-2020 04:27:50 INFO [Log]: X
+18-06-2020 04:48:02 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+18-06-2020 04:48:02 INFO [Log]: *****************************************************************
+18-06-2020 04:48:02 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+18-06-2020 04:48:02 INFO [Log]: ******************************************************************
+18-06-2020 04:48:03 INFO [Log]: The Testcase id executing is :TC_01_01
+18-06-2020 04:48:03 INFO [Log]: The row no for Test Case is : 13
+18-06-2020 04:48:03 INFO [Log]: The row no for test Data is : 1
+18-06-2020 04:48:03 INFO [Log]: The Browser for the excecution is : Chrome
+18-06-2020 04:48:11 INFO [Log]: The Execution started for TC_01_AddEmployee
+18-06-2020 04:48:11 INFO [Log]: The userName read from excel is : Admin
+18-06-2020 04:48:11 INFO [Log]: The password read from excel is : Admin@123
+18-06-2020 04:48:11 INFO [Log]: The value Admin is entered as userName in the text-box
+18-06-2020 04:48:11 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+18-06-2020 04:48:17 INFO [Log]: Click action is performed on Login button
+18-06-2020 04:48:17 INFO [Log]: login method execution is completed
+18-06-2020 04:48:17 INFO [Log]: Click action is performed on PIM in the Menu bar
+18-06-2020 04:48:18 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+18-06-2020 04:48:28 INFO [Log]: The firstName read from excel is : John
+18-06-2020 04:48:28 INFO [Log]: The value John is entered as firstName in the text-box
+18-06-2020 04:48:28 INFO [Log]: The middleName read from excel is : Adam
+18-06-2020 04:48:28 INFO [Log]: The value Adam is entered as middleName in the text-box
+18-06-2020 04:48:28 INFO [Log]: The lastName is : YKFg
+18-06-2020 04:48:29 INFO [Log]: The value YKFg is entered as lastName in the text-box
+18-06-2020 04:49:24 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+18-06-2020 04:49:24 INFO [Log]: *****************************************************************
+18-06-2020 04:49:24 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+18-06-2020 04:49:24 INFO [Log]: ******************************************************************
+18-06-2020 04:49:25 INFO [Log]: The Testcase id executing is :TC_01_01
+18-06-2020 04:49:26 INFO [Log]: The row no for Test Case is : 13
+18-06-2020 04:49:26 INFO [Log]: The row no for test Data is : 1
+18-06-2020 04:49:26 INFO [Log]: The Browser for the excecution is : Chrome
+18-06-2020 04:49:33 INFO [Log]: The Execution started for TC_01_AddEmployee
+18-06-2020 04:49:33 INFO [Log]: The userName read from excel is : Admin
+18-06-2020 04:49:33 INFO [Log]: The password read from excel is : Admin@123
+18-06-2020 04:49:33 INFO [Log]: The value Admin is entered as userName in the text-box
+18-06-2020 04:49:34 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+18-06-2020 04:49:39 INFO [Log]: Click action is performed on Login button
+18-06-2020 04:49:39 INFO [Log]: login method execution is completed
+18-06-2020 05:16:58 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+18-06-2020 05:16:58 INFO [Log]: *****************************************************************
+18-06-2020 05:16:58 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+18-06-2020 05:16:58 INFO [Log]: ******************************************************************
+18-06-2020 05:16:59 INFO [Log]: The Testcase id executing is :TC_01_01
+18-06-2020 05:16:59 INFO [Log]: The row no for Test Case is : 13
+18-06-2020 05:16:59 INFO [Log]: The row no for test Data is : 1
+18-06-2020 05:16:59 INFO [Log]: The Browser for the excecution is : Chrome
+18-06-2020 05:17:07 INFO [Log]: The Execution started for TC_01_AddEmployee
+18-06-2020 05:17:07 INFO [Log]: The userName read from excel is : Admin
+18-06-2020 05:17:07 INFO [Log]: The password read from excel is : Admin@123
+18-06-2020 05:17:07 INFO [Log]: The value Admin is entered as userName in the text-box
+18-06-2020 05:17:07 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+18-06-2020 05:17:13 INFO [Log]: Click action is performed on Login button
+18-06-2020 05:17:13 INFO [Log]: login method execution is completed
+18-06-2020 05:23:03 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+18-06-2020 05:23:04 INFO [Log]: *****************************************************************
+18-06-2020 05:23:04 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+18-06-2020 05:23:04 INFO [Log]: ******************************************************************
+18-06-2020 05:23:05 INFO [Log]: The Testcase id executing is :TC_01_01
+18-06-2020 05:23:05 INFO [Log]: The row no for Test Case is : 13
+18-06-2020 05:23:05 INFO [Log]: The row no for test Data is : 1
+18-06-2020 05:23:05 INFO [Log]: The Browser for the excecution is : Chrome
+18-06-2020 05:23:12 INFO [Log]: The Execution started for TC_01_AddEmployee
+18-06-2020 05:23:12 INFO [Log]: The userName read from excel is : Admin
+18-06-2020 05:23:12 INFO [Log]: The password read from excel is : Admin@123
+18-06-2020 05:23:13 INFO [Log]: The value Admin is entered as userName in the text-box
+18-06-2020 05:23:13 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+18-06-2020 05:23:18 INFO [Log]: Click action is performed on Login button
+18-06-2020 05:23:18 INFO [Log]: login method execution is completed

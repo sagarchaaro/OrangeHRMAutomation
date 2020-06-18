@@ -2,9 +2,12 @@ package frameworkScripts;
 
 
 import java.io.FileInputStream;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -198,5 +201,55 @@ public class CommonMethod {
 		driver.findElement(By.id("logoutLink")).click();
 		System.out.println("Click action is performed on Logout button");
 	}
+	
+	public static By formatLocator(By by, final Object... substitutions) {
+		By returnBy;
+		String locator = by.toString().split(":")[0];
+		String locatorValue = by.toString().replaceAll(locator, "").replaceFirst(":", "").trim();
+
+		Pattern pattern = Pattern.compile("([{][0-9]+[}])");
+		Matcher matcher = pattern.matcher(locatorValue);
+		int count = 0;
+		while (matcher.find()) {
+			++count;
+		}
+		
+		for (int i = 0; i < count; ++i) {
+			pattern = Pattern.compile("([{]" + i + "[}])");
+			matcher = pattern.matcher(locatorValue);
+			locatorValue = matcher.replaceAll(Matcher.quoteReplacement(substitutions[i].toString()));
+		}
+		
+		switch (locator) {
+		case "By.cssSelector":
+			returnBy = By.cssSelector(locatorValue);
+			break;
+		case "By.xpath":
+			returnBy = By.xpath(locatorValue);
+			break;
+		case "By.className":
+			returnBy = By.className(locatorValue);
+			break;
+		case "By.id":
+			returnBy = By.id(locatorValue);
+			break;
+		case "By.tagName":
+			returnBy = By.tagName(locatorValue);
+			break;
+		case "By.name":
+			returnBy = By.name(locatorValue);
+			break;
+		case "By.linkText":
+			returnBy = By.linkText(locatorValue);
+			break;
+		case "By.partialLinkText":
+			returnBy = By.partialLinkText(locatorValue);
+			break;
+		default:
+			throw new RuntimeException("invalid locator: " + by.toString());
+		}
+		return returnBy;
+	}
+
 
 }
