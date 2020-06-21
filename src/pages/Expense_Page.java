@@ -41,6 +41,9 @@ public class Expense_Page extends BaseClass{
 	static By txtbx_search = By.xpath("//form[@id='estimateSearchForEmployee']/div/div/div/div/input");
 	static By btn_approve = By.xpath("//a[text()='Approve']");
 	static By btn_Ok = By.xpath("//a[text()='OK']");
+	static By dd_select = By.xpath("//span[text()='{0}']");
+	static By dd_selectDate = By.xpath("(//span[text()='{0}'])[2]");
+	static By link_date = By.xpath("(//table[@class='picker__table']/tbody/tr[{0}]/td[{0}]/div)[3]");
 	
 	public static String currency_Name, requestID;
 	
@@ -63,7 +66,7 @@ public class Expense_Page extends BaseClass{
 		Log.info("The CurrencyName is selected by random no is :" + currency_Name );
 		Thread.sleep(3000);
 		
-		driver.findElement(By.xpath("//span[text()='"+ currency_Name + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, currency_Name)).click();
 		Log.info("Click action is performed on Currency option" );
 
 		driver.findElement(btn_next).click();
@@ -107,14 +110,14 @@ public class Expense_Page extends BaseClass{
 		// Select Year
 		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='"+date[2]+"'])[2]")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_selectDate, date[2])).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_year);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_year);
 		Log.info("The Year selected from calender is:" + date[2] );
 		// Select Month
 		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[2]")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='" + date[0] + "'])[2]")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_selectDate, date[0])).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_month);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_month);
 		Log.info("The Month selected from calender is:" + date[0] );
@@ -126,11 +129,11 @@ public class Expense_Page extends BaseClass{
 			Log.info("entered row for loop" );
 		for (int colsNo = 1; colsNo <= cols; colsNo++) {
 			Log.info("entered column for loop" );
-				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div)[3]")).getText();
+				String calDate = driver.findElement(CommonMethod.formatLocator(link_date, rowNo, colsNo)).getText();
 				Log.info(calDate );
 				if (calDate.equalsIgnoreCase(date[1])) {
 					Log.info("entered if loop" );
-					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[3]")).click();
+					driver.findElement(CommonMethod.formatLocator(link_date, rowNo, colsNo)).click();
 					Log.info("The Date is selected from calender is:" + toDate );
 					break rows;
 				}
@@ -158,14 +161,14 @@ public class Expense_Page extends BaseClass{
 		String expense_Type = ExcelConfig.getCellData(iTestData, Constant.col_Expense_Type,Constant.sheet_TravelRequestCases);
 		Log.info("The Expense_Type read from excel is : " + expense_Type );
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='"+expense_Type+"']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, expense_Type)).click();
 		
 		
 		Log.info("The value "+ expense_Type+" is selected as Expense_Type in the dropdown" );
 		Thread.sleep(2000);
 		driver.findElement(dd_currencyName).click();
 		Log.info("Currency paid in is clicked" );
-		driver.findElement(By.xpath("//span[text()='"+currency_Name+"']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, currency_Name)).click();
 		/*
 		 * Robot r = new Robot(); r.keyPress(KeyEvent.VK_DOWN);
 		 * r.keyRelease(KeyEvent.VK_DOWN);
@@ -182,7 +185,7 @@ public class Expense_Page extends BaseClass{
 		driver.findElement(dd_paidBy).click();
 		String paid_By = ExcelConfig.getCellData(iTestData, Constant.col_Paid_By, Constant.sheet_TravelRequestCases);
 		Log.info("The paid_By read from excel is : " + paid_By );
-		driver.findElement(By.xpath("//span[text()='" + paid_By + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, paid_By)).click();
 		Log.info("The value "+ paid_By+" is selected as paid_By in the dropdown" );
 		Thread.sleep(2000);
 		driver.findElement(btn_saveRequestEstimates).click();
@@ -223,7 +226,7 @@ public class Expense_Page extends BaseClass{
 		//driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/a[text()='" + requestID + "']")).click();
 		//Log.info("Clicked on Request ID link");
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//a[text()='"+requestID+"']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, requestID)).click();
 		driver.findElement(btn_approve).click();
 		Log.info("Click action is performed  on Approve button" );
 

@@ -32,6 +32,8 @@ public class Admin_Page extends BaseClass {
 	static By txtbx_changePassword = By.xpath("(//div[@id='modal1']/form//child::input)[8]");
 	static By txtbx_confirmPassword = By.xpath("(//div[@id='modal1']/form//child::input)[9]");
 	static By btn_save2 = By.id("systemUserSaveBtn");
+	static By link_location = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include");
+	static By link_editLocation = By.xpath("//span[text()='{0}']//ancestor ::tr/td[8]/i");
 
 	// Added for TC_06 test case
 	static By txtbx_UserPage = By.xpath("//tbody[@ng-if='!listData.staticBody']/tr/td[4]/ng-include/span");
@@ -39,6 +41,7 @@ public class Admin_Page extends BaseClass {
 	static By txtbx_EmployeeName = By.xpath("//input[@id='selectedEmployee_value']");
 	static By txtbx_UserName = By.xpath("//input[@id='user_name']");
 	static By dd_AdminRole = By.xpath("//div[@id='adminrole_inputfileddiv']/div/input");
+	static By dd_select = By.xpath("//span[text()='{0}']");
 	static By dd_Status = By.xpath("//div[@id='status_inputfileddiv']/div/input");
 	static By dd_StatusEnable = By.xpath("//div[@id='status_inputfileddiv']/div/ul/li/span[text()='Enabled']");
 	static By txtbx_Password = By.xpath("//input[@id='password']");
@@ -49,6 +52,8 @@ public class Admin_Page extends BaseClass {
 	static By txtbx_UserFilter = By.xpath("//input[@id='systemuser_uname_filter']");
 	static By btn_Search = By.xpath("//a[text()='Search']");
 	static By msg_Record = By.xpath("//div[text()='No Records Found']");
+	static By link_userName = By.xpath("//span[@id='account-name']");
+	static By link_employeeName = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='{0}']/../../../td[8]");
 
 	public void demo() {
 		driver.findElement(btn_save).click();
@@ -60,14 +65,14 @@ public class Admin_Page extends BaseClass {
 
 	public static void getLocationData() throws Exception {
 		
-		List<WebElement> element_location = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include"));
+		List<WebElement> element_location = driver.findElements(link_location);
 		Log.info("All location are stored in the WebElement" );
 		Thread.sleep(5000);
 		String[] locationArray = Utils.dataIntoArray(element_location, 17);
 		Log.info("All location are stored in the Array" );
 		existingLocationName = Utils.selectWithRandomIndex(17, locationArray);
 		Log.info("The location is selected by random no is :" + existingLocationName );
-		driver.findElement(By.xpath("//span[text()='" + existingLocationName + "']//ancestor ::tr/td[8]/i")).click();
+		driver.findElement(CommonMethod.formatLocator(link_editLocation,existingLocationName)).click();
 		Log.info(" Click action is performed on Edit button" );
 		// Thread.sleep(5000);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -181,7 +186,7 @@ public class Admin_Page extends BaseClass {
 		Log.info("The adminRole read from excel is : " + adminRole );
 
 		driver.findElement(dd_AdminRole).click();
-		driver.findElement(By.xpath("//span[text()='" + adminRole + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, adminRole)).click();
 		Log.info("The value " + adminRole + " is entered as adminRole in the drop down" );
 		driver.findElement(dd_Status).click();
 		driver.findElement(dd_StatusEnable).click();
@@ -225,7 +230,7 @@ public class Admin_Page extends BaseClass {
 	}
 
 	public static void vrifyUserlogin(String screenshotPath) throws Exception {
-		String username1_validation = driver.findElement(By.xpath("//span[@id='account-name']")).getText();
+		String username1_validation = driver.findElement(link_userName).getText();
 		Utils.screenShot(screenshotPath + "\\" + userName + "_Login.jpg", driver);
 		CommonMethod.verifyData(employeeName, username1_validation);
 	}
@@ -238,7 +243,7 @@ public class Admin_Page extends BaseClass {
 		Log.info("All EmployeeName are stored in the Array" );
 		String employee_Name = Utils.selectWithRandomIndex(50, empName);
 		Log.info("The EmployeeName is selected by random no is :" + employee_Name );
-		driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='"+ employee_Name + "']/../../../td[8]")).click();
+		driver.findElement(CommonMethod.formatLocator(link_employeeName, employee_Name)).click();
 		Log.info("Click action is performed on Edit Link" );
 
 		driver.findElement(By.xpath("//label[@for='changepassword']")).click();

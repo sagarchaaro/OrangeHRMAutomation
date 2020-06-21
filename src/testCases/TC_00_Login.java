@@ -1,5 +1,6 @@
 package testCases;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -15,17 +16,19 @@ import pages.BaseClass;
 import pages.Home_Page;
 import pages.Login_Page;
 import utilities.ExcelConfig;
+import utilities.Log;
 import utilities.Utils;
 
 public class TC_00_Login {
-	public static String timestamp, screenshotPath, browser, reason,url, excelPath;
+	public static String timestamp, screenshotPath, browser, reason,url, excelPath, testName;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
 	
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception{
 		CommonMethod.projectpath = System.getProperty("user.dir");
-		Reporter.log("The Project Path is:"+CommonMethod.projectpath,true);
+		DOMConfigurator.configure(System.getProperty("user.dir")+"//test-resources//Log4j.xml");
+		Log.info("The Project Path is:"+CommonMethod.projectpath);
 		
 		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 		
@@ -35,7 +38,7 @@ public class TC_00_Login {
 		Utils.createDir(screenshotPath);
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
 		ExcelConfig.setExcelFile(excelPath);
-		System.out.println("Excel sheet is set");
+		Log.info("Excel sheet is set");
 		driver = Utils.openBrowser(CommonMethod.yamlData, "Chrome");
 		new BaseClass(driver);	
 		
@@ -46,18 +49,19 @@ public class TC_00_Login {
 	@BeforeMethod()
 	public void browserLaunch() throws Exception{			
 		
-		System.out.println("Before Method");	
+		Log.info("Before Method");	
 		
 	}
 	@Test (dataProviderClass=CommonMethod.class, dataProvider="Login")
 	public void loginValidation(String userName, String password, String testID) throws Exception{
-		
-		System.out.println("Username from data provider is: "+userName);
-		System.out.println("Password from data provider is:"+password);
-		System.out.println("TestCase Id from data provider is:"+testID);
+		testName=Thread.currentThread().getStackTrace()[1].getClassName().substring(Thread.currentThread().getStackTrace()[1].getClassName().indexOf('.')+1)+"_"+testID;
+		Log.startTestCase(testName);	
+		Log.info("Username from data provider is: "+userName);
+		Log.info("Password from data provider is:"+password);
+		Log.info("TestCase Id from data provider is:"+testID);
 		
 		iTestCase = ExcelConfig.getRowContains(testID, Constant.col_TestID,Constant.sheet_TestCases);
-		Reporter.log("The row no for Test Case is : " + iTestCase,true);		
+		Log.info("The row no for Test Case is : " + iTestCase);		
 				
 		Login_Page.login(userName, password);
 		
@@ -70,21 +74,21 @@ public class TC_00_Login {
 	}
 	@AfterMethod
 	public void tearDown(ITestResult result) throws Exception{
-		System.out.println("After Method");
+		Log.info("After Method");
 		
 		if(result.getStatus() == ITestResult.SUCCESS){
 			
 			ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
-			Reporter.log("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases,true);
+			Log.info("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases);
 	
 		}else if(result.getStatus() ==ITestResult.FAILURE){
 			Utils.screenShot(screenshotPath + "\\_Fail.jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
-			Reporter.log("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
-			Reporter.log(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases,true);
+			Log.info(reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 		}else if(result.getStatus() == ITestResult.SKIP){
-			Reporter.log("Testcase is Skipped with the reason as :"+reason,true);
+			Log.info("Testcase is Skipped with the reason as :"+reason);
 		}
 
     }
@@ -92,7 +96,8 @@ public class TC_00_Login {
 	public void afterClass() throws Exception{
 		
 		driver.quit();
-		Reporter.log("After Class,Execution completed,true");
+		Reporter.log("After Class,Execution completed",true);
+		Log.endTestCase();
 	}
 }
 	

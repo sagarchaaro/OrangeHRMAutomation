@@ -17,12 +17,25 @@ import org.testng.annotations.DataProvider;
 import org.testng.asserts.SoftAssert;
 import org.yaml.snakeyaml.Yaml;
 import utilities.ExcelConfig;
+import utilities.Log;
 
 /*THE "CommonMethod" CLASS IS DEFINED FOR THE  HRM TEST CASES
  * ALL THE COMMON METHOD THAT CAN BE USED ACCROSS HRM TEST CASE, IS WRITTEN HERE
  */
 
 public class CommonMethod {
+	
+
+	static By link_year = By.xpath("//div[@class='select-wrapper picker__select--year']/input");
+	static By dd_select=By.xpath("//span[text()='{0}']");
+	static By link_month = By.xpath("//div[@class='select-wrapper picker__select--month']/input");
+	static By size_row = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr");
+	static By size_cols = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr[1]/td");
+	static By txt_calDate = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr[{0}]/td[{0}]/div");
+	static By link_year_08 = By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[{0}]");
+	static By link_month_08 = By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[{0}]");
+	static By link_logout = By.xpath("//*[@id='account-job']/i");
+	static By click_logout = By.id("logoutLink");
 
 	// CLASS VARIABLE DECLARATION
 	public static String projectpath, reason;
@@ -49,7 +62,7 @@ public class CommonMethod {
 		
 		@DataProvider(name="Login")
 		public static Object[][] loginData() throws Exception{
-			System.out.println("DATA PROVIDER Executed");
+			Log.info("DATA PROVIDER Executed");
 			Object[][] ob= new Object[10][3];
 			int excelRow=0;
 			
@@ -128,24 +141,25 @@ public class CommonMethod {
 	public static void date_HRM(String dateToSelect, WebDriver driver, int calenderNo) {
 		String date[] = dateToSelect.split("/");
 		// Select Year
-		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
-		driver.findElement(By.xpath("//span[text()='" + date[2] + "']")).click();
-		System.out.println("The Year selected from calender is:" + date[2]);
+		driver.findElement(link_year).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, date[2])).click();		
+		Log.info("The Year selected from calender is:" + date[2]);
 		// Select Month
-		driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
-		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
-		System.out.println("The Month selected from calender is:" + date[0]);
+		driver.findElement(link_month).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, date[0])).click();	
+		
+		Log.info("The Month selected from calender is:" + date[0]);
 		// Select Date
-		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
-		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
-		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
+		int rows = driver.findElements(CommonMethod.formatLocator(size_row, calenderNo)).size();
+		int cols = driver.findElements(CommonMethod.formatLocator(size_cols, calenderNo)).size();
+		Log.info("The no of cols is:" + cols + ", The no of rows is:" + rows);
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
 		for (int colsNo = 1; colsNo <= cols; colsNo++) {
 
-				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo+ "]/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div")).getText();
+				String calDate = driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).getText();
 				if (calDate.equalsIgnoreCase(date[1])) {
-					driver.findElement(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div")).click();
-					System.out.println("The Date is selected from calender is:" + dateToSelect);
+					driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).click();
+					Log.info("The Date is selected from calender is:" + dateToSelect);
 					break rows;
 				}
 
@@ -157,29 +171,29 @@ public class CommonMethod {
 	public static void date_HRM_08(String dateToSelect, WebDriver driver, int calenderNo) {
 		String date[] = dateToSelect.split("/");
 		// Select Year
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[" + calenderNo + "]")).click();
-		WebElement element = driver.findElement(By.xpath("//span[text()='" + date[2] + "']"));
+		driver.findElement(CommonMethod.formatLocator(link_year_08,calenderNo )).click();
+		WebElement element = driver.findElement(CommonMethod.formatLocator(dd_select, date[2]));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-		System.out.println("The Year selected from calender is:" + date[2]);
+		Log.info("The Year selected from calender is:" + date[2]);
 		// Select Month
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[" + calenderNo + "]")).click();
-		driver.findElement(By.xpath("//span[text()='" + date[0] + "']")).click();
-		System.out.println("The Month selected from calender is:" + date[0]);
+		driver.findElement(CommonMethod.formatLocator(link_month_08,calenderNo )).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, date[0])).click();
+		Log.info("The Month selected from calender is:" + date[0]);
 		// Select Date
-		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr")).size();
-		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[" + calenderNo + "]/tbody/tr[1]/td")).size();
-		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
+		int rows = driver.findElements(CommonMethod.formatLocator(size_row, calenderNo)).size();
+		int cols = driver.findElements(CommonMethod.formatLocator(size_cols, calenderNo)).size();
+		Log.info("The no of cols is:" + cols + ", The no of rows is:" + rows);
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
-			System.out.println("entered row for loop");
+			Log.info("entered row for loop");
 		for (int colsNo = 1; colsNo <= cols; colsNo++) {
-			System.out.println("entered column for loop");
-				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr[" + rowNo + "]/td[" + colsNo + "]/div)[2]")).getText();
-				System.out.println(calDate);
+			Log.info("entered column for loop");
+				String calDate = driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).getText();
+				Log.info(calDate);
 				if (calDate.equalsIgnoreCase(date[1])) {
-					System.out.println("entered if loop");
-					driver.findElement(By.xpath("(//table[@class='picker__table']/tbody/tr["+ rowNo + "]/td[" + colsNo + "]/div)[2]")).click();
-					System.out.println("The Date is selected from calender is:" + dateToSelect);
+					Log.info("entered if loop");
+					driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).click();
+					Log.info("The Date is selected from calender is:" + dateToSelect);
 					break rows;
 				}
 
@@ -194,17 +208,17 @@ public class CommonMethod {
 	 */
 	public static void logoutJaveExecuter(WebDriver driver) throws Exception {
 		Thread.sleep(2000);
-		WebElement element = driver.findElement(By.xpath("//*[@id='account-job']/i"));
+		WebElement element = driver.findElement(link_logout);
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 		Thread.sleep(3000);
-		driver.findElement(By.id("logoutLink")).click();
-		System.out.println("Click action is performed on Logout button");
+		driver.findElement(click_logout).click();
+		Log.info("Click action is performed on Logout button");
 	}
 	
 	public static By formatLocator(By by, final Object... substitutions) {
 		By returnBy;
-		String locator = by.toString().split(":")[0];
+		final String locator = by.toString().split(":")[0];
 		String locatorValue = by.toString().replaceAll(locator, "").replaceFirst(":", "").trim();
 
 		Pattern pattern = Pattern.compile("([{][0-9]+[}])");

@@ -37,6 +37,7 @@ public class Home_Page extends BaseClass {
 	static By link_Decipline = By.xpath("//span[text()='Discipline']");
 	static By link_DeciplineCases = By.xpath("//span[text()='Discipline']/..//following::a/span[text()='Disciplinary Cases']");
 	static By link_Menu=By.xpath("//span[text()='{0}']");
+	static By link_disciplinrayCase = By.xpath("//span[text()='Disciplinary Cases']");
 
 	public static void verifyDashboard(String screenshotPath) throws Exception {
 		Thread.sleep(3000);
@@ -55,7 +56,7 @@ public class Home_Page extends BaseClass {
 	}
 	
 	public static void navigateMenu(String mainHeader) {
-		driver.findElement(By.xpath("//span[text()='" + mainHeader + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, mainHeader)).click();
 		Log.info("Click action is performed on " + mainHeader + " in the Menu bar");
 	}
 
@@ -71,20 +72,20 @@ public class Home_Page extends BaseClass {
 
 	public static void navigateMenu(String mainHeader, String subHeader, String branch) {
 
-		driver.findElement(By.xpath("//span[text()='" + mainHeader + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, mainHeader)).click();
 		Log.info("Click action is performed on " + mainHeader + " in the Menu bar");
 
-		driver.findElement(By.xpath("//span[text()='" + subHeader + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, subHeader)).click();
 		Log.info("Click action is performed on " + subHeader + " in the Menu bar");
 
-		driver.findElement(By.xpath("//span[text()='" + branch + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, branch)).click();
 		Log.info("Click action is performed on " + branch + " in the Menu bar");
 	}
 	public static void navigateDesciplinary() {
 		driver.findElement(link_Decipline).click();
 		Log.info("Click action is performed on Discipline in the Menu bar");
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Disciplinary Cases']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(link_disciplinrayCase));
 		driver.findElement(link_DeciplineCases).click();
 		// span[contains(text(),'Disciplinary Cases')]
 		Log.info("Click action is performed on Disciplinary Cases in the Menu bar");		// PIM Click

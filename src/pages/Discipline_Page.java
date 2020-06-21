@@ -46,6 +46,9 @@ public class Discipline_Page extends BaseClass{
 	static By click_ViewAction = By.xpath("//table[@id='resultTable']/tbody/tr/td/a");
 	static By btn_Deciplinary = By.xpath("//a[text()='View Disciplinary Case']");
 	static By btn_CloseCase = By.xpath("//a[text()='Close Case']");
+	static By dd_selectActionNo = By.xpath("//label[@for='{0}']");
+	static By dd_select = By.xpath("//span[text()='{0}']");
+	static By link_employee = By.xpath("//td[text()='{0}']/../td[8]");
 
 
     public static String ownerName,employeeName,caseNo,description,status,action,dueDate,createdBy,createdOn;
@@ -108,8 +111,8 @@ public class Discipline_Page extends BaseClass{
 		action = ExcelConfig.getCellData(iTestData, Constant.col_DisciplinaryAction,Constant.sheet_DeciplinaryCases);
 		Log.info("The action read from excel is: " + action);
 		String actionNo[] = action.split(" ");
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[@for='" + actionNo[0] + "']")));
-		driver.findElement(By.xpath("//label[@for='" + actionNo[0] + "']")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(CommonMethod.formatLocator(dd_selectActionNo, actionNo[0])));
+		driver.findElement(CommonMethod.formatLocator(dd_selectActionNo, actionNo[0])).click();
 		Log.info("The value "+actionNo[0]+ " is selected as deciplinary action");
 		driver.findElement(btn_Select ).click();
 		Log.info("Click action is performed on Select button");
@@ -126,7 +129,7 @@ public class Discipline_Page extends BaseClass{
 		status = ExcelConfig.getCellData(iTestData, Constant.col_ActionStatus, Constant.sheet_DeciplinaryCases);
 		Log.info("The status read from excel is" + status);
 		driver.findElement(dd_Status).click();
-		driver.findElement(By.xpath("//span[text()='" + status + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, status)).click();
 		Log.info("The value "+status+" is selected as status in the dropdown");		
 		Utils.screenShot(screenshotPath + "\\DisciplinaryCase.jpg", driver);
 		Log.info("Screen shot is  taken for Desciplinary case");
@@ -180,7 +183,7 @@ public class Discipline_Page extends BaseClass{
 	
 		// VERIFY CLOSE STATUS FOR THE CASE
 		
-		String validation_StatusClose = driver.findElement(By.xpath("//td[text()='" + employeeName + "']/../td[8]"))
+		String validation_StatusClose = driver.findElement(CommonMethod.formatLocator(link_employee, employeeName))
 				.getText();
 		CommonMethod.verifyData("Close", validation_StatusClose);
 
