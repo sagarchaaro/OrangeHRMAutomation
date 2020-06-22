@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="OrangeHRM" thread-count="2" parallel="tests">
+<suite name="OrangeHRM" thread-count="2">
 	<test name="Test1">
 		 <parameter name="testID" value="TC_01_01"/>
 		<classes>			
@@ -8,18 +8,11 @@
 		</classes>
 	</test>
 	<test name="Test2">
-		<parameter name="testID" value="TC_03_01"/>
+		<parameter name="testID" value="TC_01_02"/>
 		<classes>			
-			<class name="testCases.TC_03_AddVacancy"></class>
+			<class name="testCases.TC_01_AddEmployee"></class>
 		</classes>
 	</test>
-		<test name="Test3">
-		<parameter name="testID" value="TC_04_01"/>
-		<classes>			
-			<class name="testCases.TC_04_EditEmployee"></class>
-		</classes>
-	</test>
-	
-	
+		
 </suite>
 

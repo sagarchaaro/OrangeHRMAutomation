@@ -1,6 +1,7 @@
 package testCases;
 
 import org.apache.log4j.xml.DOMConfigurator;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -10,6 +11,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
@@ -19,14 +23,17 @@ import pages.Login_Page;
 import pages.PIM_Page;
 import utilities.Utils;
 import utilities.ExcelConfig;
+import utilities.ExtentManage;
 import utilities.Log;
+import utilities.Suite;
 
 
-public class TC_01_AddEmployee {
+public class TC_01_AddEmployee extends Suite{
 	
 	public static String timestamp, url, excelPath, screenshotPath, browser, testName;
 	public static int iTestCase, iTestData ;
 	public static WebDriver driver;
+	static ExtentTest logger;
 	
 	@BeforeClass
 	public void execute_Prerequisites() throws Exception{
@@ -36,13 +43,6 @@ public class TC_01_AddEmployee {
 		Reporter.log("The Project Path is:"+CommonMethod.projectpath, true);
 		Log.info("The Project Path is:"+CommonMethod.projectpath);
 		
-		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
-		
-		screenshotPath=CommonMethod.getYamlData("screenshotPath");		
-		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		screenshotPath = CommonMethod.projectpath+ screenshotPath + timestamp;
-		Utils.createDir(screenshotPath);
-		
 	}
 	
 	@Parameters({"testID"})
@@ -51,6 +51,10 @@ public class TC_01_AddEmployee {
 			
 		// SETTING THE ROW NO FOR TEST CASE ID IN EXCEL FILE.
 		testName=Thread.currentThread().getStackTrace()[1].getClassName().substring(Thread.currentThread().getStackTrace()[1].getClassName().indexOf('.')+1)+"_"+testID;
+		
+		logger=ExtentManage.getExtentTest(report, testName);
+		
+		
 		Log.startTestCase(testName);
 		excelPath = CommonMethod.projectpath+CommonMethod.getYamlData("excelPath");		
 		ExcelConfig.setExcelFile(excelPath);
@@ -70,20 +74,36 @@ public class TC_01_AddEmployee {
 		Log.info("The Execution started for TC_01_AddEmployee");
 		
 		Login_Page.loginPageVerify();
+		Log.info("Title of the OrangeHRM Application is verified");
+		logger.log(Status.INFO, "Title of the OrangeHRM Application is verified");
 		
 		Login_Page.login(iTestData,Constant.sheet_AddEmployeeCases);
+		Log.info("Logged into OrangeHRM Application");
+		logger.log(Status.INFO, "Logged into OrangeHRM Application");
 		
 		Home_Page.navigateMenu("PIM", "Add Employee");
+		Log.info("Navigated to the AddEmployee window");
+		logger.log(Status.INFO, "Navigated to the AddEmployee window");
 		
-		PIM_Page.setEmployeePersonalData(iTestData);		
+		PIM_Page.setEmployeePersonalData(iTestData);	
+		Log.info("Entered Personal Data of a Employee");
+		logger.log(Status.INFO, "Entered Personal Data of a Employee");
 		
 		PIM_Page.setEmployeeImportantData(iTestData);
+		Log.info("Entered Important Data of a Employee");
+		logger.log(Status.INFO, "Entered Important Data of a Employee");
 		
 		PIM_Page.setEmployeeData(iTestData);
+		Log.info("Entered Preferred Data of a Employee");
+		logger.log(Status.INFO, "Entered Preferred Data of a Employee");
 		
 		PIM_Page.verifyEmployeeData();
+		Log.info("AddEmployee Data is verified in the Employee List");
+		logger.log(Status.INFO, "AddEmployee Data is verified in the Employee List");
 		
 		CommonMethod.logoutJaveExecuter(driver);
+		Log.info("Loggedout from the OrangeHRM application");
+		logger.log(Status.INFO, "Loggedout from the OrangeHRM application");
 		
 	}
 	
@@ -104,6 +124,7 @@ public class TC_01_AddEmployee {
 		
 			ExcelConfig.setCellData("Pass", iTestCase, Constant.col_Status, Constant.sheet_TestCases, excelPath);
 			Log.info("Pass is written as Status against to RowNumber "+iTestCase +", column Number " +Constant.col_Status +" in the "+Constant.sheet_TestCases);
+			logger.log(Status.PASS, "Testcase " +testName+ " is passed");
 			
 		}else if(result.getStatus() ==ITestResult.FAILURE){
 			Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
@@ -112,13 +133,16 @@ public class TC_01_AddEmployee {
 			
 			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Log.info(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
-		
+			
+			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath + "\\Fail.jpg").build());
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Log.info("Testcase is Skipped with the reason as :"+CommonMethod.reason);
+			logger.log(Status.SKIP, "Testcase " +testName+ " is skipped");
 		}
 		
 		driver.quit();
 		Log.endTestCase();
+		report.flush();
 	}
 
 }

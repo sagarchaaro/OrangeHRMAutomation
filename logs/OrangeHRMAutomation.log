@@ -180,3 +180,315 @@
 18-06-2020 05:23:13 INFO [Log]: The value Admin@123 is entered as Password in the text-box
 18-06-2020 05:23:18 INFO [Log]: Click action is performed on Login button
 18-06-2020 05:23:18 INFO [Log]: login method execution is completed
+22-06-2020 05:41:05 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:41:05 INFO [Log]: *****************************************************************
+22-06-2020 05:41:05 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 05:41:05 INFO [Log]: ******************************************************************
+22-06-2020 05:41:07 INFO [Log]: The Testcase id executing is :TC_01_01
+22-06-2020 05:41:07 INFO [Log]: The row no for Test Case is : 13
+22-06-2020 05:41:07 INFO [Log]: The row no for test Data is : 1
+22-06-2020 05:41:07 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:41:15 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:41:15 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:41:15 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:41:15 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:41:15 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:41:15 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:41:20 INFO [Log]: Click action is performed on Login button
+22-06-2020 05:41:20 INFO [Log]: login method execution is completed
+22-06-2020 05:41:20 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:41:20 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 05:41:21 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 05:41:21 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:41:32 INFO [Log]: The firstName read from excel is : John
+22-06-2020 05:41:32 INFO [Log]: The value John is entered as firstName in the text-box
+22-06-2020 05:41:32 INFO [Log]: The middleName read from excel is : Adam
+22-06-2020 05:41:32 INFO [Log]: The value Adam is entered as middleName in the text-box
+22-06-2020 05:41:32 INFO [Log]: The lastName is : dqaj
+22-06-2020 05:41:32 INFO [Log]: The value dqaj is entered as lastName in the text-box
+22-06-2020 05:41:38 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 05:41:38 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 05:41:38 INFO [Log]: All locations are stored in the Array
+22-06-2020 05:41:38 INFO [Log]: The location selected by random no is:     United StatesfDkXea
+22-06-2020 05:41:38 INFO [Log]: The value United StatesfDkXea is selected as location in the dropdown
+22-06-2020 05:41:40 INFO [Log]: Click action is performed on Next button
+22-06-2020 05:41:40 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:41:48 INFO [Log]: The bloodgroup read from excel is : B
+22-06-2020 05:42:10 INFO [Log]: Fail is written against to RowNumber 13, column Number 7 in the TestCases
+22-06-2020 05:42:10 INFO [Log]: Actual value is not matched with Expected value :OrangeHRM13, column Number 7 in the TestCases
+22-06-2020 05:42:11 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 05:42:11 INFO [Log]: X
+22-06-2020 05:42:11 INFO [Log]: X
+22-06-2020 05:45:31 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:45:32 INFO [Log]: *****************************************************************
+22-06-2020 05:45:32 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 05:45:32 INFO [Log]: ******************************************************************
+22-06-2020 05:45:33 INFO [Log]: The Testcase id executing is :TC_01_01
+22-06-2020 05:45:33 INFO [Log]: The row no for Test Case is : 13
+22-06-2020 05:45:33 INFO [Log]: The row no for test Data is : 1
+22-06-2020 05:45:33 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:45:41 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:45:41 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:45:41 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:45:41 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:45:41 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:45:41 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:45:47 INFO [Log]: Click action is performed on Login button
+22-06-2020 05:45:47 INFO [Log]: login method execution is completed
+22-06-2020 05:45:47 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 05:45:47 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 05:45:47 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 05:45:47 INFO [Log]: Navigated to the AddEmployee window
+22-06-2020 05:45:57 INFO [Log]: The firstName read from excel is : John
+22-06-2020 05:45:58 INFO [Log]: The value John is entered as firstName in the text-box
+22-06-2020 05:45:58 INFO [Log]: The middleName read from excel is : Adam
+22-06-2020 05:45:58 INFO [Log]: The value Adam is entered as middleName in the text-box
+22-06-2020 05:45:58 INFO [Log]: The lastName is : FIQl
+22-06-2020 05:45:58 INFO [Log]: The value FIQl is entered as lastName in the text-box
+22-06-2020 05:46:03 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 05:46:03 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 05:46:04 INFO [Log]: All locations are stored in the Array
+22-06-2020 05:46:04 INFO [Log]: The location selected by random no is:     GermanyWMEvnx
+22-06-2020 05:46:04 INFO [Log]: The value GermanyWMEvnx is selected as location in the dropdown
+22-06-2020 05:46:06 INFO [Log]: Click action is performed on Next button
+22-06-2020 05:46:06 INFO [Log]: Entered Personal Data of a Employee
+22-06-2020 05:46:14 INFO [Log]: The bloodgroup read from excel is : B
+22-06-2020 05:46:14 INFO [Log]: The value B is selected as bloodgroup in the dropdown
+22-06-2020 05:46:14 INFO [Log]: The hobby read from excel is : Reading Books
+22-06-2020 05:46:14 INFO [Log]: The value Reading Books is entered as hobby in the text-box
+22-06-2020 05:46:14 INFO [Log]: Clicked action is performed on Next button
+22-06-2020 05:46:14 INFO [Log]: Entered Important Data of a Employee
+22-06-2020 05:46:22 INFO [Log]: The Region read from excel is : Region-1
+22-06-2020 05:46:22 INFO [Log]: The value Region-1 is selected as Region in the dropdown
+22-06-2020 05:46:22 INFO [Log]: The FTE read from excel is : 0.5
+22-06-2020 05:46:22 INFO [Log]: The value 0.5 is selected as FTE in the dropdown
+22-06-2020 05:46:22 INFO [Log]: The Temp_Department read from excel is : Sub unit-1
+22-06-2020 05:46:22 INFO [Log]: The value Sub unit-1 is selected as Temp_Department in the dropdown
+22-06-2020 05:46:23 INFO [Log]: Click action is performed Save button
+22-06-2020 05:46:33 INFO [Log]: Entered Preferred Data of a Employee
+22-06-2020 05:46:35 INFO [Log]: AddEmployee Data is verified in the Employee List
+22-06-2020 05:46:42 INFO [Log]: Loggedout from the OrangeHRM application
+22-06-2020 05:46:43 INFO [Log]: The value John Adam FIQl is written as phone no against to RowNumber 1, column Number 15 in the Add Employee
+22-06-2020 05:46:43 INFO [Log]: The value 0062 is written as phone no against to RowNumber 1, column Number 16 in the Add Employee
+22-06-2020 05:46:44 INFO [Log]: The value GermanyWMEvnx is written as phone no against to RowNumber 1, column Number 8 in the Add Employee
+22-06-2020 05:46:44 INFO [Log]: Pass is written as Status against to RowNumber 13, column Number 7 in the TestCases
+22-06-2020 05:46:45 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 05:46:45 INFO [Log]: X
+22-06-2020 05:46:45 INFO [Log]: X
+22-06-2020 05:53:22 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:53:22 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:53:22 INFO [Log]: *****************************************************************
+22-06-2020 05:53:22 INFO [Log]: *****************************************************************
+22-06-2020 05:53:22 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 05:53:22 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 05:53:22 INFO [Log]: ******************************************************************
+22-06-2020 05:53:22 INFO [Log]: ******************************************************************
+22-06-2020 05:53:24 INFO [Log]: The Testcase id executing is :TC_01_02
+22-06-2020 05:53:24 INFO [Log]: The Testcase id executing is :TC_01_01
+22-06-2020 05:53:24 INFO [Log]: The row no for Test Case is : 14
+22-06-2020 05:53:24 INFO [Log]: The row no for Test Case is : 13
+22-06-2020 05:53:24 INFO [Log]: The row no for test Data is : 2
+22-06-2020 05:53:24 INFO [Log]: The row no for test Data is : 1
+22-06-2020 05:53:24 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:53:24 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:53:33 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:53:33 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:53:33 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:53:33 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:53:33 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:53:33 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:53:33 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:53:33 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:53:33 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:53:33 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:53:33 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:53:33 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:53:37 INFO [Log]: Click action is performed on Login button
+22-06-2020 05:53:37 INFO [Log]: login method execution is completed
+22-06-2020 05:53:37 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 05:54:15 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:54:15 INFO [Log]: *****************************************************************
+22-06-2020 05:54:15 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 05:54:15 INFO [Log]: ******************************************************************
+22-06-2020 05:54:17 INFO [Log]: The Testcase id executing is :TC_01_01
+22-06-2020 05:54:17 INFO [Log]: The row no for Test Case is : 13
+22-06-2020 05:54:17 INFO [Log]: The row no for test Data is : 1
+22-06-2020 05:54:17 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:54:25 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:54:25 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:54:25 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:54:25 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:54:25 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:54:25 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:54:31 INFO [Log]: Click action is performed on Login button
+22-06-2020 05:54:31 INFO [Log]: login method execution is completed
+22-06-2020 05:54:31 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 05:54:32 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 05:54:33 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 05:54:33 INFO [Log]: Navigated to the AddEmployee window
+22-06-2020 05:54:43 INFO [Log]: The firstName read from excel is : John
+22-06-2020 05:54:44 INFO [Log]: The value John is entered as firstName in the text-box
+22-06-2020 05:54:44 INFO [Log]: The middleName read from excel is : Adam
+22-06-2020 05:54:44 INFO [Log]: The value Adam is entered as middleName in the text-box
+22-06-2020 05:54:44 INFO [Log]: The lastName is : oReG
+22-06-2020 05:54:44 INFO [Log]: The value oReG is entered as lastName in the text-box
+22-06-2020 05:54:49 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 05:54:49 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 05:54:50 INFO [Log]: All locations are stored in the Array
+22-06-2020 05:54:50 INFO [Log]: The location selected by random no is:     FrancesbhHja
+22-06-2020 05:54:50 INFO [Log]: The value FrancesbhHja is selected as location in the dropdown
+22-06-2020 05:54:52 INFO [Log]: Click action is performed on Next button
+22-06-2020 05:54:52 INFO [Log]: Entered Personal Data of a Employee
+22-06-2020 05:55:00 INFO [Log]: The bloodgroup read from excel is : B
+22-06-2020 05:55:01 INFO [Log]: The value B is selected as bloodgroup in the dropdown
+22-06-2020 05:55:01 INFO [Log]: The hobby read from excel is : Reading Books
+22-06-2020 05:55:01 INFO [Log]: The value Reading Books is entered as hobby in the text-box
+22-06-2020 05:55:01 INFO [Log]: Clicked action is performed on Next button
+22-06-2020 05:55:01 INFO [Log]: Entered Important Data of a Employee
+22-06-2020 05:55:08 INFO [Log]: The Region read from excel is : Region-1
+22-06-2020 05:55:09 INFO [Log]: The value Region-1 is selected as Region in the dropdown
+22-06-2020 05:55:09 INFO [Log]: The FTE read from excel is : 0.5
+22-06-2020 05:55:09 INFO [Log]: The value 0.5 is selected as FTE in the dropdown
+22-06-2020 05:55:09 INFO [Log]: The Temp_Department read from excel is : Sub unit-1
+22-06-2020 05:55:09 INFO [Log]: The value Sub unit-1 is selected as Temp_Department in the dropdown
+22-06-2020 05:55:09 INFO [Log]: Click action is performed Save button
+22-06-2020 05:55:19 INFO [Log]: Entered Preferred Data of a Employee
+22-06-2020 05:55:22 INFO [Log]: AddEmployee Data is verified in the Employee List
+22-06-2020 05:55:29 INFO [Log]: Loggedout from the OrangeHRM application
+22-06-2020 05:55:29 INFO [Log]: The value John Adam oReG is written as phone no against to RowNumber 1, column Number 15 in the Add Employee
+22-06-2020 05:55:30 INFO [Log]: The value 0062 is written as phone no against to RowNumber 1, column Number 16 in the Add Employee
+22-06-2020 05:55:30 INFO [Log]: The value FrancesbhHja is written as phone no against to RowNumber 1, column Number 8 in the Add Employee
+22-06-2020 05:55:31 INFO [Log]: Pass is written as Status against to RowNumber 13, column Number 7 in the TestCases
+22-06-2020 05:55:32 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 05:55:32 INFO [Log]: X
+22-06-2020 05:55:32 INFO [Log]: X
+22-06-2020 05:55:32 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 05:55:32 INFO [Log]: *****************************************************************
+22-06-2020 05:55:32 INFO [Log]: **********TC_01_AddEmployee_TC_01_02************
+22-06-2020 05:55:32 INFO [Log]: ******************************************************************
+22-06-2020 05:55:32 INFO [Log]: The Testcase id executing is :TC_01_02
+22-06-2020 05:55:32 INFO [Log]: The row no for Test Case is : 14
+22-06-2020 05:55:32 INFO [Log]: The row no for test Data is : 2
+22-06-2020 05:55:32 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 05:55:39 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 05:55:39 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 05:55:39 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 05:55:39 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 05:55:39 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 05:55:40 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 05:55:45 INFO [Log]: Click action is performed on Login button
+22-06-2020 05:55:45 INFO [Log]: login method execution is completed
+22-06-2020 05:55:45 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 05:55:45 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 05:55:46 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 05:55:46 INFO [Log]: Navigated to the AddEmployee window
+22-06-2020 05:55:56 INFO [Log]: The firstName read from excel is : Amanda
+22-06-2020 05:55:56 INFO [Log]: The value Amanda is entered as firstName in the text-box
+22-06-2020 05:55:56 INFO [Log]: The middleName read from excel is : Roy
+22-06-2020 05:55:56 INFO [Log]: The value Roy is entered as middleName in the text-box
+22-06-2020 05:55:56 INFO [Log]: The lastName is : lqNz
+22-06-2020 05:55:57 INFO [Log]: The value lqNz is entered as lastName in the text-box
+22-06-2020 05:56:02 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 05:56:02 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 05:56:02 INFO [Log]: All locations are stored in the Array
+22-06-2020 05:56:02 INFO [Log]: The location selected by random no is:     United StatesfDkXea
+22-06-2020 05:56:02 INFO [Log]: The value United StatesfDkXea is selected as location in the dropdown
+22-06-2020 05:56:04 INFO [Log]: Click action is performed on Next button
+22-06-2020 05:56:04 INFO [Log]: Entered Personal Data of a Employee
+22-06-2020 05:56:12 INFO [Log]: The bloodgroup read from excel is : A
+22-06-2020 05:56:33 INFO [Log]: Fail is written against to RowNumber 14, column Number 7 in the TestCases
+22-06-2020 05:56:33 INFO [Log]: Actual value is not matched with Expected value :OrangeHRM14, column Number 7 in the TestCases
+22-06-2020 05:56:34 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 05:56:34 INFO [Log]: X
+22-06-2020 05:56:34 INFO [Log]: X
+22-06-2020 06:05:08 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 06:05:08 INFO [Log]: *****************************************************************
+22-06-2020 06:05:08 INFO [Log]: **********TC_01_AddEmployee_TC_01_01************
+22-06-2020 06:05:08 INFO [Log]: ******************************************************************
+22-06-2020 06:05:10 INFO [Log]: The Testcase id executing is :TC_01_01
+22-06-2020 06:05:10 INFO [Log]: The row no for Test Case is : 13
+22-06-2020 06:05:10 INFO [Log]: The row no for test Data is : 1
+22-06-2020 06:05:10 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 06:05:18 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 06:05:18 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 06:05:18 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 06:05:18 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 06:05:18 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 06:05:18 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 06:05:23 INFO [Log]: Click action is performed on Login button
+22-06-2020 06:05:23 INFO [Log]: login method execution is completed
+22-06-2020 06:05:23 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 06:05:24 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 06:05:24 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 06:05:24 INFO [Log]: Navigated to the AddEmployee window
+22-06-2020 06:05:34 INFO [Log]: The firstName read from excel is : John
+22-06-2020 06:05:35 INFO [Log]: The value John is entered as firstName in the text-box
+22-06-2020 06:05:35 INFO [Log]: The middleName read from excel is : Adam
+22-06-2020 06:05:35 INFO [Log]: The value Adam is entered as middleName in the text-box
+22-06-2020 06:05:35 INFO [Log]: The lastName is : TgUR
+22-06-2020 06:05:35 INFO [Log]: The value TgUR is entered as lastName in the text-box
+22-06-2020 06:05:40 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 06:05:40 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 06:05:41 INFO [Log]: All locations are stored in the Array
+22-06-2020 06:05:41 INFO [Log]: The location selected by random no is:     United StatesfDkXea
+22-06-2020 06:05:41 INFO [Log]: The value United StatesfDkXea is selected as location in the dropdown
+22-06-2020 06:05:43 INFO [Log]: Click action is performed on Next button
+22-06-2020 06:05:43 INFO [Log]: Entered Personal Data of a Employee
+22-06-2020 06:05:51 INFO [Log]: The bloodgroup read from excel is : B
+22-06-2020 06:06:12 INFO [Log]: Fail is written against to RowNumber 13, column Number 7 in the TestCases
+22-06-2020 06:06:13 INFO [Log]: Actual value is not matched with Expected value :OrangeHRM13, column Number 7 in the TestCases
+22-06-2020 06:06:13 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 06:06:13 INFO [Log]: X
+22-06-2020 06:06:13 INFO [Log]: X
+22-06-2020 06:06:14 INFO [Log]: The Project Path is:C:\Users\schakil\git\OrangeHRMAutomation
+22-06-2020 06:06:14 INFO [Log]: *****************************************************************
+22-06-2020 06:06:14 INFO [Log]: **********TC_01_AddEmployee_TC_01_02************
+22-06-2020 06:06:14 INFO [Log]: ******************************************************************
+22-06-2020 06:06:14 INFO [Log]: The Testcase id executing is :TC_01_02
+22-06-2020 06:06:14 INFO [Log]: The row no for Test Case is : 14
+22-06-2020 06:06:14 INFO [Log]: The row no for test Data is : 2
+22-06-2020 06:06:14 INFO [Log]: The Browser for the excecution is : Chrome
+22-06-2020 06:06:21 INFO [Log]: The Execution started for TC_01_AddEmployee
+22-06-2020 06:06:21 INFO [Log]: Title of the OrangeHRM Application is verified
+22-06-2020 06:06:21 INFO [Log]: The userName read from excel is : Admin
+22-06-2020 06:06:21 INFO [Log]: The password read from excel is : Admin@123
+22-06-2020 06:06:21 INFO [Log]: The value Admin is entered as userName in the text-box
+22-06-2020 06:06:21 INFO [Log]: The value Admin@123 is entered as Password in the text-box
+22-06-2020 06:06:26 INFO [Log]: Click action is performed on Login button
+22-06-2020 06:06:26 INFO [Log]: login method execution is completed
+22-06-2020 06:06:26 INFO [Log]: Logged into OrangeHRM Application
+22-06-2020 06:06:27 INFO [Log]: Click action is performed on PIM in the Menu bar
+22-06-2020 06:06:27 INFO [Log]: Click action is performed on Add Employee in the Menu bar
+22-06-2020 06:06:27 INFO [Log]: Navigated to the AddEmployee window
+22-06-2020 06:06:38 INFO [Log]: The firstName read from excel is : Amanda
+22-06-2020 06:06:38 INFO [Log]: The value Amanda is entered as firstName in the text-box
+22-06-2020 06:06:38 INFO [Log]: The middleName read from excel is : Roy
+22-06-2020 06:06:38 INFO [Log]: The value Roy is entered as middleName in the text-box
+22-06-2020 06:06:38 INFO [Log]: The lastName is : wrSs
+22-06-2020 06:06:38 INFO [Log]: The value wrSs is entered as lastName in the text-box
+22-06-2020 06:06:44 INFO [Log]: The total no of location in the dropdown is: 17
+22-06-2020 06:06:44 INFO [Log]: All locations are stored in the WebElement
+22-06-2020 06:06:44 INFO [Log]: All locations are stored in the Array
+22-06-2020 06:06:44 INFO [Log]: The location selected by random no is:     ChinaSZMVPk
+22-06-2020 06:06:44 INFO [Log]: The value ChinaSZMVPk is selected as location in the dropdown
+22-06-2020 06:06:46 INFO [Log]: Click action is performed on Next button
+22-06-2020 06:06:46 INFO [Log]: Entered Personal Data of a Employee
+22-06-2020 06:06:54 INFO [Log]: The bloodgroup read from excel is : A
+22-06-2020 06:06:54 INFO [Log]: The value A is selected as bloodgroup in the dropdown
+22-06-2020 06:06:54 INFO [Log]: The hobby read from excel is : Swimming
+22-06-2020 06:06:54 INFO [Log]: The value Swimming is entered as hobby in the text-box
+22-06-2020 06:06:54 INFO [Log]: Clicked action is performed on Next button
+22-06-2020 06:06:54 INFO [Log]: Entered Important Data of a Employee
+22-06-2020 06:07:02 INFO [Log]: The Region read from excel is : Region-2
+22-06-2020 06:07:02 INFO [Log]: The value Region-2 is selected as Region in the dropdown
+22-06-2020 06:07:03 INFO [Log]: The FTE read from excel is : 0.75
+22-06-2020 06:07:03 INFO [Log]: The value 0.75 is selected as FTE in the dropdown
+22-06-2020 06:07:03 INFO [Log]: The Temp_Department read from excel is : Sub unit-2
+22-06-2020 06:07:03 INFO [Log]: The value Sub unit-2 is selected as Temp_Department in the dropdown
+22-06-2020 06:07:03 INFO [Log]: Click action is performed Save button
+22-06-2020 06:07:13 INFO [Log]: Entered Preferred Data of a Employee
+22-06-2020 06:07:14 INFO [Log]: Fail is written against to RowNumber 14, column Number 7 in the TestCases
+22-06-2020 06:07:14 INFO [Log]: Actual value is not matched with Expected value :OrangeHRM14, column Number 7 in the TestCases
+22-06-2020 06:07:15 INFO [Log]: XXX---------E-N-D--------------XXX
+22-06-2020 06:07:15 INFO [Log]: X
+22-06-2020 06:07:15 INFO [Log]: X
