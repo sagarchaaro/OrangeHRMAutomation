@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 
+import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
 import utilities.Log;
@@ -23,6 +24,15 @@ public class Recruitment_Page extends BaseClass{
 	static By dd_hiringManagers = By.id("textarea_addJobVacancy_hiringManagers");
 	static By txtbx_noOfPositions = By.id("addJobVacancy_noOfPositions");
 	static By btn_save = By.id("saveVacancy");
+	static By link_frame = By.xpath("//iframe[@id='noncoreIframe']");
+	static By link_add = By.xpath("(//i[text()='add'])[1]");
+	static By link_add2 = By.xpath("(//i[text()='add'])[2]");
+	static By txtbx_search = By.xpath("//i[text()='search']");
+	static By txtbx_vacancy = By.id("vacancySearch_jobVacancy");
+	static By link_search = By.xpath("//a[text()='Search']");
+	static By link_menu = By.xpath("//i[@class='material-icons mdi-navigation-menu']");
+	static By link_LocaterMenu = By.xpath("//p[text()='{0}']");
+	static By link_LocaterIndexMenu = By.xpath("//p[text()='{0}'][1]");
 	
 	public static String vacancy_Name, vacancy_JobTitle, vacancy_location, subUnit, hiringManagers, noOfPositions;
 	
@@ -32,15 +42,15 @@ public class Recruitment_Page extends BaseClass{
 		int size = driver.findElements(By.tagName("iframe")).size();
 		Log.info("Number of iframes are : " + size );
 
-		WebElement element_iframe = driver.findElement(By.xpath("//iframe[@id='noncoreIframe']"));
+		WebElement element_iframe = driver.findElement(link_frame);
 		driver.switchTo().frame(element_iframe);
 
 		Log.info("Switched into iframe" );
 		
-		driver.findElement(By.xpath("(//i[text()='add'])[1]")).click();
+		driver.findElement(link_add).click();
 		Log.info("Click action is performed on Add or import vacancy button" );
 
-		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
+		driver.findElement(link_add2).click();
 		Log.info("Click action is performed on Add or import vacancy to Add" );
 	}
 	
@@ -53,25 +63,25 @@ public class Recruitment_Page extends BaseClass{
 		vacancy_JobTitle = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_JobTitle,Constant.sheet_AddVacancyCases);
 		Log.info("The vacancy_JobTitle read from excel is : " + vacancy_JobTitle );
 		driver.findElement(dd_vacancyJobTitle).click();
-		driver.findElement(By.xpath("(//p[text()='" + vacancy_JobTitle.trim() + "'])[1]")).click();
+		driver.findElement(CommonMethod.formatLocator(link_LocaterIndexMenu, vacancy_JobTitle.trim())).click();
 		Log.info("The value "+ vacancy_JobTitle+" is selected as vacancy_JobTitle in the dropdown" );
 
 		driver.findElement(dd_vacancyLocation).click();
 		vacancy_location = ExcelConfig.getCellData(iTestData, Constant.col_Vacancy_location,Constant.sheet_AddVacancyCases);
 		Log.info("The vacancy_location read from excel is : " + vacancy_location );
-		driver.findElement(By.xpath("(//p[contains(text(),'" + vacancy_location.trim() + "')])[1]")).click();
+		driver.findElement(CommonMethod.formatLocator(link_LocaterIndexMenu, vacancy_location.trim())).click();
 		Log.info("The value "+ vacancy_location+" is selected as vacancy_location in the dropdown" );
 
 		driver.findElement(dd_vacancySubUnit).click();
 		subUnit = ExcelConfig.getCellData(iTestData, Constant.col_subUnit, Constant.sheet_AddVacancyCases);
 		Log.info("The subUnit read from excel is : " + subUnit );
-		driver.findElement(By.xpath("(//p[text()='" + subUnit + "'])[1]")).click();
+		driver.findElement(CommonMethod.formatLocator(link_LocaterIndexMenu, subUnit)).click();
 		Log.info("The value "+ subUnit+" is selected as subUnit in the dropdown" );
 
 		driver.findElement(By.id("textarea_addJobVacancy_hiringManagers")).click();
 		hiringManagers = ExcelConfig.getCellData(iTestData, Constant.col_HiringManagers,Constant.sheet_AddVacancyCases);
 		Log.info("The hiringManagers read from excel is : " + hiringManagers );
-		driver.findElement(By.xpath("//p[text()='" + hiringManagers + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_LocaterMenu, hiringManagers)).click();
 		Log.info("The value "+ hiringManagers+" is selected as hiringManagers in the dropdown" );
 
 		noOfPositions = ExcelConfig.getCellData(iTestData, Constant.col_NoOfPositions,Constant.sheet_AddVacancyCases);
@@ -86,19 +96,19 @@ public class Recruitment_Page extends BaseClass{
 	
 	public static void verifyJobAndGoToMenu() throws Exception{
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//i[text()='search']")).click();
+		driver.findElement(txtbx_search).click();
 		Log.info("Search button is clicked");
 		
-		driver.findElement(By.id("vacancySearch_jobVacancy")).sendKeys(vacancy_Name);
+		driver.findElement(txtbx_vacancy).sendKeys(vacancy_Name);
 		Log.info("The value " +vacancy_Name+ " is entered in Vacancy name in the text box" );
 		
 		Thread.sleep(2000);
 		
-		driver.findElement(By.xpath("//a[text()='Search']")).click();
+		driver.findElement(link_search).click();
 		Log.info("Search button is clicked");
 		
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//i[@class='material-icons mdi-navigation-menu']")).click();
+		driver.findElement(link_menu).click();
 
 		driver.findElement(By.linkText("Home")).click();
 		Log.info("Click action is performed on Home link" );

@@ -43,6 +43,7 @@ public class Leave_Page extends BaseClass{
 	static By click_LeaveBalance = By.xpath("//a[text()='Check Leave Balance']");
 	static By list_leave = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[3]/ng-include/span");
 	static By btn_closeBalance = By.xpath("//a[text()='Close']");
+	static By link_Menu=By.xpath("//span[text()='{0}']");
 	
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 	public static String employeeName,leaveDateFrom,leaveDateTo;
@@ -57,7 +58,7 @@ public class Leave_Page extends BaseClass{
 		Log.info("The leaveDesc read from excel is:" + leaveDesc);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_LeaveType));
 		driver.findElement(dd_LeaveType).click();
-		driver.findElement(By.xpath("//span[text()='" + leaveType + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, leaveType)).click();
 		Log.info("The value "+ leaveType+" is selected as leaveType in the drop down");
 		driver.findElement(txtbx_Desc).sendKeys(leaveDesc);
 		Log.info("The value "+ leaveDesc+" is entered as leaveDesc in the text-box");

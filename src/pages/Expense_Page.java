@@ -44,6 +44,13 @@ public class Expense_Page extends BaseClass{
 	static By dd_select = By.xpath("//span[text()='{0}']");
 	static By dd_selectDate = By.xpath("(//span[text()='{0}'])[2]");
 	static By link_date = By.xpath("(//table[@class='picker__table']/tbody/tr[{0}]/td[{0}]/div)[3]");
+	static By element_requestID = By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td a");
+	static By element_requestStatus = By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)");
+	static By dd_MonthPicker = By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[2]");
+	static By dd_DayRows = By.xpath("(//table[@class='picker__table'])[3]/tbody/tr");
+	static By dd_DayColumns = By.xpath("(//table[@class='picker__table'])[3]/tbody/tr[1]/td");
+	static By dd_YearPicker = By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]");
+	static By list_currencyName = By.cssSelector("#estimateAddForEmployee div div div div ul li span");
 	
 	public static String currency_Name, requestID;
 	
@@ -58,7 +65,7 @@ public class Expense_Page extends BaseClass{
 		Thread.sleep(3000);
 
 		driver.findElement(dd_currency).click();
-		List<WebElement> currencyName = driver.findElements(By.cssSelector("#estimateAddForEmployee div div div div ul li span"));
+		List<WebElement> currencyName = driver.findElements(list_currencyName);
 		Log.info("All CurrencyName are stored in the WebElement" );
 		String[] cur_Name = Utils.dataIntoArray(currencyName, 160);
 		Log.info("All CurrencyName are stored in the Array" );
@@ -108,22 +115,22 @@ public class Expense_Page extends BaseClass{
 		Thread.sleep(5000);
 		String date[] = toDate.split("/");
 		// Select Year
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]")).click();
+		driver.findElement(dd_YearPicker).click();
 		Thread.sleep(1000);
 		driver.findElement(CommonMethod.formatLocator(dd_selectDate, date[2])).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_year);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_year);
 		Log.info("The Year selected from calender is:" + date[2] );
 		// Select Month
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[2]")).click();
+		driver.findElement(dd_MonthPicker).click();
 		Thread.sleep(1000);
 		driver.findElement(CommonMethod.formatLocator(dd_selectDate, date[0])).click();
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_month);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_month);
 		Log.info("The Month selected from calender is:" + date[0] );
 		// Select Date
-		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr")).size();
-		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr[1]/td")).size();
+		int rows = driver.findElements(dd_DayRows).size();
+		int cols = driver.findElements(dd_DayColumns).size();
 		Log.info("The no of cols is:" + cols + ", The no of rows is:" + rows );
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
 			Log.info("entered row for loop" );
@@ -199,13 +206,13 @@ public class Expense_Page extends BaseClass{
 		Thread.sleep(2000);
 		driver.findElement(btn_OK).click();
 		Log.info("Click action is performed on OK button" );
-
-		driver.findElement(By.xpath("//span[text()='My Travel Requests']")).click();
+		
+		driver.findElement(CommonMethod.formatLocator(dd_select, "My Travel Requests")).click();
 		Log.info("Click action is performed on My Travel Requests in the Menu bar" );
 
-		requestID = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td a")).getText();
+		requestID = driver.findElement(element_requestID).getText();
 		Log.info("Request ID is "+requestID );
-		String requestStatus = driver.findElement(By.cssSelector(".highlight.bordered tbody tr:nth-child(1) td:nth-of-type(3)")).getText();
+		String requestStatus = driver.findElement(element_requestStatus).getText();
 		Log.info("Request status is "+requestStatus );
 	}
 	
@@ -217,7 +224,7 @@ public class Expense_Page extends BaseClass{
 		Thread.sleep(2000);
 		driver.findElement(txtbx_search).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Pending Supervisor Approval']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, "Pending Supervisor Approval")).click();
 		Log.info("The value Pending Supervisor Approval is selected as RequestStatus in the dropdown" );
 
 		driver.findElement(By.xpath("//a[text()='Search']")).click();

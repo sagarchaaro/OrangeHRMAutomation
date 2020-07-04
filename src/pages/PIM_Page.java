@@ -2,13 +2,13 @@ package pages;
 
 import java.util.List;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Reporter;
 
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
@@ -49,6 +49,10 @@ public class PIM_Page extends BaseClass {
 	static By btn_savePreferenceDtl = By.xpath("(//button[@class=' btn waves-effect waves-green '])[3]");
 	static By msg_sucess = By.xpath("//div[@class='toast toast-success']");
 	static By txtbx_EmployeeList = By.xpath("//table[@id='employeeListTable']/tbody/tr/td[3]");
+	static By link_Menu=By.xpath("//span[text()='{0}']");
+	static By link_VerifySearch = By.id("employee_name_quick_filter_employee_list_value");
+	static By element_EmployeeDetails = By.xpath("//table[@id='employeeListTable']/tbody/tr/td[2]"); 
+	static By link_hobby = By.xpath("//label[@for='{0}']");
 	
 	public static String employeeName, employeeID, firstName, middleName, lastName, location;
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
@@ -92,7 +96,7 @@ public class PIM_Page extends BaseClass {
 	//	String location = ExcelConfig.getCellData(iTestData, Constant.col_location, Constant.sheet_AddEmployeeCases);
 	//	Log.info("The location read from excel is : " + location );
 
-		driver.findElement(By.xpath("//span[contains(text(),'" + location + "')]")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, location)).click();
 		Log.info("The value " + location + " is selected as location in the dropdown" );
 		Thread.sleep(2000);
 		// click next button
@@ -106,11 +110,11 @@ public class PIM_Page extends BaseClass {
 		Thread.sleep(3000);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_bloodGroup));
-		driver.findElement(By.xpath("(//input[@class='select-dropdown'])[3]")).click();
+		driver.findElement(dd_bloodGroup).click();
 		String bloodgroup = ExcelConfig.getCellData(iTestData, Constant.col_Bloodgroup, Constant.sheet_AddEmployeeCases);
 		Log.info("The bloodgroup read from excel is : " + bloodgroup );
 		
-		driver.findElement(By.xpath("//span[text()='" + bloodgroup + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, bloodgroup)).click();
 		Log.info("The value "+ bloodgroup+" is selected as bloodgroup in the dropdown" );
 
 		// select hobbies
@@ -132,21 +136,21 @@ public class PIM_Page extends BaseClass {
 		String region = ExcelConfig.getCellData(iTestData, Constant.col_Region, Constant.sheet_AddEmployeeCases);
 		Log.info("The Region read from excel is : " + region );
 		
-		driver.findElement(By.xpath("//span[text()='" + region + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, region)).click();
 		Log.info("The value "+ region+" is selected as Region in the dropdown" );
 
 		driver.findElement(dd_FTE).click();
 		String FTE = ExcelConfig.getCellData(iTestData, Constant.col_FTE, Constant.sheet_AddEmployeeCases);
 		Log.info("The FTE read from excel is : " + FTE );		
 		
-		driver.findElement(By.xpath("//span[text()='" + FTE + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, FTE)).click();
 		Log.info("The value "+ FTE+" is selected as FTE in the dropdown" );
 
 		driver.findElement(dd_temp_Department).click();
 		String temp_Department = ExcelConfig.getCellData(iTestData, Constant.col_Temp_Department, Constant.sheet_AddEmployeeCases);
 
 		Log.info("The Temp_Department read from excel is : " + temp_Department);
-		driver.findElement(By.xpath("//span[text()='" + temp_Department + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, temp_Department)).click();
 		Log.info("The value "+ temp_Department+" is selected as Temp_Department in the dropdown" );
 
 		driver.findElement(btn_save).click();
@@ -159,8 +163,8 @@ public class PIM_Page extends BaseClass {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(Home_Page.link_EmployeeList));
 		driver.findElement(Home_Page.link_EmployeeList).click();
 		employeeName = firstName.concat(" " + middleName).concat(" " + lastName);
-		driver.findElement(By.id("employee_name_quick_filter_employee_list_value")).sendKeys(employeeName);
-		employeeID = driver.findElement(By.xpath("//table[@id='employeeListTable']/tbody/tr/td[2]")).getText();
+		driver.findElement(link_VerifySearch).sendKeys(employeeName);
+		employeeID = driver.findElement(element_EmployeeDetails).getText();
 		
 		
 	}
@@ -192,14 +196,14 @@ public class PIM_Page extends BaseClass {
 		CommonMethod.date_HRM(dateOfBirthFomat1, driver, 1);
 		driver.findElement(dd_nationality).click();
 		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,Constant.sheet_EditEmployeeCases);
-		driver.findElement(By.xpath("//span[text()='" + nationalty + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, nationalty)).click();
 		Log.info("The value "+ nationalty+" is selected as nationalty from dropdown" );
 		driver.findElement(btn_savePersonalDtl).click();
 		Log.info("Click action is performed on save button for the Personal detail update" );	
 		try {
 			WebElement webelement_EEO = driver.findElement(click_EEO);
 			webelement_EEO.click();
-			driver.findElement(By.xpath("//span[text()='Asian']")).click();
+			driver.findElement(CommonMethod.formatLocator(link_Menu, "Asian")).click();
 			Log.info("Click action is performed on EEO option " );
 		} catch (Exception user) {
 			Log.info("EEO Race and Ethnicity is not required" );
@@ -220,7 +224,7 @@ public class PIM_Page extends BaseClass {
 		String bloodGroup = ExcelConfig.getCellData(iTestData, Constant.col_BloodGroup,Constant.sheet_EditEmployeeCases);
 		// String bloodGroup=sh.getRow(i).getCell(6).getStringCellValue();
 		driver.findElement(By.xpath("//label[text()='Blood Group']//parent::div//child::input")).click();
-		driver.findElement(By.xpath("//span[text()='" + bloodGroup + "']")).click();
+		driver.findElement(CommonMethod.formatLocator(link_Menu, bloodGroup)).click();
 		Log.info("The value "+ bloodGroup+" is selected as bloodGroup from dropdown" );
 		driver.findElement(btn_saveImportantDtl).click();
 		Log.info("Click action is performed on save button for the important detail update" );
@@ -238,7 +242,7 @@ public class PIM_Page extends BaseClass {
 	public static void editPreferencesDtl(int iTestData) throws Exception{
 		
 		String hubby1 = ExcelConfig.getCellData(iTestData, Constant.col_HubbyFirst, Constant.sheet_EditEmployeeCases);
-		WebElement Hubby_First = driver.findElement(By.xpath("//label[@for='" + hubby1 + "']"));
+		WebElement Hubby_First = driver.findElement(CommonMethod.formatLocator(link_hobby, hubby1));
 		if (Hubby_First.isSelected()) {
 			Log.info("Hubby is already selected as" + hubby1 );
 		} else {
@@ -246,7 +250,7 @@ public class PIM_Page extends BaseClass {
 			Log.info("Hubby is selected as " + hubby1 );
 		}
 		String hubby2 = ExcelConfig.getCellData(iTestData, Constant.col_HubbySecond, Constant.sheet_EditEmployeeCases);
-		WebElement Hubby_Second = driver.findElement(By.xpath("//label[@for='" + hubby2 + "']"));
+		WebElement Hubby_Second = driver.findElement(CommonMethod.formatLocator(link_hobby, hubby2));
 		if (Hubby_Second.isSelected()) {
 			Log.info("Hubby is already selected as " + hubby2 );
 		} else {
