@@ -42,30 +42,30 @@ public class Utils {
 			String path = map.get("chromePath");
 			System.setProperty("webdriver.chrome.driver", path);
 			driver= new ChromeDriver();
-			System.out.println("Chrome Browser is launched");
+			Log.info("Chrome Browser is launched");
 		}else if(browser.equalsIgnoreCase("Firefox")) {
 			String path = map.get("geckoPath");
 			System.setProperty("webdriver.gecko.driver", path);
 			driver = new FirefoxDriver();			
-			System.out.println("Firefox browser is launched");
+			Log.info("Firefox browser is launched");
 		}else if(browser.equalsIgnoreCase("Opera")){
 			String path = map.get("operaPath");
 			System.setProperty("webdriver.opera.driver", path);
 			driver = new OperaDriver();
-			System.out.println("Opera brower is launched");
+			Log.info("Opera brower is launched");
 		}else if(browser.equalsIgnoreCase("Edge")){
 			String path = map.get("edgePath");
 			System.setProperty("webdriver.edge.driver", path);
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
-			System.out.println("Edge browser is launched");
+			Log.info("Edge browser is launched");
 		}else if(browser.equalsIgnoreCase("InternateExplore")){
 			String path = map.get("internateExplorePath");
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new InternetExplorerDriver();
-			System.out.println("InternateExplore browser is launched");
+			Log.info("InternateExplore browser is launched");
 		}else{
-			System.out.println("Invalid Browser "+browser);
+			Log.info("Invalid Browser "+browser);
 			throw new Exception();
 		}
 		
@@ -82,7 +82,7 @@ public class Utils {
 		DateFormat df = new SimpleDateFormat(requiredFormat);
 		Date date1 = new Date();
 		String timestamp = df.format(date1);
-		System.out.println("The value of TIMESTAMP is : " + timestamp);
+		Log.info("The value of TIMESTAMP is : " + timestamp);
 		return timestamp;
 	}
 
@@ -128,9 +128,9 @@ public class Utils {
 		File file = new File(dirPath);
 		boolean bool = file.mkdir();
 		if (bool) {
-			System.out.println("The Directory created successfully");
+			Log.info("The Directory created successfully");
 		} else {
-			System.out.println("The specified directory couldn't created");
+			Log.info("The specified directory couldn't created");
 		}
 	}
 	

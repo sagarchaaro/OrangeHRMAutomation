@@ -25,7 +25,7 @@ public class ExcelConfig {
 			FileInputStream ExcelFile = new FileInputStream(path);
 			ExcelWBook = new XSSFWorkbook(ExcelFile);
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method:setExcelFile");
+			Log.info("Error in excel file in the method:setExcelFile");
 			throw (e);
 		}
 	}
@@ -42,7 +42,7 @@ public class ExcelConfig {
 			String sCellData = cell.getStringCellValue().trim();
 			return sCellData;
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: getCellData");			
+			Log.info("Error in excel file in the method: getCellData");			
 			throw (e);
 		}
 	}
@@ -69,7 +69,7 @@ public class ExcelConfig {
 			fileOut.close();
 			ExcelWBook = new XSSFWorkbook(new FileInputStream(PathExcel));
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: setCellData");			
+			Log.info("Error in excel file in the method: setCellData");			
 			throw (e);
 		}
 	}
@@ -97,7 +97,7 @@ public class ExcelConfig {
 			
 			return i;
 		} catch (Exception e) {
-			System.out.println("Given testid is invalid");
+			Log.info("Given testid is invalid");
 			throw (e);
 		}
 	}
@@ -113,7 +113,7 @@ public class ExcelConfig {
 			int iRowCount = ExcelWSheet.getLastRowNum();
 			return iRowCount;
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: getRowUsed");
+			Log.info("Error in excel file in the method: getRowUsed");
 			throw (e);
 		}
 	}
@@ -135,7 +135,7 @@ public class ExcelConfig {
 			int number = ExcelWSheet.getLastRowNum() + 1;
 			return number;
 		} catch (Exception e) {
-			System.out.println("Error in excel file in the method: getTestCount");
+			Log.info("Error in excel file in the method: getTestCount");
 			return 0;
 		}
 	}
