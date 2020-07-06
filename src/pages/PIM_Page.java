@@ -53,6 +53,7 @@ public class PIM_Page extends BaseClass {
 	static By link_VerifySearch = By.id("employee_name_quick_filter_employee_list_value");
 	static By element_EmployeeDetails = By.xpath("//table[@id='employeeListTable']/tbody/tr/td[2]"); 
 	static By link_hobby = By.xpath("//label[@for='{0}']");
+	static By dd_bloodGroupEdit = By.xpath("//label[text()='Blood Group']//parent::div//child::input");
 	
 	public static String employeeName, employeeID, firstName, middleName, lastName, location;
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
@@ -223,7 +224,7 @@ public class PIM_Page extends BaseClass {
 		
 		String bloodGroup = ExcelConfig.getCellData(iTestData, Constant.col_BloodGroup,Constant.sheet_EditEmployeeCases);
 		// String bloodGroup=sh.getRow(i).getCell(6).getStringCellValue();
-		driver.findElement(By.xpath("//label[text()='Blood Group']//parent::div//child::input")).click();
+		driver.findElement(dd_bloodGroupEdit).click();
 		driver.findElement(CommonMethod.formatLocator(link_Menu, bloodGroup)).click();
 		Log.info("The value "+ bloodGroup+" is selected as bloodGroup from dropdown" );
 		driver.findElement(btn_saveImportantDtl).click();

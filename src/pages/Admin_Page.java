@@ -54,7 +54,13 @@ public class Admin_Page extends BaseClass {
 	static By msg_Record = By.xpath("//div[text()='No Records Found']");
 	static By link_userName = By.xpath("//span[@id='account-name']");
 	static By link_employeeName = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span[text()='{0}']/../../../td[8]");
-
+	static By text_link = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span");
+    static By text_location = By.xpath("(//table[@id='employeeListTable']/tbody/tr/td[8])[1]");
+    static By btn_Filter = By.xpath("//a[@class='tooltipped circle']");
+    static By btn_SearchNew = By.xpath("//a[@class='modal-action modal-close waves-effect btn primary-btn']");
+    static By text_Filter = By.xpath("//input[@id='location_name_filter']");
+    static By text_PhoneNo = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span");
+	
 	public void demo() {
 		driver.findElement(btn_save).click();
 	}
@@ -117,21 +123,21 @@ public class Admin_Page extends BaseClass {
 	}
 
 	public static void validateLocation() throws Exception {
-		driver.findElement(By.xpath("//a[@class='tooltipped circle']")).click();
+		driver.findElement(btn_Filter).click();
 		Log.info("Click action is performed on Filter button" );
-		driver.findElement(By.xpath("//input[@id='location_name_filter']")).sendKeys(newLocationName);
+		driver.findElement(text_Filter).sendKeys(newLocationName);
 		Log.info("The locaion name entered is:" + newLocationName );
-		driver.findElement(By.xpath("//a[@class='modal-action modal-close waves-effect btn primary-btn']")).click();
+		driver.findElement(btn_SearchNew).click();
 		Log.info("Click action is performed on Search button" );
 		Thread.sleep(5000);
 
 		String validate_location = driver
-				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span")).getText();
+				.findElement(text_link).getText();
 		Log.info(" The location name for Validation is : " + validate_location );
 		CommonMethod.verifyData(newLocationName, validate_location);
 
 		String validate_PhoneNo = driver
-				.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[5]/ng-include/span")).getText();
+				.findElement(text_PhoneNo).getText();
 		Log.info(" The phone no for Validation is : " + validate_PhoneNo );
 		CommonMethod.verifyData("+91 " + phoneNumber, validate_PhoneNo);
 		
@@ -147,7 +153,7 @@ public class Admin_Page extends BaseClass {
 
 		Thread.sleep(3000);
 		String validate_locationName = driver
-				.findElement(By.xpath("(//table[@id='employeeListTable']/tbody/tr/td[8])[1]")).getText();
+				.findElement(text_location).getText();
 
 		Log.info(" The location name for Validation is : " + validate_locationName );
 
@@ -237,7 +243,7 @@ public class Admin_Page extends BaseClass {
 	
 	public static String changePassword(int iTestData) throws Exception{
 		Thread.sleep(5000);
-		List<WebElement> employeeName = driver.findElements(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/ng-include/span"));
+		List<WebElement> employeeName = driver.findElements(text_link);
 		Log.info("All EmployeeName are stored in the WebElement" );
 		String[] empName = Utils.dataIntoArray(employeeName, 50);
 		Log.info("All EmployeeName are stored in the Array" );
@@ -246,15 +252,15 @@ public class Admin_Page extends BaseClass {
 		driver.findElement(CommonMethod.formatLocator(link_employeeName, employee_Name)).click();
 		Log.info("Click action is performed on Edit Link" );
 
-		driver.findElement(By.xpath("//label[@for='changepassword']")).click();
+		driver.findElement(chckbx_changePassword).click();
 		Log.info("Click action is performed  on change password checkbox" );
 		
 		password = ExcelConfig.getCellData(iTestData, Constant.col_Password, Constant.sheet_TravelRequestCases);
 
-		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[8]")).sendKeys(password);
+		driver.findElement(txtbx_changePassword).sendKeys(password);
 		Log.info("The value "+ password+" is entered as password in the text-box" );
 
-		driver.findElement(By.xpath("(//div[@id='modal1']/form//child::input)[9]")).sendKeys(password);
+		driver.findElement(txtbx_confirmPassword).sendKeys(password);
 		Log.info("The value "+ password+" is entered as Confirm password in the text-box" );
 
 		driver.findElement(By.id("systemUserSaveBtn")).click();
