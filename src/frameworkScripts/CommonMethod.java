@@ -156,9 +156,12 @@ public class CommonMethod {
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
 		for (int colsNo = 1; colsNo <= cols; colsNo++) {
 
-				String calDate = driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).getText();
+		//*		String calDate = driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).getText();
+				String calDate = driver.findElement(By.xpath("(//table[@class='picker__table'])["+calenderNo+"]/tbody/tr["+rowNo+"]/td["+colsNo+"]/div")).getText();
+				
 				if (calDate.equalsIgnoreCase(date[1])) {
-					driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).click();
+					driver.findElement(By.xpath("(//table[@class='picker__table'])["+calenderNo+"]/tbody/tr["+rowNo+"]/td["+colsNo+"]/div")).click();
+				//*	driver.findElement(CommonMethod.formatLocator(txt_calDate, calenderNo, rowNo, colsNo )).click();
 					Log.info("The Date is selected from calender is:" + dateToSelect);
 					break rows;
 				}

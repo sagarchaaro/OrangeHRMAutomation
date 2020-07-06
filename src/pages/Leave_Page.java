@@ -44,13 +44,22 @@ public class Leave_Page extends BaseClass{
 	static By list_leave = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[3]/ng-include/span");
 	static By btn_closeBalance = By.xpath("//a[text()='Close']");
 	static By link_Menu=By.xpath("//span[text()='{0}']");
+	static By text_employee = By.xpath("//span[@id='account-name']");
+	static By btn_SaveApprove = By.xpath("//button[text()='Save']");
+	static By link_year = By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]");
+	static By dd_select=By.xpath("//span[text()='{0}']");
+	static By link_month = By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[1]");
+	static By size_row = By.xpath("(//table[@class='picker__table'])[2]/tbody/tr");
+	static By size_cols = By.xpath("(//table[@class='picker__table'])[2]/tbody/tr[1]/td");
+	static By txt_calDate = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr[{0}]/td[{0}]/div");
+	
 	
 	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 	public static String employeeName,leaveDateFrom,leaveDateTo;
 	
 	public static void SetLeaveData(int iTestData) throws Exception{
 		// CLICKING FOR APPLY LEAVE FORM AND APPLY
-		employeeName=driver.findElement(By.xpath("//span[@id='account-name']")).getText();
+		employeeName=driver.findElement(text_employee).getText();
 		Log.info("The leave is applying for the employee :" + employeeName);
 		String leaveType = ExcelConfig.getCellData(iTestData, Constant.col_leaveType, Constant.sheet_ApplyLeaveCases);
 		Log.info("The leaveType read from excel is:" + leaveType);
@@ -90,14 +99,13 @@ public class Leave_Page extends BaseClass{
 		// INSUFFICENT LEAVE WARNNING PAGE
 
 		try {
-			WebElement element = driver.findElement(By.xpath("//div[@class='modal-heading']/h4"));
+			WebElement element = driver.findElement(msg_Warnning);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 			Log.info("Found the xpath");
 
 			if (element.isDisplayed()) {
-				WebElement element1 = driver
-					.findElement(By.xpath("//a[@class='modal-action waves-effect btn primary-btn']"));
+				WebElement element1 = driver.findElement(btn_Ok);
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element1);
 				((JavascriptExecutor) driver).executeScript("arguments[0].click();", element1);
 
@@ -111,12 +119,12 @@ public class Leave_Page extends BaseClass{
 		// OVERLAPPING LEAVE REQUEST PAGE
 
 		try {
-			WebElement element2 = driver.findElement(By.xpath("//div[@class='modal-heading']/h4"));
+			WebElement element2 = driver.findElement(msg_Warnning);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element2);
 			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element2);
 
 			if (element2.isDisplayed()) {
-				WebElement element3 = driver.findElement(By.xpath("//a[@class='modal-action waves-effect btn']"));
+				WebElement element3 = driver.findElement(btn_Close);
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element3);
 				((JavascriptExecutor) driver).executeScript("arguments[0].click();", element3);
 
@@ -127,7 +135,7 @@ public class Leave_Page extends BaseClass{
 		}
 
 		try {
-			if (driver.findElement(By.xpath("//div[@class='toast toast-success']")).isDisplayed()) {
+			if (driver.findElement(msg_Success).isDisplayed()) {
 				Log.info("Successfully Leave applied message is verified");
 			}
 
@@ -162,7 +170,7 @@ public class Leave_Page extends BaseClass{
 			Thread.sleep(3000);
 			driver.findElement(dd_text).click();
 			Log.info("The approve is selected from the dropdown");
-			driver.findElement(By.xpath("//button[text()='Save']"));
+			driver.findElement(btn_SaveApprove);
 			Log.info("Click is performed on the button Save");
 			Utils.screenShot(screenshotPath + "\\ApprovedLeave.jpg", driver);
 			Log.info("Screen shot is  taken for Leave approval");
@@ -206,21 +214,21 @@ public class Leave_Page extends BaseClass{
 		
 		String date[] = leaveDateTo.split("/");
 		// Select Year
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]")).click();
+		driver.findElement(link_year).click();
 		Thread.sleep(2000);
-		WebElement element_year=driver.findElement(By.xpath("//span[text()='"+ date[2] +"']"));
+		WebElement element_year=driver.findElement(CommonMethod.formatLocator(dd_select, date[2]));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_year);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_year);
 		System.out.println("The Year selected from calender is:" + date[2]);
 		// Select Month
 		
-		driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month']/input)[1]")).click();
+		driver.findElement(link_month).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[text()='"+ date[0] +"']")).click();
+		driver.findElement(CommonMethod.formatLocator(dd_select, date[0]));
 		System.out.println("The Month selected from calender is:" + date[0]);
 		// Select Date
-		int rows = driver.findElements(By.xpath("(//table[@class='picker__table'])[2]/tbody/tr")).size();
-		int cols = driver.findElements(By.xpath("(//table[@class='picker__table'])[2]/tbody/tr[1]/td")).size();
+		int rows = driver.findElements(size_row).size();
+		int cols = driver.findElements(size_cols).size();
 		System.out.println("The no of cols is:" + cols + ", The no of rows is:" + rows);
 		System.out.println("date[1]" + date[1]);
 		rows: for (int rowNo = 1; rowNo <= rows; rowNo++) {
