@@ -4,7 +4,7 @@ edgePath: ""
 geckoPath: ""
 internateExplorePath: ""
 operaPath: ""
-orangeHRMUrl: "https://testersselenium-trials65101.orangehrmlive.com"
+orangeHRMUrl: "https://seleniumtested-trials65101.orangehrmlive.com"
 screenshotPath: \Reports\
 userName: Admin
 password: Admin@123

@@ -127,14 +127,14 @@ public class TC_01_AddEmployee extends Suite{
 			logger.log(Status.PASS, "Testcase " +testName+ " is passed");
 			
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Utils.screenShot(screenshotPath + "\\Fail.jpg", driver);
+			Utils.screenShot(reportPath + "\\Fail_"+testName+".jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, excelPath);
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			
 			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Log.info(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			
-			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath + "\\Fail.jpg").build());
+			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\Fail_"+testName+".jpg").build());
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Log.info("Testcase is Skipped with the reason as :"+CommonMethod.reason);
 			logger.log(Status.SKIP, "Testcase " +testName+ " is skipped");

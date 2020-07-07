@@ -125,7 +125,7 @@ public class CommonMethod {
 	public static String verifyData(String actualValue, String expectedValue) {
 		
 		SoftAssert assertion= new SoftAssert();
-		reason="Actual value is not matched with Expected value :"+actualValue;
+		reason=actualValue+ " is not matched with "+expectedValue;
 		assertion.assertEquals(actualValue, expectedValue, reason);
 		assertion.assertAll();
 		

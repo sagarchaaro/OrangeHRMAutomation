@@ -19,6 +19,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -39,10 +40,27 @@ public class Utils {
 		browser.trim();
 		WebDriver driver;
 		if (browser.equalsIgnoreCase("Chrome")) {
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--incognito");
+			options.addArguments("--disable-popup-blocking");
+			options.addArguments("--disable-infobars");
+			options.addArguments("--ignore-certificate-errors");			
 			String path = map.get("chromePath");
 			System.setProperty("webdriver.chrome.driver", path);
-			driver= new ChromeDriver();
+			driver= new ChromeDriver(options);
 			Log.info("Chrome Browser is launched");
+		}else if(browser.equalsIgnoreCase("ChromeHeadless")){
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--incognito");
+			options.addArguments("--disable-popup-blocking");
+			options.addArguments("--disable-infobars");
+			options.addArguments("--ignore-certificate-errors");
+			options.addArguments("--headless");
+			options.addArguments("--window-size=1920,1080");			
+			String path = map.get("chromePath");
+			System.setProperty("webdriver.chrome.driver", path);
+			driver= new ChromeDriver(options);
+			Log.info("Chrome Browser is launched in Headless mode");
 		}else if(browser.equalsIgnoreCase("Firefox")) {
 			String path = map.get("geckoPath");
 			System.setProperty("webdriver.gecko.driver", path);
