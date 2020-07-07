@@ -61,7 +61,7 @@ public class MasterSuiteDriverScript {
 				XmlTest test=new XmlTest(suite);
 				test.setName(sTestName+"-"+sTestID);
 				Map<String, String> parameters=new HashMap<String, String>();
-				parameters.put("abcd",sTestID);
+				parameters.put("testID",sTestID);
 				test.setParameters(parameters);
 				List<XmlClass> classes=new ArrayList<XmlClass>();
 				classes.add(new XmlClass("testCases."+sTestName));
