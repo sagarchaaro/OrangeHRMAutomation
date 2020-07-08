@@ -206,9 +206,15 @@ public class Admin_Page extends BaseClass {
 		driver.findElement(btn_Save).click();
 		Log.info("Click action is performed on Save button" );
 		Thread.sleep(3000);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(btn_SaveRegion));
-		driver.findElement(btn_SaveRegion).click();
-		Log.info("Click action is performed on Save button is for region" );
+		try {
+			driver.findElement(btn_SaveRegion).click();
+			Log.info("Click action is performed on Save button is for region" );
+		} catch (Exception user) {
+			Log.info("Click action for region is not required" );
+		}
+	
+//*	wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(btn_SaveRegion));
+		
 
 	}
 

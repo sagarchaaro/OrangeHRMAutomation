@@ -195,9 +195,11 @@ public class PIM_Page extends BaseClass {
 		driver.findElement(click_DateDOB).click();
 		Log.info("Click action is performed on calender for DOB" );
 		String dateOfBirthFomat1 = ExcelConfig.getCellData(iTestData, Constant.col_DateOfBirth,Constant.sheet_EditEmployeeCases);
+		Log.info("The DOB read from excel is : " + dateOfBirthFomat1 );
 		CommonMethod.date_HRM(dateOfBirthFomat1, driver, 1);
 		driver.findElement(dd_nationality).click();
 		String nationalty = ExcelConfig.getCellData(iTestData, Constant.col_Nationality,Constant.sheet_EditEmployeeCases);
+		Log.info("The nationalty read from excel is : " + nationalty );
 		driver.findElement(CommonMethod.formatLocator(dd_menu, nationalty)).click();
 		Log.info("The value "+ nationalty+" is selected as nationalty from dropdown" );
 		driver.findElement(btn_savePersonalDtl).click();

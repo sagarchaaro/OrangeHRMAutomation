@@ -108,10 +108,12 @@ public class TC_05_ApplyLeave extends Suite{
 			Reporter.log("Loggedout from the OrangeHRM application", true);
 			
 			
+			
 			Login_Page.login(CommonMethod.yamlData.get("userName"), CommonMethod.yamlData.get("password"));
 			Log.info("Logged into OrangeHRM Application as Admin");
 			logger.log(Status.INFO, "Logged into OrangeHRM Application as Admin");
 			Reporter.log("Logged into OrangeHRM Application as Admin", true);
+			
 			
 			
 			Home_Page.navigateMenu("Leave", "Leave List");
@@ -167,13 +169,13 @@ public class TC_05_ApplyLeave extends Suite{
 		Reporter.log( "Testcase " +testName+ " is passed",true);
 
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Utils.screenShot(reportPath + "\\Fail.jpg", driver);
+			Utils.screenShot(reportPath + "\\Fail_"+testName+".jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases,excelPath);
 			Log.info(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 
-			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\Fail.jpg").build());
+			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\Fail_"+testName+".jpg").build());
 			Reporter.log( "Testcase " +testName+ " is failed",true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Log.info("Testcase is Skipped with the reason as :"+CommonMethod.reason);

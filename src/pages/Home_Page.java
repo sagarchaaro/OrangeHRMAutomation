@@ -91,4 +91,10 @@ public class Home_Page extends BaseClass {
 		Log.info("Click action is performed on Disciplinary Cases in the Menu bar");		// PIM Click
 		
 	}
+	public static void navigateDesciplinary(String only) {
+		
+		driver.findElement(link_DeciplineCases).click();		
+		Log.info("Click action is performed on Disciplinary Cases in the Menu bar");		
+		
+	}
 }

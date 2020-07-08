@@ -113,7 +113,7 @@ public class TC_07_DisciplinaryCase extends Suite{
 		logger.log(Status.INFO, "Disciplinary record action is selected");
 		Reporter.log("Disciplinary record action is selected", true);
 
-		Home_Page.navigateDesciplinary();	
+		Home_Page.navigateDesciplinary("case");	
 		Log.info("Navigated to the Disciplinary window");
 		logger.log(Status.INFO, "Navigated to the Disciplinary window");
 		Reporter.log("Navigated to the Disciplinary window", true);
@@ -169,12 +169,12 @@ public class TC_07_DisciplinaryCase extends Suite{
 			Reporter.log( "Testcase " +testName+ " is passed",true);
 		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Utils.screenShot(reportPath + "\\_Fail.jpg", driver);
+			Utils.screenShot(reportPath + "\\_Fail_"+testName+".jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Log.info(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
-			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\Fail.jpg").build());
+			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\_Fail_"+testName+".jpg").build());
 			Reporter.log( "Testcase " +testName+ " is failed",true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Log.info("Testcase is Skipped with the reason as :"+CommonMethod.reason);

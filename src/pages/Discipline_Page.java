@@ -140,7 +140,7 @@ public class Discipline_Page extends BaseClass{
     
     public static void verifyDesciplinaryRec(int iTestData) throws Exception{	
     	
-
+    	Thread.sleep(3000);
 		driver.findElement(click_Fillter).click();
 		WebElement webelement_filter=driver.findElement(txtbx_EmpnameSrch);
 		webelement_filter.sendKeys(employeeName);

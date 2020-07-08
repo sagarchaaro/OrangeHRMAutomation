@@ -167,10 +167,12 @@ public class Leave_Page extends BaseClass{
 			}
 		} catch (Exception user) {
 			driver.findElement(dd_aproveLeave).click();
+			Log.info("Click is performed on drop down to approve");
 			Thread.sleep(3000);
 			driver.findElement(dd_text).click();
 			Log.info("The approve is selected from the dropdown");
-			driver.findElement(btn_SaveApprove);
+			Thread.sleep(2000);
+			driver.findElement(btn_SaveApprove).click();
 			Log.info("Click is performed on the button Save");
 			Utils.screenShot(screenshotPath + "\\ApprovedLeave.jpg", driver);
 			Log.info("Screen shot is  taken for Leave approval");
@@ -223,8 +225,11 @@ public class Leave_Page extends BaseClass{
 		// Select Month
 		
 		driver.findElement(link_month).click();
-		Thread.sleep(2000);
-		driver.findElement(CommonMethod.formatLocator(dd_select, date[0]));
+		Thread.sleep(3000);
+/*		WebElement element_month=driver.findElement(CommonMethod.formatLocator(dd_select, date[0]));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element_month);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_month);*/
+		driver.findElement(CommonMethod.formatLocator(dd_select, date[0])).click();
 		System.out.println("The Month selected from calender is:" + date[0]);
 		// Select Date
 		int rows = driver.findElements(size_row).size();
