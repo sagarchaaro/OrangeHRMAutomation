@@ -51,6 +51,8 @@ public class Expense_Page extends BaseClass{
 	static By dd_DayColumns = By.xpath("(//table[@class='picker__table'])[3]/tbody/tr[1]/td");
 	static By dd_YearPicker = By.xpath("(//div[@class='select-wrapper picker__select--year']/input)[2]");
 	static By list_currencyName = By.cssSelector("#estimateAddForEmployee div div div div ul li span");
+	static By btn_Add = By.xpath("//i[text()='add']");
+	static By btn_Search = By.xpath("//a[text()='Search']");
 	
 	public static String currency_Name, requestID;
 	
@@ -58,7 +60,7 @@ public class Expense_Page extends BaseClass{
 		Thread.sleep(5000);
 		driver.switchTo().frame(0);
 
-		driver.findElement(By.xpath("//i[text()='add']")).click();
+		driver.findElement(btn_Add).click();
 		Log.info("Click action is performed on Add button" );
 		// driver.switchTo().defaultContent();
 
@@ -227,7 +229,7 @@ public class Expense_Page extends BaseClass{
 		driver.findElement(CommonMethod.formatLocator(dd_select, "Pending Supervisor Approval")).click();
 		Log.info("The value Pending Supervisor Approval is selected as RequestStatus in the dropdown" );
 
-		driver.findElement(By.xpath("//a[text()='Search']")).click();
+		driver.findElement(btn_Search).click();
 		Log.info("Click action is performed on Search button" );
 
 		//driver.findElement(By.xpath("//table[@class='highlight bordered']/tbody/tr/td[2]/a[text()='" + requestID + "']")).click();

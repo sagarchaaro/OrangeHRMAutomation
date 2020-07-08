@@ -62,7 +62,7 @@ public class Login_Page extends BaseClass{
 		driver.findElement(By.id("txtPassword")).sendKeys(password);
 		Log.info("The value "+ password+" is entered as password in the text-box");
 
-		driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
+		driver.findElement(btn_login).click();
 		Log.info("Click action is performed on Login button for the employee login");
 		Reporter.log("login method execution is completed",true);
 		
