@@ -237,35 +237,26 @@ public class CommonMethod {
 			locatorValue = matcher.replaceAll(Matcher.quoteReplacement(substitutions[i].toString()));
 		}
 		
-		/*switch (locator) {
-		case "By.cssSelector":
+		if(locator.equalsIgnoreCase("By.cssSelector")){
 			returnBy = By.cssSelector(locatorValue);
-			break;
-		case "By.xpath":
+		}else if(locator.equalsIgnoreCase("By.xpath")){
 			returnBy = By.xpath(locatorValue);
-			break;
-		case "By.className":
+		}else if(locator.equalsIgnoreCase("By.className")){
 			returnBy = By.className(locatorValue);
-			break;
-		case "By.id":
+		}else if(locator.equalsIgnoreCase("By.id")){
 			returnBy = By.id(locatorValue);
-			break;
-		case "By.tagName":
+		}else if(locator.equalsIgnoreCase("By.tagName")){
 			returnBy = By.tagName(locatorValue);
-			break;
-		case "By.name":
+		}else if(locator.equalsIgnoreCase("By.name")){
 			returnBy = By.name(locatorValue);
-			break;
-		case "By.linkText":
+		}else if(locator.equalsIgnoreCase("By.linkText")){
 			returnBy = By.linkText(locatorValue);
-			break;
-		case "By.partialLinkText":
+		}else if(locator.equalsIgnoreCase("By.partialLinkText")){
 			returnBy = By.partialLinkText(locatorValue);
-			break;
-		default:
+		}else{
 			throw new RuntimeException("invalid locator: " + by.toString());
-		}*/
-		return null;
+		}
+		return returnBy;
 	}
 
 
