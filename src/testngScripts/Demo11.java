@@ -51,43 +51,36 @@ public class Demo11 implements ITestListener{
 		System.out.println("This is the method1");
 	}
 	
-	@Override
 	public void onTestStart(ITestResult result) {
 		System.out.println("This is the ListernerDemo - onTestStart");
 		
 	}
 
-	@Override
 	public void onTestSuccess(ITestResult result) {
 		System.out.println("This is the ListernerDemo - onTestSuccess");
 		
 	}
 
-	@Override
 	public void onTestFailure(ITestResult result) {
 		System.out.println("This is the ListernerDemo - onTestFailure");
 		
 	}
 
-	@Override
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void onStart(ITestContext context) {
 		System.out.println("This is the ListenerDemo - onStart");
 		
 	}
 
-	@Override
 	public void onFinish(ITestContext context) {
 		System.out.println("This is the ListenerDemo - onFinish");
 		

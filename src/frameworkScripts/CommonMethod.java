@@ -237,7 +237,7 @@ public class CommonMethod {
 			locatorValue = matcher.replaceAll(Matcher.quoteReplacement(substitutions[i].toString()));
 		}
 		
-		switch (locator) {
+		/*switch (locator) {
 		case "By.cssSelector":
 			returnBy = By.cssSelector(locatorValue);
 			break;
@@ -264,8 +264,8 @@ public class CommonMethod {
 			break;
 		default:
 			throw new RuntimeException("invalid locator: " + by.toString());
-		}
-		return returnBy;
+		}*/
+		return null;
 	}
 
 
