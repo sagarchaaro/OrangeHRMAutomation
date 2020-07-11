@@ -52,7 +52,7 @@ public class Discipline_Page extends BaseClass{
 
 
     public static String ownerName,employeeName,caseNo,description,status,action,dueDate,createdBy,createdOn;
-    public static WebDriverWait wait = new WebDriverWait(driver, 30);	
+  //  public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 
     public static void storeUserInArray(int iTestData,String screenshotPath) throws Exception{		
 

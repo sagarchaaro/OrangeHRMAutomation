@@ -57,12 +57,12 @@ public class PIM_Page extends BaseClass {
 	static By dd_bloodGroupEdit = By.xpath("//label[text()='Blood Group']//parent::div//child::input");
 	
 	public static String employeeName, employeeID, firstName, middleName, lastName, location;
-	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
+	//WebDriverWait wait = new WebDriverWait(driver, 30);	
 	
 
 	public static void setEmployeePersonalData(int iTestData) throws Exception{
 		// Enter name
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+	//*	WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(txtbx_firstName));
 
 		firstName = ExcelConfig.getCellData(iTestData, Constant.col_firstName, Constant.sheet_AddEmployeeCases);
@@ -109,7 +109,7 @@ public class PIM_Page extends BaseClass {
 	public static void setEmployeeImportantData(int iTestData) throws Exception{
 		
 		Thread.sleep(3000);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+	//	WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_bloodGroup));
 		driver.findElement(dd_bloodGroup).click();
 		Log.info("Click action is performed on Blood Group drop-down");
@@ -161,7 +161,7 @@ public class PIM_Page extends BaseClass {
 	}
 		
 	public static void verifyEmployeeData() throws Exception{
-		
+	//	WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(Home_Page.link_EmployeeList));
 		driver.findElement(Home_Page.link_EmployeeList).click();
 		employeeName = firstName.concat(" " + middleName).concat(" " + lastName);
@@ -172,7 +172,7 @@ public class PIM_Page extends BaseClass {
 	}
 	
 	public static void employeeToUpdate(){
-		
+	//	WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(link_FistEmployee));
 		// Search employee
 		driver.findElement(link_FistEmployee).click();
@@ -185,7 +185,7 @@ public class PIM_Page extends BaseClass {
 	}
 	
 	public static void editPersonalDtl(int iTestData) throws Exception{
-		
+	//	WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastName")));
 		String lastName = ExcelConfig.getCellData(iTestData, Constant.col_caseName, Constant.sheet_EditEmployeeCases);
 		Log.info("The lastName read from excel is : " + lastName );

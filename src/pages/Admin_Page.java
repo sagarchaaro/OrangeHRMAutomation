@@ -67,7 +67,7 @@ public class Admin_Page extends BaseClass {
 
 	public static String phoneNumber, newLocationName, password, existingLocationName;
 	public static String empFirstName, userName, newPassword, employeeName;
-	public static WebDriverWait wait = new WebDriverWait(driver, 30);
+//	public static WebDriverWait wait = new WebDriverWait(driver, 30);
 
 	public static void getLocationData() throws Exception {
 		
@@ -81,7 +81,7 @@ public class Admin_Page extends BaseClass {
 		driver.findElement(CommonMethod.formatLocator(link_editLocation,existingLocationName)).click();
 		Log.info(" Click action is performed on Edit button" );
 		// Thread.sleep(5000);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+//		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_country));
 
 		WebElement element_country = driver.findElement(dd_country);

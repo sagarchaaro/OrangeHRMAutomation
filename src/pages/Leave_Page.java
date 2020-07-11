@@ -54,7 +54,7 @@ public class Leave_Page extends BaseClass{
 	static By txt_calDate = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr[{0}]/td[{0}]/div");
 	
 	
-	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
+//	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
 	public static String employeeName,leaveDateFrom,leaveDateTo;
 	
 	public static void SetLeaveData(int iTestData) throws Exception{

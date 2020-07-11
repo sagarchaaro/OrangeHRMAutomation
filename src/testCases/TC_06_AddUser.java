@@ -147,7 +147,7 @@ public class TC_06_AddUser extends Suite{
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			ExcelConfig.setCellData(CommonMethod.reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);
 			Log.info(CommonMethod.reason +iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
-			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\Fail_"+testName+".jpg").build());
+			logger.log(Status.FAIL, "Testcase " +testName+ " is failed", MediaEntityBuilder.createScreenCaptureFromPath(reportPath + "\\_Fail_"+testName+".jpg").build());
 			Reporter.log( "Testcase " +testName+ " is failed",true);
 		}else if(result.getStatus() == ITestResult.SKIP){
 			Log.info("Testcase is Skipped with the reason as :"+CommonMethod.reason);
