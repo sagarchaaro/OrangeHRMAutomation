@@ -120,7 +120,7 @@ public class TC_03_AddVacancy extends Suite{
 		logger.log(Status.PASS, "Testcase " +testName+ " is passed");
 		
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Utils.screenShot(reportPath + "\\Fail_"+testName+".jpg", driver);
+			Utils.screenShot(reportPath +"\\screenshot"+ "\\Fail_"+testName+".jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases,excelPath);
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases );
 			ExcelConfig.setCellData(reason, iTestCase, Constant.col_Comments, Constant.sheet_TestCases, excelPath);

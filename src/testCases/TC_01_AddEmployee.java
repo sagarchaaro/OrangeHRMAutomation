@@ -127,7 +127,7 @@ public class TC_01_AddEmployee extends Suite{
 			logger.log(Status.PASS, "Testcase " +testName+ " is passed");
 			
 		}else if(result.getStatus() ==ITestResult.FAILURE){
-			Utils.screenShot(reportPath + "\\Fail_"+testName+".jpg", driver);
+			Utils.screenShot(reportPath + "\\screenshot\\"+"\\Fail_"+testName+".jpg", driver);
 			ExcelConfig.setCellData("Fail", iTestCase, Constant.col_Status, Constant.sheet_TestCases, excelPath);
 			Log.info("Fail is written against to RowNumber "+iTestCase +", column Number " +Constant.col_Status+" in the "+Constant.sheet_TestCases);
 			
