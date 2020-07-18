@@ -19,7 +19,7 @@ public class Suite {
 		CommonMethod.loadYamlFile(CommonMethod.projectpath + "\\Test-Resources\\test-info.yaml");
 		reportPath=CommonMethod.getYamlData("screenshotPath");		
 		timestamp = Utils.timeStamp("YYYY-MM-dd-hhmmss");
-		reportPath = CommonMethod.projectpath+ reportPath + timestamp;
+		reportPath = CommonMethod.projectpath+ reportPath + "\\Log\\" + timestamp;
 		Utils.createDir(reportPath);
 		
 		htmlReporter = ExtentManage.getExtentHtmlReport(reportPath);
