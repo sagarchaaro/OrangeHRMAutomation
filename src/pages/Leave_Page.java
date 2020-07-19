@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 
+import com.mongodb.assertions.Assertions;
+
 import frameworkScripts.CommonMethod;
 import frameworkScripts.Constant;
 import utilities.ExcelConfig;
@@ -39,6 +41,7 @@ public class Leave_Page extends BaseClass{
 	static By dd_text = By.xpath("//span[text()='Approve']");
 	static By chckbx_All = By.xpath("//label[@for='statusAll']");
 	static By chckbx_Scheduled = By.xpath("//label[@for='scheduled']");
+	static By chckbx_Taken = By.xpath("//label[@for='Taken']");  
 	static By msg_Record = By.xpath("//div[text()='No Records Found']");
 	static By click_LeaveBalance = By.xpath("//a[text()='Check Leave Balance']");
 	static By list_leave = By.xpath("//table[@class='highlight bordered']/tbody/tr/td[3]/ng-include/span");
@@ -52,21 +55,34 @@ public class Leave_Page extends BaseClass{
 	static By size_row = By.xpath("(//table[@class='picker__table'])[2]/tbody/tr");
 	static By size_cols = By.xpath("(//table[@class='picker__table'])[2]/tbody/tr[1]/td");
 	static By txt_calDate = By.xpath("(//table[@class='picker__table'])[{0}]/tbody/tr[{0}]/td[{0}]/div");
+//	static By opt_leaveType = By.xpath("//input[@class='select-dropdown']/../ul/li/span[text()!='-- Select --']");
+	static By opt_leaveType = By.xpath("//div[@class='select-wrapper initialized']/ul/li/span[text()!='-- Select --']");
 	
 	
 //	public static WebDriverWait wait = new WebDriverWait(driver, 30);	
-	public static String employeeName,leaveDateFrom,leaveDateTo;
+	public static String employeeName,leaveDateFrom,leaveDateTo, leaveType;
 	
 	public static void SetLeaveData(int iTestData) throws Exception{
 		// CLICKING FOR APPLY LEAVE FORM AND APPLY
 		employeeName=driver.findElement(text_employee).getText();
 		Log.info("The leave is applying for the employee :" + employeeName);
-		String leaveType = ExcelConfig.getCellData(iTestData, Constant.col_leaveType, Constant.sheet_ApplyLeaveCases);
-		Log.info("The leaveType read from excel is:" + leaveType);
+		String leaveType_excel = ExcelConfig.getCellData(iTestData, Constant.col_leaveType, Constant.sheet_ApplyLeaveCases);
+		Log.info("The leaveType read from excel is:" + leaveType_excel);
 		String leaveDesc = ExcelConfig.getCellData(iTestData, Constant.col_leaveDesc, Constant.sheet_ApplyLeaveCases);
 		Log.info("The leaveDesc read from excel is:" + leaveDesc);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(dd_LeaveType));
+		Thread.sleep(3000);
+	//	wait.until(ExpectedConditions.visibilityOfElementLocated(dd_LeaveType));
 		driver.findElement(dd_LeaveType).click();
+		Log.info("Click is performed for Leave dropdown");
+		Thread.sleep(3000);
+		int totalElementNo = driver.findElements(opt_leaveType).size();
+		Log.info("Total no of webElement for LeaveType is :" +totalElementNo );
+		List<WebElement> webelement_leaveType = driver.findElements(opt_leaveType);
+		Log.info("All leaveType are stored in the WebElement" );
+		String[] leaveTypeArray = Utils.dataIntoArray(webelement_leaveType, totalElementNo);
+		Log.info("All leaveType are stored in the Array" );
+		leaveType = Utils.selectWithRandomIndex(totalElementNo, leaveTypeArray).trim();
+		Log.info("The leaveType selected by random no is:" + leaveType );
 		driver.findElement(CommonMethod.formatLocator(link_Menu, leaveType)).click();
 		Log.info("The value "+ leaveType+" is selected as leaveType in the drop down");
 		driver.findElement(txtbx_Desc).sendKeys(leaveDesc);
@@ -113,7 +129,7 @@ public class Leave_Page extends BaseClass{
 			}
 
 		} catch (Exception user) {
-		Log.info(" There is no warnning for Insufficent Balance,Leave applied");
+		Log.info(" There is no warnning for Insufficent Balance");
 		}
 
 		// OVERLAPPING LEAVE REQUEST PAGE
@@ -131,7 +147,7 @@ public class Leave_Page extends BaseClass{
 				Log.info("Leave Overlapping,Click action is performed on Close button");
 			}
 		} catch (Exception user) {
-			Log.info(" There is no warnning for Overlapping  ,Leave applied");
+			Log.info(" There is no warnning for Overlapping ");
 		}
 
 		try {
@@ -141,6 +157,10 @@ public class Leave_Page extends BaseClass{
 
 		} catch (Exception user) {
 			Log.info("Leave is not applied Successfully");
+			CommonMethod.reason = "The Leave record  is not found message displayed";
+			Assert.assertTrue(true, "The Leave record  is not found message displayed");
+			throw (user);
+			
 		}
 		Utils.screenShot(screenshotPath + "\\AppliedLeave.jpg", driver);
 		Log.info("Screen shot is  taken for Applied Leave");
@@ -163,7 +183,7 @@ public class Leave_Page extends BaseClass{
 			if (userfoundmsg.isDisplayed()) {
 				Log.info("The Leave record is not found message displayed");
 				CommonMethod.reason = "The Leave record  is not found message displayed";
-				Assert.assertTrue(false, "The Leave record  is not found message displayed");
+				Assert.assertTrue(true, "The Leave record  is not found message displayed");
 			}
 		} catch (Exception user) {
 			driver.findElement(dd_aproveLeave).click();
@@ -186,9 +206,11 @@ public class Leave_Page extends BaseClass{
 		try {
 		WebElement webelement_All = driver.findElement(chckbx_All);
 		WebElement webelement_Scheduled = driver.findElement(chckbx_Scheduled);
+		WebElement webelement_Taken = driver.findElement(chckbx_Taken);
 		if (webelement_All.isEnabled()) {			
 			webelement_All.click();
 			webelement_Scheduled.click();
+			webelement_Taken.click();
 			Log.info("The Scheduled option is Enabled with Single click on All");
 
 		} else {
@@ -196,6 +218,8 @@ public class Leave_Page extends BaseClass{
 			webelement_All.click();
 			webelement_All.click();
 			webelement_Scheduled.click();
+			webelement_Taken.click();
+			
 			Log.info("The Scheduled option is Enabled with double click on ALL");
 		}
 	} catch (Exception e) {

@@ -42,7 +42,7 @@ public class Home_Page extends BaseClass {
 	public static void verifyDashboard(String screenshotPath) throws Exception {
 		Thread.sleep(3000);
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 30);
+	//		WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(txt_Dashboard), "Dashboard"));
 			Utils.screenShot(screenshotPath + "\\OrangeHRMLogin_.jpg", driver);
 			Log.info("Screen shot is  taken for Dashboard ");
@@ -81,11 +81,12 @@ public class Home_Page extends BaseClass {
 		driver.findElement(CommonMethod.formatLocator(link_Menu, branch)).click();
 		Log.info("Click action is performed on " + branch + " in the Menu bar");
 	}
-	public static void navigateDesciplinary() {
+	public static void navigateDesciplinary() throws Exception {
 		driver.findElement(link_Decipline).click();
 		Log.info("Click action is performed on Discipline in the Menu bar");
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(link_disciplinrayCase));
+//		WebDriverWait wait = new WebDriverWait(driver, 30);
+		Thread.sleep(3000);
+	//	wait.until(ExpectedConditions.visibilityOfElementLocated(link_disciplinrayCase));
 		driver.findElement(link_DeciplineCases).click();
 		// span[contains(text(),'Disciplinary Cases')]
 		Log.info("Click action is performed on Disciplinary Cases in the Menu bar");		// PIM Click

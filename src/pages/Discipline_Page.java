@@ -76,8 +76,8 @@ public class Discipline_Page extends BaseClass{
 
 		driver.switchTo().frame(0);
 		Log.info("Switched the Frame");
-		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(btn_Add ));
+		Thread.sleep(3000);
+	//	wait.until(ExpectedConditions.presenceOfElementLocated(btn_Add ));
 		driver.findElement(btn_Add ).click();
 		Log.info("Click action is performed on Add button");
 		Reporter.log("addDesciplinaryRecord method execution is completed",true);
@@ -111,7 +111,8 @@ public class Discipline_Page extends BaseClass{
 		action = ExcelConfig.getCellData(iTestData, Constant.col_DisciplinaryAction,Constant.sheet_DeciplinaryCases);
 		Log.info("The action read from excel is: " + action);
 		String actionNo[] = action.split(" ");
-		wait.until(ExpectedConditions.presenceOfElementLocated(CommonMethod.formatLocator(dd_selectActionNo, actionNo[0])));
+		Thread.sleep(3000);
+		//wait.until(ExpectedConditions.presenceOfElementLocated(CommonMethod.formatLocator(dd_selectActionNo, actionNo[0])));
 		driver.findElement(CommonMethod.formatLocator(dd_selectActionNo, actionNo[0])).click();
 		Log.info("The value "+actionNo[0]+ " is selected as deciplinary action");
 		driver.findElement(btn_Select ).click();
@@ -178,8 +179,10 @@ public class Discipline_Page extends BaseClass{
 		Log.info("Click action is performed on Item Link");
 		driver.findElement(btn_Deciplinary).click();
 		Log.info("Click action is performed on View Disciplinary case button");
+		Thread.sleep(2000);
 		driver.findElement(btn_CloseCase).click();
 		Log.info("Click action is performed on close case button");
+		Thread.sleep(2000);
 	
 		// VERIFY CLOSE STATUS FOR THE CASE
 		
