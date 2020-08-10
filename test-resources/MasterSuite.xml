@@ -2,21 +2,477 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="OrangeHRM_Regression_Suite">
   <test name="TC_01_AddEmployee-TC_01_01">
-    <parameter name="abcd" value="TC_01_01"/>
+    <parameter name="testID" value="TC_01_01"/>
     <classes>
       <class name="testCases.TC_01_AddEmployee"/>
     </classes>
   </test> <!-- TC_01_AddEmployee-TC_01_01 -->
+  <test name="TC_01_AddEmployee-TC_01_02">
+    <parameter name="testID" value="TC_01_02"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_02 -->
+  <test name="TC_01_AddEmployee-TC_01_03">
+    <parameter name="testID" value="TC_01_03"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_03 -->
+  <test name="TC_01_AddEmployee-TC_01_04">
+    <parameter name="testID" value="TC_01_04"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_04 -->
+  <test name="TC_01_AddEmployee-TC_01_05">
+    <parameter name="testID" value="TC_01_05"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_05 -->
+  <test name="TC_01_AddEmployee-TC_01_06">
+    <parameter name="testID" value="TC_01_06"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_06 -->
+  <test name="TC_01_AddEmployee-TC_01_07">
+    <parameter name="testID" value="TC_01_07"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_07 -->
+  <test name="TC_01_AddEmployee-TC_01_08">
+    <parameter name="testID" value="TC_01_08"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_08 -->
+  <test name="TC_01_AddEmployee-TC_01_09">
+    <parameter name="testID" value="TC_01_09"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_09 -->
+  <test name="TC_01_AddEmployee-TC_01_10">
+    <parameter name="testID" value="TC_01_10"/>
+    <classes>
+      <class name="testCases.TC_01_AddEmployee"/>
+    </classes>
+  </test> <!-- TC_01_AddEmployee-TC_01_10 -->
+  <test name="TC_02_EditLocation-TC_02_01">
+    <parameter name="testID" value="TC_02_01"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_01 -->
+  <test name="TC_02_EditLocation-TC_02_02">
+    <parameter name="testID" value="TC_02_02"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_02 -->
+  <test name="TC_02_EditLocation-TC_02_03">
+    <parameter name="testID" value="TC_02_03"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_03 -->
+  <test name="TC_02_EditLocation-TC_02_04">
+    <parameter name="testID" value="TC_02_04"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_04 -->
+  <test name="TC_02_EditLocation-TC_02_05">
+    <parameter name="testID" value="TC_02_05"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_05 -->
+  <test name="TC_02_EditLocation-TC_02_06">
+    <parameter name="testID" value="TC_02_06"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_06 -->
+  <test name="TC_02_EditLocation-TC_02_07">
+    <parameter name="testID" value="TC_02_07"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_07 -->
+  <test name="TC_02_EditLocation-TC_02_08">
+    <parameter name="testID" value="TC_02_08"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_08 -->
+  <test name="TC_02_EditLocation-TC_02_09">
+    <parameter name="testID" value="TC_02_09"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_09 -->
+  <test name="TC_02_EditLocation-TC_02_10">
+    <parameter name="testID" value="TC_02_10"/>
+    <classes>
+      <class name="testCases.TC_02_EditLocation"/>
+    </classes>
+  </test> <!-- TC_02_EditLocation-TC_02_10 -->
   <test name="TC_03_AddVacancy-TC_03_01">
-    <parameter name="abcd" value="TC_03_01"/>
+    <parameter name="testID" value="TC_03_01"/>
     <classes>
       <class name="testCases.TC_03_AddVacancy"/>
     </classes>
   </test> <!-- TC_03_AddVacancy-TC_03_01 -->
+  <test name="TC_03_AddVacancy-TC_03_02">
+    <parameter name="testID" value="TC_03_02"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_02 -->
+  <test name="TC_03_AddVacancy-TC_03_03">
+    <parameter name="testID" value="TC_03_03"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_03 -->
+  <test name="TC_03_AddVacancy-TC_03_04">
+    <parameter name="testID" value="TC_03_04"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_04 -->
+  <test name="TC_03_AddVacancy-TC_03_05">
+    <parameter name="testID" value="TC_03_05"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_05 -->
+  <test name="TC_03_AddVacancy-TC_03_06">
+    <parameter name="testID" value="TC_03_06"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_06 -->
+  <test name="TC_03_AddVacancy-TC_03_07">
+    <parameter name="testID" value="TC_03_07"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_07 -->
+  <test name="TC_03_AddVacancy-TC_03_08">
+    <parameter name="testID" value="TC_03_08"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_08 -->
+  <test name="TC_03_AddVacancy-TC_03_09">
+    <parameter name="testID" value="TC_03_09"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_09 -->
+  <test name="TC_03_AddVacancy-TC_03_10">
+    <parameter name="testID" value="TC_03_10"/>
+    <classes>
+      <class name="testCases.TC_03_AddVacancy"/>
+    </classes>
+  </test> <!-- TC_03_AddVacancy-TC_03_10 -->
   <test name="TC_04_EditEmployee-TC_04_01">
-    <parameter name="abcd" value="TC_04_01"/>
+    <parameter name="testID" value="TC_04_01"/>
     <classes>
       <class name="testCases.TC_04_EditEmployee"/>
     </classes>
   </test> <!-- TC_04_EditEmployee-TC_04_01 -->
+  <test name="TC_04_EditEmployee-TC_04_02">
+    <parameter name="testID" value="TC_04_02"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_02 -->
+  <test name="TC_04_EditEmployee-TC_04_03">
+    <parameter name="testID" value="TC_04_03"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_03 -->
+  <test name="TC_04_EditEmployee-TC_04_04">
+    <parameter name="testID" value="TC_04_04"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_04 -->
+  <test name="TC_04_EditEmployee-TC_04_05">
+    <parameter name="testID" value="TC_04_05"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_05 -->
+  <test name="TC_04_EditEmployee-TC_04_06">
+    <parameter name="testID" value="TC_04_06"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_06 -->
+  <test name="TC_04_EditEmployee-TC_04_07">
+    <parameter name="testID" value="TC_04_07"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_07 -->
+  <test name="TC_04_EditEmployee-TC_04_08">
+    <parameter name="testID" value="TC_04_08"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_08 -->
+  <test name="TC_04_EditEmployee-TC_04_09">
+    <parameter name="testID" value="TC_04_09"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_09 -->
+  <test name="TC_04_EditEmployee-TC_04_10">
+    <parameter name="testID" value="TC_04_10"/>
+    <classes>
+      <class name="testCases.TC_04_EditEmployee"/>
+    </classes>
+  </test> <!-- TC_04_EditEmployee-TC_04_10 -->
+  <test name="TC_05_ApplyLeave-TC_05_01">
+    <parameter name="testID" value="TC_05_01"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_01 -->
+  <test name="TC_05_ApplyLeave-TC_05_02">
+    <parameter name="testID" value="TC_05_02"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_02 -->
+  <test name="TC_05_ApplyLeave-TC_05_03">
+    <parameter name="testID" value="TC_05_03"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_03 -->
+  <test name="TC_05_ApplyLeave-TC_05_04">
+    <parameter name="testID" value="TC_05_04"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_04 -->
+  <test name="TC_05_ApplyLeave-TC_05_05">
+    <parameter name="testID" value="TC_05_05"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_05 -->
+  <test name="TC_05_ApplyLeave-TC_05_06">
+    <parameter name="testID" value="TC_05_06"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_06 -->
+  <test name="TC_05_ApplyLeave-TC_05_07">
+    <parameter name="testID" value="TC_05_07"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_07 -->
+  <test name="TC_05_ApplyLeave-TC_05_08">
+    <parameter name="testID" value="TC_05_08"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_08 -->
+  <test name="TC_05_ApplyLeave-TC_05_09">
+    <parameter name="testID" value="TC_05_09"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_09 -->
+  <test name="TC_05_ApplyLeave-TC_05_10">
+    <parameter name="testID" value="TC_05_10"/>
+    <classes>
+      <class name="testCases.TC_05_ApplyLeave"/>
+    </classes>
+  </test> <!-- TC_05_ApplyLeave-TC_05_10 -->
+  <test name="TC_06_AddUser-TC_06_01">
+    <parameter name="testID" value="TC_06_01"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_01 -->
+  <test name="TC_06_AddUser-TC_06_02">
+    <parameter name="testID" value="TC_06_02"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_02 -->
+  <test name="TC_06_AddUser-TC_06_03">
+    <parameter name="testID" value="TC_06_03"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_03 -->
+  <test name="TC_06_AddUser-TC_06_04">
+    <parameter name="testID" value="TC_06_04"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_04 -->
+  <test name="TC_06_AddUser-TC_06_05">
+    <parameter name="testID" value="TC_06_05"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_05 -->
+  <test name="TC_06_AddUser-TC_06_06">
+    <parameter name="testID" value="TC_06_06"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_06 -->
+  <test name="TC_06_AddUser-TC_06_07">
+    <parameter name="testID" value="TC_06_07"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_07 -->
+  <test name="TC_06_AddUser-TC_06_08">
+    <parameter name="testID" value="TC_06_08"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_08 -->
+  <test name="TC_06_AddUser-TC_06_09">
+    <parameter name="testID" value="TC_06_09"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_09 -->
+  <test name="TC_06_AddUser-TC_06_10">
+    <parameter name="testID" value="TC_06_10"/>
+    <classes>
+      <class name="testCases.TC_06_AddUser"/>
+    </classes>
+  </test> <!-- TC_06_AddUser-TC_06_10 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_01">
+    <parameter name="testID" value="TC_07_01"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_01 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_02">
+    <parameter name="testID" value="TC_07_02"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_02 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_03">
+    <parameter name="testID" value="TC_07_03"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_03 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_04">
+    <parameter name="testID" value="TC_07_04"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_04 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_05">
+    <parameter name="testID" value="TC_07_05"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_05 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_06">
+    <parameter name="testID" value="TC_07_06"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_06 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_07">
+    <parameter name="testID" value="TC_07_07"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_07 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_08">
+    <parameter name="testID" value="TC_07_08"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_08 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_09">
+    <parameter name="testID" value="TC_07_09"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_09 -->
+  <test name="TC_07_DisciplinaryCase-TC_07_10">
+    <parameter name="testID" value="TC_07_10"/>
+    <classes>
+      <class name="testCases.TC_07_DisciplinaryCase"/>
+    </classes>
+  </test> <!-- TC_07_DisciplinaryCase-TC_07_10 -->
+  <test name="TC_08_TravelRequest-TC_08_01">
+    <parameter name="testID" value="TC_08_01"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_01 -->
+  <test name="TC_08_TravelRequest-TC_08_02">
+    <parameter name="testID" value="TC_08_02"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_02 -->
+  <test name="TC_08_TravelRequest-TC_08_03">
+    <parameter name="testID" value="TC_08_03"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_03 -->
+  <test name="TC_08_TravelRequest-TC_08_04">
+    <parameter name="testID" value="TC_08_04"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_04 -->
+  <test name="TC_08_TravelRequest-TC_08_05">
+    <parameter name="testID" value="TC_08_05"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_05 -->
+  <test name="TC_08_TravelRequest-TC_08_06">
+    <parameter name="testID" value="TC_08_06"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_06 -->
+  <test name="TC_08_TravelRequest-TC_08_07">
+    <parameter name="testID" value="TC_08_07"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_07 -->
+  <test name="TC_08_TravelRequest-TC_08_08">
+    <parameter name="testID" value="TC_08_08"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_08 -->
+  <test name="TC_08_TravelRequest-TC_08_09">
+    <parameter name="testID" value="TC_08_09"/>
+    <classes>
+      <class name="testCases.TC_08_TravelRequest"/>
+    </classes>
+  </test> <!-- TC_08_TravelRequest-TC_08_09 -->
 </suite> <!-- OrangeHRM_Regression_Suite -->
